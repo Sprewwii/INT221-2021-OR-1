@@ -1,0 +1,45 @@
+{
+    "events": [
+      {
+        "id": 1, 
+        "name": "Somchai Jaidee Group 04", 
+        "email": "somchai.jai@kmutt.ac.th", 
+        "category": "Project Management Clinic", 
+        "startTime": "24 APR 2022 13:30", 
+        "note": "คุยเกี่ยวกับเรื่องการบริหารจัดการโปรเจค",
+        "duration": 30,
+        "description": "คุยเกี่ยวกับเรื่องการบริหารจัดการโปรเจค"
+      },
+      {
+        "id": 2, 
+        "name": "Athiti Kung Group 06", 
+        "email": "Athiti.Sexy@kmutt.ac.th", 
+        "category": "Project Management Clinic", 
+        "startTime": "24 APR 2022 14:30", 
+        "note": "คุยเกี่ยวกับเรื่องการบริหารจัดการโปรเจค",
+        "duration": 30,
+        "description": "คุยเกี่ยวกับเรื่องการบริหารจัดการโปรเจค"
+      },
+      {
+        "id": 3, 
+        "name": "Thanadol Jung Group 01", 
+        "email": "Thanadol.morethansexy@kmutt.ac.th", 
+        "category": "Project Management Clinic", 
+        "startTime": "24 APR 2022 15:00", 
+        "note": "คุยเกี่ยวกับเรื่องการบริหารจัดการโปรเจค",
+        "duration": 30,
+        "description": "คุยเกี่ยวกับเรื่องการบริหารจัดการโปรเจค"
+      },
+      {
+        "id": 4, 
+        "name": "Supicha Piriyasiriphan Group 03", 
+        "email": "Supicha.piriyasiriphan@kmutt.ac.th", 
+        "category": "Project Management Clinic", 
+        "startTime": "24 APR 2022 15:30", 
+        "note": "คุยเกี่ยวกับเรื่องการบริหารจัดการโปรเจค",
+        "duration": 30,
+        "description": "คุยเกี่ยวกับเรื่องการบริหารจัดการโปรเจค"
+      }
+    ]
+    
+}
