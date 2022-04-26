@@ -30,7 +30,7 @@ const events = computed(() => props.events);
                             Duration <br> <p class="text-xs">(minutes)</p>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <span class="sr-only">Datails</span>
+                            <span class="sr-only">Datail</span>
                         </th>
                     </tr>
                 </thead>
