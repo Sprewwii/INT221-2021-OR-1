@@ -30,13 +30,16 @@ const events = computed(() => props.events);
                             Duration <br> <p class="text-xs">(minutes)</p>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <span class="sr-only">Datail</span>
+                            <span class="sr-only">Datails</span>
                         </th>
                     </tr>
                 </thead>
-                <tbody v-for="event in events" :key="event.id">
-                    <tr class="border-t bg-gray-800 border-gray-700 hover:bg-gray-600 text-center">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 text-white whitespace-nowrap text-left">
+                <tbody v-if="events.length === 0">
+                    <td colspan="5" class="py-64 text-xl">No Scheduled Event</td>
+                </tbody>
+                <tbody v-else v-for="event in events" :key="event.id" >
+                    <tr class="border-t bg-gray-800 border-gray-700 hover:bg-gray-600 text-center font-normal">
+                        <th scope="row" class="px-6 py-4 font-normal text-white whitespace-nowrap text-left">
                             {{ event.name }}
                         </th>
                         <td class="px-6 py-4">
@@ -49,7 +52,7 @@ const events = computed(() => props.events);
                             {{ event.duration }}
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <a href="#" class="font-medium text-pink-500 hover:underline">Details</a>
+                            <a href="#" class="text-pink-500 hover:underline">Details</a>
                         </td>
                     </tr>
                 </tbody>
@@ -61,8 +64,4 @@ const events = computed(() => props.events);
 </template>
  
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap');
-h1 {
-    font-family: 'Lexend', sans-serif;
-}
 </style>
