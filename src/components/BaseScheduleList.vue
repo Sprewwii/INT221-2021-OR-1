@@ -7,11 +7,11 @@ const props = defineProps({
   }
 })
 
-const bookingSort = computed(() =>
-  props.bookingList.sort(
-    (a, b) => new Date(b.startTime) - new Date(a.startTime)
-  )
-)
+// const bookingSort = computed(() =>
+//   props.bookingList.sort(
+//     (a, b) => new Date(b.startTime) - new Date(a.startTime)
+//   )
+// )
 </script>
 
 <template>
@@ -44,7 +44,7 @@ const bookingSort = computed(() =>
         </thead>
         <tbody v-if="bookingList.length === 0">
         <td colspan="6" class="py-64 text-xl">No Scheduled Event</td></tbody>
-        <tbody v-else v-for="booking in bookingSort" :key="booking.id">
+        <tbody v-else v-for="booking in bookingList" :key="booking.id">
           <tr
             class="border-t bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal bg-opacity-50 sm:text-sm"
           >

@@ -69,7 +69,7 @@ console.log(bookingDetails)
       <div>
         <router-link :to="{ name: 'Home' }" class="flex pb-6 pl-10">
           <div class="flex items-center hover:opacity-80">
-            <IconArrowLeft />Back
+            <IconArrowLeft /><p class="mt-1">Back</p>
           </div>
         </router-link>
       </div>
