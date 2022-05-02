@@ -6,9 +6,8 @@ import { ref, computed } from "vue"
 let { params } = useRoute()
 
 const bookingDetails = computed(() =>
-  eventManager.eventList.find((bookingFind) => bookingFind.id == params.id)
+  eventManager.eventList.find((event) => event.id == params.id)
 )
-console.log(bookingDetails)
 </script>
 
 <template>
