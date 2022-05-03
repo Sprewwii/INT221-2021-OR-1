@@ -37,20 +37,22 @@ const bookingDetails = computed(() =>
           {{ bookingDetails.eventCategory.categoryName }}
         </p>
         <div>
-          {{
-            new Date(bookingDetails.startTime).toLocaleString("en-US", {
-              year: "numeric",
-              month: "short",
-              day: "numeric"
-            })
-          }}
+              {{
+                  new Date(bookingDetails.startTime).toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    timeZone: 'UTC'
+                  })
+              }}
           at
-          {{
-            new Date(bookingDetails.startTime).toLocaleTimeString("en-US", {
-              hour: "2-digit",
-              minute: "2-digit"
-            })
-          }}
+               {{
+                  new Date(bookingDetails.startTime).toLocaleTimeString("it-IT", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZone: 'UTC'
+                  })
+              }}
           <span class="text-gray-400">
             ({{ bookingDetails.duration }} minutes)</span
           >
