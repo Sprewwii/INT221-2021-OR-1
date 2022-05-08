@@ -2,13 +2,19 @@
 import { eventManager } from "../scripts/eventManager.js"
 import { useRoute, useRouter } from "vue-router"
 import IconArrowLeft from "../components/icons/IconArrowLeft.vue"
-import { ref, computed } from "vue"
+import { ref, computed, onBeforeMount } from "vue"
 let { params } = useRoute()
 
-const bookingDetails = computed(() =>
-  eventManager.eventList.find((event) => event.id == params.id)
-)
+// const bookingDetails = computed(() =>
+//   eventManager.eventList.find((event) => event.id == params.id)
+// )
 
+const bookingDetails = ref({})
+
+onBeforeMount(async () => {
+  bookingDetails.value = await eventManager.getEventById(params.id);
+})
+// const categoryName = ref(bookingDetails.value.eventCategory.categoryName)
 </script>
 
 <template>
@@ -22,10 +28,10 @@ const bookingDetails = computed(() =>
     class="relative overflow-x-auto shadow-2xl rounded-lg mx-8 ml:mx-16 lg:mx-32"
   >
     <div
-     
+    
       class="text-white bg-gray-600 bg-opacity-20 rounded-lg"
     >
-    <div  v-if="bookingDetails" class="flex flex-col items-center">
+    <div v-if="bookingDetails" class="flex flex-col items-center">
       <div class="mt-16">
         <p class="bg-pink-500 text-white rounded-3xl px-6 py-1 text-2xl text-center">
           {{ bookingDetails.name }}
@@ -34,9 +40,9 @@ const bookingDetails = computed(() =>
       </div>
       <div class="flex flex-col items-center mt-8">
         <p class="text-gray-500 text-xs">EVENT</p>
-        <p class="text-pink-500 text-3xl my-3 font-medium tracking-wider">
-          {{ bookingDetails.categoryName }}
-        </p>
+        <!-- <p class="text-pink-500 text-3xl my-3 font-medium tracking-wider">
+          {{ bookingDetails.eventCategory.categoryName }}
+        </p> -->
         <div>
               {{
                   new Date(bookingDetails.startTime).toLocaleString("en-US", {
@@ -47,7 +53,7 @@ const bookingDetails = computed(() =>
                   })
               }}
           at
-               {{
+              {{
                   new Date(bookingDetails.startTime).toLocaleTimeString("it-IT", {
                     hour: "2-digit",
                     minute: "2-digit",

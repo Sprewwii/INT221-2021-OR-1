@@ -11,6 +11,14 @@ const props = defineProps({
     }
 })
 
+const addingEvent = {
+     name: 'booking.name',
+        email: 'booking.email',
+        startTime: "2022-05-23T13:30:00.000+07:00",
+        categoryId: 1,
+        duration: 30,
+        note: 'note',
+}
 const selectedEventCategory = ref("")
 </script>
  
@@ -18,7 +26,7 @@ const selectedEventCategory = ref("")
     <button class="mr-32 mb-32 absolute bottom-0 right-0" data-modal-toggle="create-event-modal">
         <iconPlus />
     </button>
-
+    <button class="text-white" @click="eventManager.createEvent(addingEvent)">addd</button>
     <div id="create-event-modal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
 

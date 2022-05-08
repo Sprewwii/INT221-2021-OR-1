@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "flowbite": "^1.4.5",
+    "v-calendar": "^2.4.1",
     "vue": "^3.2.25",
     "vue-router": "^4.0.14",
     "vue-tailwind-modal": "^1.0.7"

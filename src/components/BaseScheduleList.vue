@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from "vue"
+import iconMenuKebab from "./icons/IconMenuKebab.vue";
 const props = defineProps({
   bookingList: {
     type: Array,
@@ -38,15 +39,15 @@ const props = defineProps({
           </tr>
         </thead>
         <tbody v-if="bookingList.length === 0">
-          <td colspan="6" class="py-64 text-xl">No Scheduled Event</td>
+          <td colspan="7" class="py-64 text-xl">No Scheduled Event</td>
         </tbody>
         <tbody v-else v-for="booking in bookingList" :key="booking.id">
           <tr
             class="border-t bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal bg-opacity-50">
-            <th scope="row" class="px-6 py-4 font-normal text-white whitespace-nowrap text-left">
+            <th scope="row" class="pl-6 font-normal text-white whitespace-nowrap text-left">
               {{ booking.name }}
             </th>
-            <td class="px-6 py-4">
+            <td class="pl-6">
               {{ booking.categoryName }}
             </td>
             <td class="px-6 py-4">
@@ -78,7 +79,11 @@ const props = defineProps({
             <td class="px-6 py-4 text-right">
               <router-link :to="{ name: 'BaseBookingDetails', params: { id: booking.id } }"
                 class="text-pink-500 hover:underline">Details</router-link>
+                
             </td>
+            <td>
+              <iconMenuKebab />
+              </td>
           </tr>
         </tbody>
       </table>

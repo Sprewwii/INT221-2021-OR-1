@@ -3,7 +3,7 @@ export const eventManager = reactive({
   eventList: [],
   eventCategories: [],
   getEvents: async function () {
-    const res = await fetch("http://10.4.56.94:8080/api/events") 
+    const res = await fetch("http://intproj21.sit.kmutt.ac.th/or1/api/events") 
     if (res.status === 200) {
       this.eventList = await res.json()
     } else {
@@ -11,7 +11,7 @@ export const eventManager = reactive({
     }
   },
   getEventById: async function (eventId) {
-    const res = await fetch(`http://localhost:8080/api/events/${eventId}`) 
+    const res = await fetch(`http://intproj21.sit.kmutt.ac.th/or1/api/events/${eventId}`)
     if (res.status === 200) {
       return await res.json()
     } else {
@@ -19,7 +19,7 @@ export const eventManager = reactive({
     }
   },
   getEventCategories: async function () {
-    const res = await fetch("http://10.4.56.94:8080/api/eventCategories") 
+    const res = await fetch("http://intproj21.sit.kmutt.ac.th/or1/api/eventCategories") 
     if (res.status === 200) {
       this.eventCategories = await res.json()
     } else {
@@ -27,7 +27,8 @@ export const eventManager = reactive({
     }
   },
   createEvent: async function (booking) {
-    const res = await fetch("http://10.4.56.94:8080/api/events", {
+    console.log("dsa")
+    const res = await fetch("http://intproj21.sit.kmutt.ac.th/or1/api/events", {
       method: "POST",
       headers: {
         'content-type': 'application/json'

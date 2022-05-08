@@ -2,7 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import Home from '../views/Home.vue'
 import BaseBookingDetails from '../views/BookingDetails.vue'
 
-const history = createWebHistory();
+const history = createWebHistory('/or1/');
 const routes = [
     {
         path: '/',
