@@ -1,18 +1,14 @@
 <script setup>
-import { ref,computed } from "vue"
-import iconMenuKebab from "./icons/IconMenuKebab.vue";
-const props = defineProps({
+import { ref } from "vue"
+import iconDelete from "./icons/IconDelete.vue";
+import { eventManager } from "../scripts/eventManager.js"
+defineProps({
   bookingList: {
     type: Array,
     default: []
   }
 })
 
-// const bookingSort = computed(() =>
-//   props.bookingList.sort(
-//     (a, b) => new Date(b.startTime) - new Date(a.startTime)
-//   )
-// )
 
 const isShowOption = ref(false)
 
@@ -86,8 +82,8 @@ function ab(){
                 
             </td>
             <td  class="pr-3">
-              <button @click="ab()" :id="`dropdownRightStartButton${booking.id}`" data-dropdown-toggle="dropdownRightStart" data-dropdown-placement="right-start">
-                <iconMenuKebab />
+              <button @click="eventManager.deleteEvent(booking.id) " :id="`dropdownRightStartButton${booking.id}`" data-dropdown-toggle="dropdownRightStart" data-dropdown-placement="right-start">
+                <iconDelete />
                 </button>
               <div :id="`dropdownRightStart${booking.id}`" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
                   <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightStartButton">
@@ -104,34 +100,9 @@ function ab(){
         </tbody>
       </table>
     </div>
-       <button class="text-white" id="dropdownRightStart" data-dropdown-toggle="dropdownRightStart" data-dropdown-placement="right-start">
-                <iconMenuKebab />
-                </button>
-              <div id="dropdownRightStart" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
-                  <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightStartButton">
-                    <li>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                    </li>
-                    <li>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
-                    </li>
-                  </ul>
-              </div>
+ 
 
-
-                     <button @click="ab()" id="dropdownRightStart2" class="text-white" data-dropdown-toggle="dropdownRightStart" data-dropdown-placement="right-start">
-                <iconMenuKebab />saaaaaa
-                </button>
-              <div id="dropdownRightStart2" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
-                  <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightStartButton">
-                    <li>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                    </li>
-                    <li>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
-                    </li>
-                  </ul>
-              </div>
+                  
   </div>
 </template>
 

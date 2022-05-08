@@ -37,17 +37,30 @@ export const eventManager = reactive({
         name: booking.name,
         email: booking.email,
         startTime: booking.startTime,
-        categoryId: booking.categoryId,
+        categoryId: booking.category.categoryId,
         duration: booking.duration,
         note: booking.note,
       })
     });
   
     if (res.status === 201) {
-      addedBooking = await res.json()
+      const addedBooking = await res.json()
       this.eventList.push(addedBooking);
     } else {
       console.log("ไม่สามารถเพิ่มข้อมูลได้")
+    }
+  },
+  deleteEvent: async function (eventId) {
+    const res = await fetch(`http://intproj21.sit.kmutt.ac.th/or1/api/events/${eventId}`, {
+      method: "DELETE",
+    });
+  
+    if (res.status === 200) {
+      // const deletedBooking = await res.json()
+      this.eventList.filter((event) => event.id !== eventId)
+    
+    } else {
+      console.log(`ไม่พบข้อมูล event Id: ${eventId}`)
     }
   },
 })

@@ -8,16 +8,17 @@ import { eventManager } from "../scripts/eventManager.js"
 //อาจจะเป็น computed ถ้าตอน update/delete แล้ว table ไม่เปลี่ยน
 const bookingList = computed(() => eventManager.eventList)
 const eventCategories = computed(() => eventManager.eventCategories)
-function createEvent(booking){
-
+function createEvent(booking,e){
+  console.log(booking)
+   e.preventDefault();
+    eventManager.createEvent(booking)
 }
 </script>
 
 <template>
   <div>
-    <BasePopup :eventCategories="eventCategories"/>
+    <BasePopup :eventCategories="eventCategories" @createEvent="createEvent"/>
     <BaseScheduleList :bookingList="bookingList" />
-      
   </div>
 </template>
 
