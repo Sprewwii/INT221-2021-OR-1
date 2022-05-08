@@ -49,15 +49,15 @@ onBeforeMount(async () => {
                     year: "numeric",
                     month: "short",
                     day: "numeric",
-                    timeZone: 'UTC'
                   })
               }}
           at
               {{
                   new Date(bookingDetails.startTime).toLocaleTimeString("it-IT", {
                     hour: "2-digit",
-                    minute: "2-digit",
-                    timeZone: 'UTC'
+                    minute: "2-digit"
+                    // ,timeZone: 'UTC', 
+                    // timeZoneName: 'short'
                   })
               }}
           <span class="text-gray-400">
