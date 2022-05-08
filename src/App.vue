@@ -1,9 +1,10 @@
 <script setup>
-import {onBeforeMount} from "vue"
-import {eventManager} from "./scripts/eventManager.js"
+import { onBeforeMount } from "vue"
+import { eventManager } from "./scripts/eventManager.js"
 
 onBeforeMount(async () => {
   await eventManager.getEvents();
+  await eventManager.getEventCategories();
   // bookingList.value = eventManager.eventList;
 
   // eventManager.getEventTest();
@@ -13,7 +14,8 @@ onBeforeMount(async () => {
  
 <template>
 <div class="h-screen w-screen">
-<router-view></router-view></div>
+  <router-view></router-view>
+</div>
 </template>
  
 <style>

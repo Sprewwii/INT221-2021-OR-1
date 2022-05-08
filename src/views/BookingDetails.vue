@@ -8,6 +8,7 @@ let { params } = useRoute()
 const bookingDetails = computed(() =>
   eventManager.eventList.find((event) => event.id == params.id)
 )
+
 </script>
 
 <template>
@@ -34,7 +35,7 @@ const bookingDetails = computed(() =>
       <div class="flex flex-col items-center mt-8">
         <p class="text-gray-500 text-xs">EVENT</p>
         <p class="text-pink-500 text-3xl my-3 font-medium tracking-wider">
-          {{ bookingDetails.eventCategory.categoryName }}
+          {{ bookingDetails.categoryName }}
         </p>
         <div>
               {{

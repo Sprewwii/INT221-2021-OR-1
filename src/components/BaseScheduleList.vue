@@ -42,12 +42,12 @@ const props = defineProps({
         </tbody>
         <tbody v-else v-for="booking in bookingList" :key="booking.id">
           <tr
-            class="border-t bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal bg-opacity-50 sm:text-sm">
+            class="border-t bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal bg-opacity-50">
             <th scope="row" class="px-6 py-4 font-normal text-white whitespace-nowrap text-left">
               {{ booking.name }}
             </th>
             <td class="px-6 py-4">
-              {{ booking.eventCategory.categoryName }}
+              {{ booking.categoryName }}
             </td>
             <td class="px-6 py-4">
               {{
