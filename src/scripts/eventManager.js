@@ -26,10 +26,10 @@ export const eventManager = reactive({
       console.log("ไม่พบข้อมูล Event Category")
     }
   },
+
   createEvent: async function (booking) {
-    console.log("dsadsad"+booking)
-    const res = await fetch("http://intproj21.sit.kmutt.ac.th/or1/api/events", {
-      method: "POST",
+    const res = await fetch('http://intproj21.sit.kmutt.ac.th/or1/api/events', {
+      method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
@@ -37,7 +37,7 @@ export const eventManager = reactive({
         name: booking.name,
         email: booking.email,
         startTime: booking.startTime,
-        categoryId: booking.category.categoryId,
+        categoryId: booking.categoryId,
         duration: booking.duration,
         note: booking.note,
       })
@@ -50,6 +50,8 @@ export const eventManager = reactive({
       console.log("ไม่สามารถเพิ่มข้อมูลได้")
     }
   },
+
+
   deleteEvent: async function (eventId) {
     const res = await fetch(`http://intproj21.sit.kmutt.ac.th/or1/api/events/${eventId}`, {
       method: "DELETE",

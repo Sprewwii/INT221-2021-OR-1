@@ -13,6 +13,15 @@ const props = defineProps({
 defineEmits(['createEvent'])
 
 const addingEvent = ref({})
+
+const addEvent = {
+       "name": "booking.name",
+        "email": "booking.email",
+        "startTime": "2022-05-23T13:30:00.000+07:00",
+        "categoryId": 1,
+        "duration": 30,
+        "note": "note"
+}
 // const selectedEventCategory = ref("")
 </script>
  
@@ -95,7 +104,7 @@ const addingEvent = ref({})
 
 
 
-                        <button @click="$emit('createEvent',addingEvent,$event)"
+                        <button @click="$emit('createEvent',addEvent,$event)"
                             class="w-full text-white bg-pink-600 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800">Create</button>
 
 
