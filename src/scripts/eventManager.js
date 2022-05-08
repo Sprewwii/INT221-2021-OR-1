@@ -43,7 +43,7 @@ export const eventManager = reactive({
       })
     });
   
-    if (res.status === 201) {
+    if (res.status === 200) {
       const addedBooking = await res.json()
       this.eventList.push(addedBooking);
     } else {
@@ -57,8 +57,8 @@ export const eventManager = reactive({
   
     if (res.status === 200) {
       // const deletedBooking = await res.json()
-      this.eventList.filter((event) => event.id !== eventId)
-    
+      this.eventList = this.eventList.filter((event) => event.id != eventId)
+
     } else {
       console.log(`ไม่พบข้อมูล event Id: ${eventId}`)
     }
