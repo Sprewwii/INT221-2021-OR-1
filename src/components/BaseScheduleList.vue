@@ -35,6 +35,8 @@ const toggleDeleteConfirmModal = ()=>{
 
 const deleteSelectedBooking = () => {
   eventManager.deleteEvent(selectedId.value)
+  toggleDeleteConfirmModal()
+  selectEventOption(0)
 }
 
 
