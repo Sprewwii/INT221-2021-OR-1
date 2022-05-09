@@ -38,7 +38,7 @@ export const eventManager = reactive({
         email: booking.email,
         startTime: "2022-05-23T13:30:00.000+07:00",
         categoryId: booking.category.categoryId,
-        duration: booking.duration,
+        duration: booking.categoryDuration,
         note: booking.note,
       })
     });
