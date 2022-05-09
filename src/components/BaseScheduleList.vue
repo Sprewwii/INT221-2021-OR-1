@@ -14,23 +14,22 @@ defineProps({
 
 const selectedId = ref(0);
 const selectEventOption = (id) => {
-  console.log("option")
-    if (selectedId.value === id) {
-        selectedId.value = 0
-    } else {
-        selectedId.value = id
-    }
+  if (selectedId.value === id) {
+    selectedId.value = 0
+  } else {
+    selectedId.value = id
+  }
 }
 
 const showDeleteConfirmModal = ref(false)
 
 const deleteBookingConfirm = () => {
-  console.log("id" + selectedId.value)
   showDeleteConfirmModal.value = true
 }
 
-const toggleDeleteConfirmModal = ()=>{
+const toggleDeleteConfirmModal = () => {
   showDeleteConfirmModal.value = !showDeleteConfirmModal.value
+  selectEventOption(0)
 }
 
 const deleteSelectedBooking = () => {
@@ -44,7 +43,8 @@ const deleteSelectedBooking = () => {
 
 <template>
   <div>
-    <BasePopupConfirm v-show="showDeleteConfirmModal" @closeConfirmModal="toggleDeleteConfirmModal" @deleteSelectedBooking="deleteSelectedBooking"/>
+    <BasePopupConfirm v-show="showDeleteConfirmModal" @closeConfirmModal="toggleDeleteConfirmModal"
+      @deleteSelectedBooking="deleteSelectedBooking" />
     <h1 class="text-gray-300 text-2xl pt-10 mb-3 mx-8 md:mx-16 lg:mx-32 font-medium">
       Scheduled Events
     </h1>
@@ -52,11 +52,11 @@ const deleteSelectedBooking = () => {
       <table class="w-full text-center text-gray-200">
         <thead class="text-xs uppercase bg-gray-700 text-gray-300 bg-opacity-50 sm:text-sm">
           <tr>
-            <th scope="col" class="px-6 py-3">Name</th>
+            <th scope="col" class="px-6 py-3 w-1/3">Name</th>
             <th scope="col" class="px-6 py-3">Category</th>
-            <th scope="col" class="px-6 py-3 text-center">Date Time</th>
-            <th scope="col" class="px-6 py-3 text-center">Time</th>
-            <th scope="col" class="px-6 py-3 text-center">
+            <th scope="col" class="px-6 py-3">Date Time</th>
+            <th scope="col" class="px-6 py-3">Time</th>
+            <th scope="col" class="px-6 py-3">
               Duration <br />
               <p class="text-xs">(minutes)</p>
             </th>
@@ -71,10 +71,10 @@ const deleteSelectedBooking = () => {
         <tbody v-else v-for="booking in bookingList" :key="booking.id">
           <tr
             class="border-t bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal bg-opacity-50">
-            <th scope="row" class="pl-6 font-normal text-white whitespace-nowrap text-left">
+            <th scope="row" class="pl-6 font-normal text-white text-left">
               {{ booking.name }}
             </th>
-            <td class="pl-6">
+            <td class="">
               {{ booking.categoryName }}
             </td>
             <td class="px-6 py-4">
@@ -104,32 +104,16 @@ const deleteSelectedBooking = () => {
             <td class="pr-10 py-4 text-right">
               <router-link :to="{ name: 'BaseBookingDetails', params: { id: booking.id } }"
                 class="text-pink-500 hover:underline">Details</router-link>
-                
+
             </td>
             <td class="pr-3">
-            
-  
-
-              <BaseDropdownOption :selectedId="selectedId" :bookingId="booking.id" @deleteBooking="deleteBookingConfirm" @selectEventOption="selectEventOption"/>
 
 
 
+              <BaseDropdownOption :selectedId="selectedId" :bookingId="booking.id" @deleteBooking="deleteBookingConfirm"
+                @selectEventOption="selectEventOption" />
 
-
-              <!-- <button @click="eventManager.deleteEvent(booking.id) " :id="`dropdownRightStartButton${booking.id}`" data-dropdown-toggle="dropdownRightStart" data-dropdown-placement="right-start">
-                <iconDelete />
-                </button>
-              <div :id="`dropdownRightStart${booking.id}`" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
-                  <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightStartButton">
-                    <li>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                    </li>
-                    <li>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
-                    </li>
-                  </ul>
-              </div> -->
-              </td>
+            </td>
           </tr>
         </tbody>
       </table>

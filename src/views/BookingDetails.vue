@@ -32,7 +32,7 @@ onBeforeMount(async () => {
       class="text-white bg-gray-600 bg-opacity-20 rounded-lg"
     >
     <div v-if="bookingDetails" class="flex flex-col items-center">
-      <div class="mt-16">
+      <div class="mt-16 flex flex-col items-center w-4/6">
         <p class="bg-pink-500 text-white rounded-3xl px-6 py-1 text-2xl text-center">
           {{ bookingDetails.name }}
         </p>
@@ -66,7 +66,7 @@ onBeforeMount(async () => {
         </div>
       </div>
 
-      <div class="text-white mt-10 my-7 text-center">
+      <div class="text-white mt-10 my-7 text-center w-4/6">
         <div v-if="bookingDetails.note">
           <p class="text-gray-500">note</p>
           <p>{{ bookingDetails.note }}</p>

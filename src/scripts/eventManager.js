@@ -50,7 +50,6 @@ export const eventManager = reactive({
       const addedBooking = await res.json()
       const eventCategory = this.getEventCategoryById(booking.category.categoryId)
       addedBooking.categoryName = eventCategory.categoryName
-      console.log(addedBooking)
       this.eventList.push(addedBooking);
       
     } else {

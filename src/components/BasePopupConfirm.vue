@@ -2,7 +2,7 @@
 import iconWarning from "./icons/IconWarning.vue"
 import iconClose from "./icons/IconClose.vue"
 
-defineEmits(['closeConfirmModal','deleteSelectedBooking'])
+defineEmits(['closeConfirmModal', 'deleteSelectedBooking'])
 </script>
  
 <template>
