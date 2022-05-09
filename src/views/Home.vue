@@ -13,6 +13,7 @@ const isShowCreateModal = ref(false)
 const createBooking = (booking, e) => {
   e.preventDefault();
   eventManager.createEvent(booking)
+  toggleCreateModal();
 }
 
 const toggleCreateModal = () => {
