@@ -26,6 +26,9 @@ export const eventManager = reactive({
       console.log("ไม่พบข้อมูล Event Category")
     }
   },
+  getEventCategoryById: function (id) {
+      return this.eventCategories.find((eventCategory) => eventCategory.categoryId === id)
+  },
 
   createEvent: async function (booking) {
     const res = await fetch('http://intproj21.sit.kmutt.ac.th/or1/api/events', {
@@ -45,7 +48,11 @@ export const eventManager = reactive({
   
     if (res.status === 200) {
       const addedBooking = await res.json()
+      const eventCategory = this.getEventCategoryById(booking.category.categoryId)
+      addedBooking.categoryName = eventCategory.categoryName
+      console.log(addedBooking)
       this.eventList.push(addedBooking);
+      
     } else {
       console.log("ไม่สามารถเพิ่มข้อมูลได้")
     }
