@@ -1,7 +1,10 @@
 <script setup>
 import { ref } from "vue"
-import iconDelete from "./icons/IconDelete.vue";
+
 import { eventManager } from "../scripts/eventManager.js"
+import BaseDropdownOption from "./BaseDropdownOption.vue"
+import BasePopupConfirm from "./BasePopupConfirm.vue"
+
 defineProps({
   bookingList: {
     type: Array,
@@ -9,21 +12,41 @@ defineProps({
   }
 })
 
-
-const isShowOption = ref(false)
-
-function ab(){
-  console.log("sadas")
+const selectedId = ref(0);
+const selectEventOption = (id) => {
+  console.log("option")
+    if (selectedId.value === id) {
+        selectedId.value = 0
+    } else {
+        selectedId.value = id
+    }
 }
+
+const showDeleteConfirmModal = ref(false)
+
+const deleteBookingConfirm = () => {
+  console.log("id" + selectedId.value)
+  showDeleteConfirmModal.value = true
+}
+
+const toggleDeleteConfirmModal = ()=>{
+  showDeleteConfirmModal.value = !showDeleteConfirmModal.value
+}
+
+const deleteSelectedBooking = () => {
+  eventManager.deleteEvent(selectedId.value)
+}
+
 
 </script>
 
 <template>
   <div>
+    <BasePopupConfirm v-show="showDeleteConfirmModal" @closeConfirmModal="toggleDeleteConfirmModal" @deleteSelectedBooking="deleteSelectedBooking"/>
     <h1 class="text-gray-300 text-2xl pt-10 mb-3 mx-8 md:mx-16 lg:mx-32 font-medium">
       Scheduled Events
     </h1>
-    <div class="relative overflow-x-auto shadow-2xl rounded-lg mx-8 ml:mx-16 lg:mx-32">
+    <div class="relative shadow-2xl mx-8 ml:mx-16 lg:mx-32">
       <table class="w-full text-center text-gray-200">
         <thead class="text-xs uppercase bg-gray-700 text-gray-300 bg-opacity-50 sm:text-sm">
           <tr>
@@ -81,8 +104,17 @@ function ab(){
                 class="text-pink-500 hover:underline">Details</router-link>
                 
             </td>
-            <td  class="pr-3">
-              <button @click="eventManager.deleteEvent(booking.id) " :id="`dropdownRightStartButton${booking.id}`" data-dropdown-toggle="dropdownRightStart" data-dropdown-placement="right-start">
+            <td class="pr-3">
+            
+  
+
+              <BaseDropdownOption :selectedId="selectedId" :bookingId="booking.id" @deleteBooking="deleteBookingConfirm" @selectEventOption="selectEventOption"/>
+
+
+
+
+
+              <!-- <button @click="eventManager.deleteEvent(booking.id) " :id="`dropdownRightStartButton${booking.id}`" data-dropdown-toggle="dropdownRightStart" data-dropdown-placement="right-start">
                 <iconDelete />
                 </button>
               <div :id="`dropdownRightStart${booking.id}`" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
@@ -94,15 +126,12 @@ function ab(){
                       <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
                     </li>
                   </ul>
-              </div>
+              </div> -->
               </td>
           </tr>
         </tbody>
       </table>
     </div>
- 
-
-                  
   </div>
 </template>
 
