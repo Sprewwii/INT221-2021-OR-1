@@ -11,7 +11,6 @@ const eventCategories = computed(() => eventManager.eventCategories)
 const isShowCreateModal = ref(false)
 
 const createBooking = (booking, e) => {
-  b
   e.preventDefault();
   eventManager.createEvent(booking)
 }

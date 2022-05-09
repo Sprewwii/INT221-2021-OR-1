@@ -13,15 +13,6 @@ const props = defineProps({
 defineEmits(['createEvent', 'closeCreateModal'])
 
 const addingEvent = ref({})
-
-const addEvent = {
-    "name": "booking.name",
-    "email": "booking.email",
-    "startTime": "2022-05-23T13:30:00.000+07:00",
-    "category": { "categoryId": 1 },
-    "duration": 30,
-    "note": "note"
-}
 // const selectedEventCategory = ref("")
 
 
