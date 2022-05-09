@@ -80,12 +80,7 @@ const addingEvent = ref({})
 
 
                         <div>
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-300">Start Time
-                                {{ addingEvent.category ? addingEvent.category.categoryDuration + " " +
-                                        addingEvent.duration : ""
-                                }}{{ addingEvent.startTime ? new
-        Date(addingEvent.startTime).toISOString() : ''
-}}</label>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-300">Start Time</label>
                             <input v-model="addingEvent.startTime" type="datetime-local" name="email" id="email"
                                 class="border text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
                                 required="">
