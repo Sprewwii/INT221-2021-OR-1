@@ -18,7 +18,7 @@ function createEvent(booking,e){
 
 <template>
   <div>
-    <button class="mr-32 mb-32 absolute bottom-0 right-0" data-modal-toggle="create-event-modal">
+    <button class="mr-32 mb-32 fixed bottom-0 right-0 z-50" data-modal-toggle="create-event-modal">
         <iconPlus class="opacity-80 shadow-2xl hover:opacity-100" />
     </button>
     <BasePopupCreate :eventCategories="eventCategories" @createEvent="createEvent"/>

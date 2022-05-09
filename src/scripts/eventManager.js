@@ -36,7 +36,7 @@ export const eventManager = reactive({
       body: JSON.stringify({
         name: booking.name,
         email: booking.email,
-        startTime: "2022-05-23T13:30:00.000+07:00",
+        startTime: new Date(booking.startTime).toISOString(),
         categoryId: booking.category.categoryId,
         duration: booking.category.categoryDuration,
         note: booking.note,
