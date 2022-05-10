@@ -47,11 +47,11 @@ export const eventManager = reactive({
     });
   
     if (res.status === 200) {
-      const addedBooking = await res.json()
-      const eventCategory = this.getEventCategoryById(booking.category.categoryId)
-      addedBooking.categoryName = eventCategory.categoryName
-      this.eventList.push(addedBooking);
-      
+      // const addedBooking = await res.json()
+      // const eventCategory = this.getEventCategoryById(booking.category.categoryId)
+      // addedBooking.categoryName = eventCategory.categoryName
+      // this.eventList.push(addedBooking);
+      getEvents()
     } else {
       console.log("ไม่สามารถเพิ่มข้อมูลได้")
     }
