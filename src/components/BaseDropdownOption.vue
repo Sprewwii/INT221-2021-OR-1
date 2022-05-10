@@ -28,7 +28,7 @@ defineEmits(['selectEventOption','deleteBooking'])
                 <iconMenuKebabVue />
               </button>
               <ul 
-                class="dropdown-menu absolute text-white pt-1 z-40"
+                class="dropdown-menu absolute text-white pt-1 z-10"
                 v-show="selectedId === bookingId"
               >
                 <li>

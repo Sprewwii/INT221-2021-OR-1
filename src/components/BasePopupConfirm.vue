@@ -6,9 +6,9 @@ defineEmits(['closeConfirmModal', 'deleteSelectedBooking'])
 </script>
  
 <template>
-    <div class="bg-black w-full h-full">
+    <div class="bg-black/20 z-40 h-screen w-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div
-            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto overflow-x-hidden z-50">
+            class=" overflow-y-auto overflow-x-hidden z-50 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
             <div class="relative p-4 w-full max-w-md h-full">
                 <div class="relative rounded-lg shadow bg-gray-800">
                     <button type="button" @click="$emit('closeConfirmModal')"
@@ -17,8 +17,8 @@ defineEmits(['closeConfirmModal', 'deleteSelectedBooking'])
                     </button>
                     <div class="py-6 px-6 lg:px-8 text-white text-center flex flex-col justify-center items-center">
                         <iconWarning />
-                        <h3 class="text-3xl font-bold text-white mt-5">Delete</h3>
-                        <p class="text-gray-400">Are you sure to delete this schedule event ?</p>
+                        <h3 class="text-3xl font-bold text-white mt-5">Delete ?</h3>
+                        <p class="text-gray-400">Are you sure to delete this scheduled event ?</p>
 
                         <div class="flex mt-5 justify-evenly w-full">
                             <button @click="$emit('closeConfirmModal')"

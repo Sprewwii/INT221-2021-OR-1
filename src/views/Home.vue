@@ -23,7 +23,7 @@ const toggleCreateModal = () => {
 </script>
 
 <template>
-  <div class="mt-16 pb-64">
+  <div class="pb-64">
     <button @click="toggleCreateModal" class="mr-32 mb-32 fixed bottom-0 right-0 z-40">
       <iconPlus class="opacity-80 shadow-2xl hover:opacity-100" />
     </button>

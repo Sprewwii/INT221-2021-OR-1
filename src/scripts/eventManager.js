@@ -31,6 +31,12 @@ export const eventManager = reactive({
   },
 
   createEvent: async function (booking) {
+    console.log({  name: booking.name,
+      email: booking.email,
+      startTime: new Date(booking.startTime).toISOString(), 
+      categoryId: booking.category.categoryId,
+      duration: booking.duration,
+      note: booking.note,})
     const res = await fetch('http://intproj21.sit.kmutt.ac.th/or1/api/events', {
       method: 'POST',
       headers: {
