@@ -51,7 +51,7 @@ export const eventManager = reactive({
       // const eventCategory = this.getEventCategoryById(booking.category.categoryId)
       // addedBooking.categoryName = eventCategory.categoryName
       // this.eventList.push(addedBooking);
-      getEvents()
+      this.getEvents()
     } else {
       console.log("ไม่สามารถเพิ่มข้อมูลได้")
     }
