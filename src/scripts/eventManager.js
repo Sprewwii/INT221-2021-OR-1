@@ -53,17 +53,16 @@ export const eventManager = reactive({
     });
   
     if (res.status === 200) {
-      // const addedBooking = await res.json()
-      // const eventCategory = this.getEventCategoryById(booking.category.categoryId)
-      // addedBooking.categoryName = eventCategory.categoryName
-      // this.eventList.push(addedBooking);
-      this.getEvents()
+      const addedBooking = await res.json()
+      const eventCategory = this.getEventCategoryById(booking.category.categoryId)
+      addedBooking.categoryName = eventCategory.categoryName
+      this.eventList.push(addedBooking);
+      this.sortByDateDesc();
+      // this.getEvents()
     } else {
       console.log("ไม่สามารถเพิ่มข้อมูลได้")
     }
   },
-
-
   deleteEvent: async function (eventId) {
     const res = await fetch(`http://intproj21.sit.kmutt.ac.th/or1/api/events/${eventId}`, {
       method: "DELETE",
@@ -77,6 +76,9 @@ export const eventManager = reactive({
       console.log(`ไม่พบข้อมูล event Id: ${eventId}`)
     }
   },
+  sortByDateDesc: function(){
+    this.eventList = this.eventList.sort((a,b) => new Date(b.startTime) - new Date(a.startTime))
+  }
 })
 
 // name: booking.name,

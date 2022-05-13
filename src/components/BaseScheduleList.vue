@@ -1,56 +1,36 @@
 <script setup>
-import { ref } from "vue"
+import { ref,computed } from "vue"
 
 import { eventManager } from "../scripts/eventManager.js"
-import BaseDropdownOption from "./BaseDropdownOption.vue"
-import BasePopupConfirm from "./BasePopupConfirm.vue"
+import iconMenuKebabVue from "./icons/IconMenuKebab.vue";
+import iconDelete from "./icons/IconDelete.vue";
+import iconEdit from "./icons/IconEdit.vue";
 
-defineProps({
+const props = defineProps({
   bookingList: {
     type: Array,
     default: []
-  }
+  },
+  selectedBookingId: {
+    type: Number,
+    default: 0
+  },
 })
 
-const selectedId = ref(0);
-const selectEventOption = (id) => {
-  if (selectedId.value === id) {
-    selectedId.value = 0
-  } else {
-    selectedId.value = id
-  }
-}
+const selectedBookingId = computed(() => props.selectedBookingId)
 
-const showDeleteConfirmModal = ref(false)
-
-const deleteBookingConfirm = () => {
-  showDeleteConfirmModal.value = true
-}
-
-const toggleDeleteConfirmModal = () => {
-  showDeleteConfirmModal.value = !showDeleteConfirmModal.value
-  selectEventOption(0)
-}
-
-const deleteSelectedBooking = () => {
-  eventManager.deleteEvent(selectedId.value)
-  toggleDeleteConfirmModal()
-  selectEventOption(0)
-}
-
+defineEmits(['selectBooking','editBooking','deleteBooking'])
 
 </script>
 
 <template>
   <div>
-    <BasePopupConfirm v-show="showDeleteConfirmModal" @closeConfirmModal="toggleDeleteConfirmModal"
-      @deleteSelectedBooking="deleteSelectedBooking" />
     <h1 class="text-gray-300 text-2xl pt-10 mb-3 mx-8 md:mx-16 lg:mx-32 font-medium">
       Scheduled Events
     </h1>
     <div class="relative shadow-2xl mx-8 ml:mx-16 lg:mx-32">
       <table class="w-full text-center text-gray-200">
-        <thead class="text-xs uppercase bg-gray-700 text-gray-300 bg-opacity-50 sm:text-sm">
+        <thead class="text-xs uppercase text-gray-300 sm:text-sm">
           <tr>
             <th scope="col" class="px-6 py-3 w-1/3">Name</th>
             <th scope="col" class="px-6 py-3">Category</th>
@@ -69,8 +49,7 @@ const deleteSelectedBooking = () => {
           <td colspan="7" class="py-64 text-xl">No Scheduled Event</td>
         </tbody>
         <tbody v-else v-for="booking in bookingList" :key="booking.id">
-          <tr
-            class="border-t bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal bg-opacity-50">
+          <tr class="border-t border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal ">
             <th scope="row" class="pl-6 font-normal text-white text-left">
               {{ booking.name }}
             </th>
@@ -85,9 +64,6 @@ const deleteSelectedBooking = () => {
                     day: "numeric",
                   })
               }}
-              <!-- {{
-                new Date(booking.startTime).toISOString()
-              }} -->
             </td>
 
             <td class="px-6 py-4">
@@ -109,10 +85,29 @@ const deleteSelectedBooking = () => {
             <td class="pr-3">
 
 
+              <div class="dropdown inline-block relative">
+                <button @click="$emit('selectBooking', booking.id)">
+                  <iconMenuKebabVue />
+                </button>
+                <ul class="dropdown-menu absolute text-white pt-1 z-10" v-show="selectedBookingId === booking.id">
+                  <li>
+                    <button
+                      class="rounded-t bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
+                      @click="$emit('editBooking')">
+                      <iconEdit class="mr-2" />Edit
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="rounded-b bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full items-center flex border-t border-l-0 border-r-0 border-b-0 border-gray-600"
+                      @click="$emit('deleteBooking')">
+                      <iconDelete class="mr-2" />Delete
+                    </button>
+                  </li>
 
-              <BaseDropdownOption :selectedId="selectedId" :bookingId="booking.id" @deleteBooking="deleteBookingConfirm"
-                @selectEventOption="selectEventOption" />
 
+                </ul>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -122,4 +117,11 @@ const deleteSelectedBooking = () => {
 </template>
 
 <style>
+thead {
+  background-color: #515556;
+}
+
+tbody {
+  background-color: #9AB0BF;
+}
 </style>

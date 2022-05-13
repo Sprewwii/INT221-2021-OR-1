@@ -2,7 +2,7 @@
 import iconWarning from "./icons/IconWarning.vue"
 import iconClose from "./icons/IconClose.vue"
 
-defineEmits(['closeConfirmModal', 'deleteSelectedBooking'])
+defineEmits(['closeConfirmModal', 'deleteBooking'])
 </script>
  
 <template>
@@ -23,7 +23,7 @@ defineEmits(['closeConfirmModal', 'deleteSelectedBooking'])
                         <div class="flex mt-5 justify-evenly w-full">
                             <button @click="$emit('closeConfirmModal')"
                                 class="w-2/6 bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancel</button>
-                            <button @click="$emit('deleteSelectedBooking')"
+                            <button @click="$emit('deleteBooking')"
                                 class="w-2/6 bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Confirm</button>
                         </div>
                     </div>

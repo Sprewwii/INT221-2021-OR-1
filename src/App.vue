@@ -23,12 +23,13 @@ onBeforeMount(async () => {
 
 body {
   font-family: 'IBM Plex Sans Thai', sans-serif;
-  background-color: rgb(19, 19, 19);
-  background-image:
+  background-color: #E3CFCD;
+  /* background-image:
     radial-gradient(at 55% 54%, hsla(348, 0%, 11%, 1) 0px, transparent 50%),
     radial-gradient(at 72% 0%, rgba(81, 143, 154, 0.38) 0px, transparent 50%),
     radial-gradient(at 0% 90%, rgba(243, 43, 153, 0.234) 0px, transparent 50%),
     radial-gradient(at 100% 95%, rgba(207, 57, 249, 0.183) 0px, transparent 50%);
     background-attachment: fixed;
+} */
 }
 </style>
