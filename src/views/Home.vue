@@ -39,6 +39,13 @@ const createBooking = (booking, e) => {
 
 const editBooking = async () => {
   editingBooking.value = await eventManager.getEventById(selectedBookingId.value);
+} 
+
+const updateEditingBooking = (booking,e) => {
+  e.preventDefault();
+  eventManager.editEvent(booking)
+  editingBooking.value = {}
+  selectBooking(0)
 }
 
 const deleteBooking = () => {
@@ -47,24 +54,16 @@ const deleteBooking = () => {
   selectBooking(0)
 }
 
-function a (){
-  console.log("list"+eventManager.eventList)
-  console.log(eventManager.sortByDateDesc())
-}
- console.log(editingBooking.value)
 
 </script>
 
 <template>
   <div class="pb-64">
-{{editingBooking}}
-
-    <button class="text-white" @click="a">test</button>
     <button
       @click="toggleCreateModal"
       class="mr-32 mb-32 fixed bottom-0 right-0 z-40"
     >
-      <iconPlus class="opacity-80 shadow-2xl hover:opacity-100" />
+      <iconPlus class="opacity-80 hover:opacity-100" />
     </button>
    
     <BaseScheduleList :bookingList="bookingList" :selectedBookingId="selectedBookingId" @selectBooking="selectBooking" @editBooking="editBooking" @deleteBooking="toggleDeleteConfirm"/>
@@ -78,7 +77,7 @@ function a (){
     <BasePopupConfirm v-show="isShowDeleteBookingConfirm" @closeConfirmModal="toggleDeleteConfirm"
       @deleteBooking="deleteBooking" />
     <BasePopupEdit v-show="Object.keys(editingBooking).length > 0" @closeEditModal="editingBooking = {}" :editingBooking="editingBooking"
-      @editBooking="editBooking" />
+      @editBooking="updateEditingBooking" />
   </div>
 </template>
 

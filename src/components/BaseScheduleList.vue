@@ -24,19 +24,19 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
 </script>
 
 <template>
-  <div>
-    <h1 class="text-gray-300 text-2xl pt-10 mb-3 mx-8 md:mx-16 lg:mx-32 font-medium">
+  <div class="ml-64 mr-12">
+    <h1 class="text-gray-300 text-2xl pt-10 mb-3 mr-8 ml-32 md:mx-16 lg:mx-32 font-medium">
       Scheduled Events
     </h1>
-    <div class="relative shadow-2xl mx-8 ml:mx-16 lg:mx-32">
+    <div class="relative shadow-2xl mr-8 ml-32">
       <table class="w-full text-center text-gray-200">
         <thead class="text-xs uppercase text-gray-300 sm:text-sm">
           <tr>
-            <th scope="col" class="px-6 py-3 w-1/3">Name</th>
-            <th scope="col" class="px-6 py-3">Category</th>
-            <th scope="col" class="px-6 py-3">Date Time</th>
-            <th scope="col" class="px-6 py-3">Time</th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" class="px-6 py-3 w-4/12">Name</th>
+            <th scope="col" class="px-6 py-3 w-3/12">Category</th>
+            <th scope="col" class="px-6 py-3 w-2/12">Date Time</th>
+            <th scope="col" class="px-6 py-3 w-1/12">Time</th>
+            <th scope="col" class="px-6 py-3 w-1/12">
               Duration <br />
               <p class="text-xs">(minutes)</p>
             </th>
@@ -48,12 +48,16 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
         <tbody v-if="bookingList.length === 0">
           <td colspan="7" class="py-64 text-xl">No Scheduled Event</td>
         </tbody>
+
         <tbody v-else v-for="booking in bookingList" :key="booking.id">
-          <tr class="border-t border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal ">
+          <tr class="border-t border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal">
             <th scope="row" class="pl-6 font-normal text-white text-left">
+               <router-link :to="{ name: 'BaseBookingDetails', params: { id: booking.id } }"
+                class="hover:underline">
               {{ booking.name }}
+              </router-link>
             </th>
-            <td class="">
+            <td>
               {{ booking.categoryName }}
             </td>
             <td class="px-6 py-4">
@@ -77,11 +81,11 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
             <td class="px-6 py-4">
               {{ booking.duration }}
             </td>
-            <td class="pr-10 py-4 text-right">
-              <router-link :to="{ name: 'BaseBookingDetails', params: { id: booking.id } }"
+            <!-- <td class="pr-10 py-4 text-right"> -->
+              <!-- <router-link :to="{ name: 'BaseBookingDetails', params: { id: booking.id } }"
                 class="text-pink-500 hover:underline">Details</router-link>
 
-            </td>
+            </td> -->
             <td class="pr-3">
 
 
@@ -117,11 +121,5 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
 </template>
 
 <style>
-thead {
-  background-color: #515556;
-}
 
-tbody {
-  background-color: #9AB0BF;
-}
 </style>

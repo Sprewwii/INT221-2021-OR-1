@@ -29,14 +29,8 @@ export const eventManager = reactive({
   getEventCategoryById: function (id) {
       return this.eventCategories.find((eventCategory) => eventCategory.categoryId === id)
   },
-
   createEvent: async function (booking) {
-    console.log({  name: booking.name,
-      email: booking.email,
-      startTime: new Date(booking.startTime).toISOString(), 
-      categoryId: booking.category.categoryId,
-      duration: booking.duration,
-      note: booking.note,})
+    console.log(booking)
     const res = await fetch('http://intproj21.sit.kmutt.ac.th/or1/api/events', {
       method: 'POST',
       headers: {
@@ -53,7 +47,7 @@ export const eventManager = reactive({
     });
   
     if (res.status === 200) {
-      const addedBooking = await res.json()
+      const addedBooking = await res.json();
       const eventCategory = this.getEventCategoryById(booking.category.categoryId)
       addedBooking.categoryName = eventCategory.categoryName
       this.eventList.push(addedBooking);
@@ -76,14 +70,36 @@ export const eventManager = reactive({
       console.log(`ไม่พบข้อมูล event Id: ${eventId}`)
     }
   },
+  editEvent: async function (booking) {
+    const res = await fetch(`http://intproj21.sit.kmutt.ac.th/or1/api/events/${booking.id}`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        startTime: new Date(booking.startTime).toISOString(),
+        note: booking.note,
+      })
+    });
+  
+    if (res.status === 200) {
+      const editedBooking = await res.json();
+      const foundBooking = this.eventList.find((event) => event.id === editedBooking.id)
+      foundBooking.note = editedBooking.note
+      foundBooking.startTime = editedBooking.startTime
+      this.sortByDateDesc();
+    } else {
+      console.log("ไม่สามารถแก้ไขข้อมูลได้")
+    }
+  },
   sortByDateDesc: function(){
     this.eventList = this.eventList.sort((a,b) => new Date(b.startTime) - new Date(a.startTime))
   }
 })
 
-// name: booking.name,
-// email: booking.email,
-// startTime: booking.startTime,
-// categoryId: booking.categoryId,
-// duration: booking.duration,
-// note: booking.note,
+// console.log({  name: booking.name,
+//   email: booking.email,
+//   startTime: new Date(booking.startTime).toISOString(), 
+//   categoryId: booking.category.categoryId,
+//   duration: booking.duration,
+//   note: booking.note,})

@@ -18,29 +18,29 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div>
+  <div class="ml-64">
   <h1
     class="text-gray-300 text-2xl pt-10 mb-3 mx-8 md:mx-16 lg:mx-32 font-medium"
   >
     Scheduled Event Details
   </h1>
   <div
-    class="relative overflow-x-auto shadow-2xl rounded-lg mx-8 ml:mx-16 lg:mx-32"
+    class="relative overflow-x-auto shadow-2xl rounded-lg ml-32 mr-16"
   >
     <div
     
-      class="text-white bg-gray-600 bg-opacity-20 rounded-lg"
+      class="text-white rounded-lg" id="details"
     >
     <div v-if="bookingDetails" class="flex flex-col items-center">
       <div class="mt-16 flex flex-col items-center w-4/6">
-        <p class="bg-pink-500 text-white rounded-3xl px-6 py-1 text-2xl text-center">
+        <p class="bg-violet-600 text-white rounded-3xl px-6 py-1 text-2xl text-center">
           {{ bookingDetails.name }}
         </p>
         <p class="text-l text-center mt-3">{{ bookingDetails.email }}</p>
       </div>
       <div class="flex flex-col items-center mt-8">
         <p class="text-gray-500 text-xs">EVENT</p>
-        <p class="text-pink-500 text-3xl my-3 font-medium tracking-wider">
+        <p class="text-violet-600 text-3xl my-3 font-medium tracking-wider">
           {{ bookingDetails.categoryName }}
         </p>
         <div>
@@ -88,4 +88,8 @@ onBeforeMount(async () => {
   </div>
 </template>
 
-<style></style>
+<style>
+#details {
+  background-color: #292B2E;
+}
+</style>

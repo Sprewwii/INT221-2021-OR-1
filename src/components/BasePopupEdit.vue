@@ -57,11 +57,11 @@ const editingBooking = computed(() => {
                             <div class="flex">
                                 <div
                                     class="border text-sm rounded-lg block w-7/12 p-2.5 bg-gray-600 border-gray-500 text-gray-400">
-                                    ds
+                                    {{editingBooking.categoryName}}
                                 </div>
                                 <div
                                     class="ml-3 border text-sm rounded-lg block w-5/12 p-2.5 bg-gray-600 border-gray-500 text-gray-400">
-
+                                    {{editingBooking.duration}} minutes
                                 </div>
                             </div>
                         </div>
@@ -77,8 +77,8 @@ const editingBooking = computed(() => {
                                 class="border text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
                                 placeholder="detail..."> </textarea>
                         </div>
-                        <button @click="$emit('editBooking', editingBooking, $event)"
-                            class="w-full text-white bg-pink-600 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800">Create</button>
+                        <button @click="$emit('editBooking', {id:editingBooking.id,startTime: editingBooking.startTime,note: editingBooking.note}, $event)"
+                            class="w-full text-white bg-pink-600 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800">Update</button>
                     </form>
                 </div>
             </div>
