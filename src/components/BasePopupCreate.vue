@@ -24,7 +24,7 @@ const validateEmail = () => {
 const validateDateTime = () => {
      console.log("blur")
       console.log(creatingBooking.value.startTime + " : " + new Date(new Date().getTime() + 60000))
-    if(creatingBooking.value.startTime < new Date(new Date().getTime() + 60000) ){
+    if(creatingBooking.value.startTime < new Date(new Date().getTime()) ){
         showWarningDateTime.value = true
         console.log("blur22")
     }else{
