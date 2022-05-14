@@ -20,7 +20,7 @@ onBeforeMount(async () => {
 <template>
   <div class="ml-64">
   <h1
-    class="text-gray-300 text-2xl pt-10 mb-3 mx-8 md:mx-16 lg:mx-32 font-medium"
+    class="text-gray-300 text-2xl pt-10 mb-3 mx-8 md:mx-16 lg:mx-32 font-medium select-none"
   >
     Scheduled Event Details
   </h1>
@@ -31,7 +31,7 @@ onBeforeMount(async () => {
     
       class="text-white rounded-lg" id="details"
     >
-    <div v-if="bookingDetails" class="flex flex-col items-center">
+    <div v-if="bookingDetails" class=" flex flex-col items-center">
       <div class="mt-16 flex flex-col items-center w-4/6">
         <p class="bg-violet-600 text-white rounded-3xl px-6 py-1 text-2xl text-center">
           {{ bookingDetails.name }}
@@ -77,7 +77,7 @@ onBeforeMount(async () => {
       <div>
         <router-link :to="{ name: 'Home' }" class="flex pb-6 pl-10">
           <div class="flex items-center hover:opacity-80">
-            <IconArrowLeft /><p class="mt-1">Back</p>
+            <IconArrowLeft/><p class="mt-1">Back</p>
           </div>
         </router-link>
       </div>

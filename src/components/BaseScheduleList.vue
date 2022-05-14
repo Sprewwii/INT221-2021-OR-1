@@ -25,11 +25,11 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
 
 <template>
   <div class="ml-64 mr-12">
-    <h1 class="text-gray-300 text-2xl pt-10 mb-3 mr-8 ml-32 md:mx-16 lg:mx-32 font-medium">
+    <h1 class="text-gray-300 text-2xl mb-3 mr-8 ml-32 md:mx-16 lg:mx-32 font-medium mt-16 select-none">
       Scheduled Events
     </h1>
-    <div class="relative shadow-2xl mr-8 ml-32">
-      <table class="w-full text-center text-gray-200">
+    <div class="relative shadow-2xl mr-8 ml-32 mt-10">
+      <table class="w-full text-center text-gray-200 select-none">
         <thead class="text-xs uppercase text-gray-300 sm:text-sm">
           <tr>
             <th scope="col" class="px-6 py-3 w-4/12">Name</th>
@@ -121,5 +121,4 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
 </template>
 
 <style>
-
 </style>

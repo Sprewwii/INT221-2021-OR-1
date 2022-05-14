@@ -30,7 +30,7 @@ export const eventManager = reactive({
       return this.eventCategories.find((eventCategory) => eventCategory.categoryId === id)
   },
   createEvent: async function (booking) {
-    console.log(booking)
+    console.log({...booking,startTime:new Date(booking.startTime).toISOString()})
     const res = await fetch('http://intproj21.sit.kmutt.ac.th/or1/api/events', {
       method: 'POST',
       headers: {

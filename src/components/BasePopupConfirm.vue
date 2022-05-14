@@ -6,7 +6,7 @@ defineEmits(['closeConfirmModal', 'deleteBooking'])
 </script>
  
 <template>
-    <div class="bg-black/20 z-40 h-screen w-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div class="bg-black/70 z-40 h-screen w-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div
             class=" overflow-y-auto overflow-x-hidden z-50 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
             <div class="relative p-4 w-full max-w-md h-full">
