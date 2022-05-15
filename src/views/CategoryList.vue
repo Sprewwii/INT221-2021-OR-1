@@ -19,7 +19,7 @@ const eventCategories = computed(() => eventManager.eventCategories);
                 id="cards" v-for="eventCategory in eventCategories" :key="eventCategory.categoryId">
                 <h5 class="text-xl font-semibold tracking-tight text-white text-center tracking-wider">{{ eventCategory.categoryName }}</h5>
             
-                <p class="bg-violet-600 rounded-lg text-white text-center w-2/6 my-5 pt-1">{{ eventCategory.categoryDuration }} minutes</p>
+                <p class="bg-violet-600 rounded-lg text-white text-center w-1/2 my-5 pt-1">{{ eventCategory.categoryDuration }} minutes</p>
                  <div class="flex flex-col items-center justify-center w-full h-full">
                 <p v-if="eventCategory.categoryDescription == null" class="font-normal text-gray-500">No Description</p>
                 <p v-else class="font-normal text-gray-300">{{ eventCategory.categoryDescription }}</p>

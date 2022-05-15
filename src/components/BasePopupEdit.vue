@@ -66,10 +66,12 @@ const editingBooking = computed(() => {
                             </div>
                         </div>
                         <div>
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-300">Start Time</label>
-                            <input v-model="editingBooking.startTime" type="datetime-local" name="email" id="email"
-                                class="border text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
-                                required="">
+                            <label class="block mb-2 text-sm font-medium text-gray-300">Start Time</label>
+                        
+                                <Datepicker v-model="editingBooking.startTime" :minDate="new Date()" 
+                            @blur="validateDateTime()" class="dp__theme_light" placeholder="Select Date" position="center" required/>    
+                            <p v-show="showWarningDateTime" class="text-sm text-red-400 absolute mt-1">* Please choose future dates.</p>
+                        
                         </div>
                         <div>
                             <label for="note" class="block mb-2 text-sm font-medium text-gray-300">Note</label>

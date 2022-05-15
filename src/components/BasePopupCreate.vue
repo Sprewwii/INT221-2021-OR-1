@@ -105,7 +105,7 @@ const clearCreatingBooking = () => {
                             </div>
                         </div>
                         <div>
-                            <label for="email" class="block mb-3 text-sm font-medium text-neutral-300">Start Time {{new Date() }} {{new Date(new Date().getTime()    + 60000)}}</label>
+                            <label class="block mb-3 text-sm font-medium text-neutral-300">Start Time</label>
                             <!-- <input v-model="creatingBooking.startTime" type="datetime-local" name="email" id="email"
                                 class="border text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-600 border-neutral-500 placeholder-neutral-400 text-white"
                                 required="" min="2022-05-14T20:30"> -->

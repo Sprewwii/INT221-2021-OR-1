@@ -10,7 +10,7 @@ defineEmits(['closeConfirmModal', 'deleteBooking'])
         <div
             class=" overflow-y-auto overflow-x-hidden z-50 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
             <div class="relative p-4 w-full max-w-md h-full">
-                <div class="relative rounded-lg shadow bg-gray-800">
+                <div class="relative rounded-lg shadow" id="popupConfirm">
                     <button type="button" @click="$emit('closeConfirmModal')"
                         class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-2 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white">
                         <iconClose />
@@ -35,4 +35,7 @@ defineEmits(['closeConfirmModal', 'deleteBooking'])
 </template>
  
 <style>
+#popupConfirm {
+    background-color: #292B2E;
+}
 </style>
