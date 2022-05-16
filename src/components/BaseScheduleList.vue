@@ -16,7 +16,10 @@ const props = defineProps({
     default: 0
   },
 })
-
+const a = () => {
+  selectedBookingId === 0
+  console.log("abc")
+}
 const selectedBookingId = computed(() => props.selectedBookingId)
 
 defineEmits(['selectBooking','editBooking','deleteBooking'])
@@ -93,7 +96,8 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
                 <button @click="$emit('selectBooking', booking.id)">
                   <iconMenuKebabVue />
                 </button>
-                <ul class="dropdown-menu absolute text-white pt-1 z-10" v-show="selectedBookingId === booking.id">
+                <ul class="dropdown-menu absolute text-white pt-1 z-10" v-show="selectedBookingId === booking.id"
+                >
                   <li>
                     <button
                       class="rounded-t bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"

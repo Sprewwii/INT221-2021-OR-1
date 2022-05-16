@@ -1,6 +1,8 @@
 <script setup>
 import iconClose from "./icons/IconClose.vue"
 import { eventManager } from "../scripts/eventManager.js"
+import { validation } from "../scripts/validation.js"
+
 import { ref, computed } from "vue"
 const props = defineProps({
     editingBooking: {
@@ -8,21 +10,21 @@ const props = defineProps({
         default: {}
     }
 })
-
 defineEmits(['editBooking', 'closeEditModal'])
+const editingBooking = computed(() => props.editingBooking)
+const showWarning = ref({dateTimePast:false,dateTimeOverlap:false})
 
-const editingBooking = computed(() => {
-    return {...props.editingBooking,startTime: String(props.editingBooking.startTime).substring(0, 16)}
-})
+const validateDateTime = () => { 
+showWarning.value.dateTimePast = validation.isPast(editingBooking.value.startTime) 
+showWarning.value.dateTimeOverlap = validation.isOverlap(editingBooking.value)
+}
 
-// const formatDate = () => {
-//     return String(editingBooking.value.startTime).substring(0, 16)
-// }
-
-// const startTime = computed(() => String(editingBooking.value.startTime).substring(0, 16))
+const clearEditingBooking = () => { 
+showWarning.value.dateTimePast = false 
+showWarning.value.dateTimeOverlap = false 
+}
 
 </script>
- 
 <template>
     <div
         class="bg-black/30 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
@@ -70,8 +72,9 @@ const editingBooking = computed(() => {
                         
                                 <Datepicker v-model="editingBooking.startTime" :minDate="new Date()" 
                             @blur="validateDateTime()" class="dp__theme_light" placeholder="Select Date" position="center" required/>    
-                            <p v-show="showWarningDateTime" class="text-sm text-red-400 absolute mt-1">* Please choose future dates.</p>
-                        
+                            <p v-if="showWarning.dateTimePast" class="text-sm text-red-400 absolute mt-1">* Please choose future dates.</p>
+                            <p v-else-if="showWarning.dateTimeOverlap" class="text-sm text-red-400 absolute mt-1">* Please choose another time.</p>
+            
                         </div>
                         <div>
                             <label for="note" class="block mb-2 text-sm font-medium text-gray-300">Note</label>

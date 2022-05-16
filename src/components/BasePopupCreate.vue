@@ -1,52 +1,39 @@
 <script setup>
 import iconClose from "./icons/IconClose.vue"
 import { eventManager } from "../scripts/eventManager.js"
+import { validation } from "../scripts/validation.js"
 import { ref, computed } from "vue"
 defineEmits(['closeCreateModal'])
-// defineEmits(['createBooking', 'closeCreateModal'])
 
 const eventCategories = computed(() => eventManager.eventCategories);
 const creatingBooking = ref({})
-const showWarningCreate = ref(false)
-const showWarningEmail = ref(false)
-const showWarningDateTime = ref(false)
+const showWarning = ref({create:false,email:false,dateTimePast:false,dateTimeOverlap:false})
 
 const validateEmail = () => {
-    if (creatingBooking.value.email && creatingBooking.value.email.match(
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    )) {
-        showWarningEmail.value = false
-    } else {
-        showWarningEmail.value = true
-    }
+    showWarning.value.email = !validation.isEmail(creatingBooking.value.email)
 }
 
 const validateDateTime = () => {
-     console.log("blur")
-      console.log(creatingBooking.value.startTime + " : " + new Date(new Date().getTime() + 60000))
-    if(creatingBooking.value.startTime < new Date(new Date().getTime()) ){
-        showWarningDateTime.value = true
-        console.log("blur22")
-    }else{
-        showWarningDateTime.value = false
-    }
+    if(!creatingBooking.value.startTime) return;
+    showWarning.value.dateTimePast = validation.isPast(creatingBooking.value.startTime)
+    showWarning.value.dateTimeOverlap = validation.isOverlap(creatingBooking.value)
 }
 
 const createBooking = (e) => {
-     if(creatingBooking.value.name && creatingBooking.value.email && creatingBooking.value.category && creatingBooking.value.startTime && !showWarningEmail.value && !showWarningDateTime.value){
+     if(creatingBooking.value.name && creatingBooking.value.email && creatingBooking.value.category && creatingBooking.value.startTime && !showWarning.value.email && !showWarning.value.dateTimePast && !showWarning.value.dateTimeOverlap){
   e.preventDefault();
   eventManager.createEvent(creatingBooking.value);
   clearCreatingBooking()
 //   toggleCreateModal();
      }else{
-         showWarningCreate.value= true
+         showWarning.value.create= true
      }
 };
 
 const clearCreatingBooking = () => {
-    showWarningEmail.value = false
-    showWarningCreate.value= false
-    showWarningDateTime.value = false
+    showWarning.value.email = false
+     showWarning.value.create= false
+    showWarning.value.dateTimePast = false
     creatingBooking.value = {}
 }
 
@@ -81,14 +68,14 @@ const clearCreatingBooking = () => {
                                 placeholder="Example@mail.kmutt.ac.th" required
                                 @blur="validateEmail()"
                                >
-                            <p v-show="showWarningEmail" class="text-sm text-red-400 absolute mt-1">* Email must be a valid email address</p>
+                            <p v-show="showWarning.email" class="text-sm text-red-400 absolute mt-1">* Email must be a valid email address</p>
 
                         </div>
                         <div>
                             <label for="category" class="block mb-3 text-sm font-medium text-neutral-300">Choose Event
                                 Category</label>
                             <div class="flex">
-                                <select v-model="creatingBooking.category"
+                                <select @change="validateDateTime()" v-model="creatingBooking.category"
                                     class="text-white bg-neutral-700 border border-neutral-700 hover:bg-neutral-800 focus:outline-none focus:ring-violet-300 focus:border-violet-500 rounded-lg text-sm text-left inline-flex items-center">
                                     <option value="" selected disabled hidden></option>
                                     <option :value="eventCategory" v-for="(eventCategory, index) in eventCategories"
@@ -113,7 +100,8 @@ const clearCreatingBooking = () => {
 <!-- :minTime="{ hours: new Date().getHours(), minutes: new Date().getMinutes()+1 }" -->
                             <Datepicker v-model="creatingBooking.startTime" :minDate="new Date()" 
                             @blur="validateDateTime()" class="dp__theme_light" placeholder="Select Date" position="center" required/>    
-                            <p v-show="showWarningDateTime" class="text-sm text-red-400 absolute mt-1">* Please choose future dates.</p>
+                            <p v-if="showWarning.dateTimePast" class="text-sm text-red-400 absolute mt-1">* Please choose future dates.</p>
+                            <p v-else-if="showWarning.dateTimeOverlap" class="text-sm text-red-400 absolute mt-1">* Please choose another time.</p>
                         </div>
                         <div>
                             <label for="note" class="block mb-3 text-sm font-medium text-neutral-300">Note</label>
@@ -121,10 +109,10 @@ const clearCreatingBooking = () => {
                                 class="mb-4 text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border border-neutral-700 placeholder-neutral-400 text-white"
                                 placeholder="detail..."> </textarea>
                         </div>
-                        <p v-show="showWarningCreate" class="text-sm text-red-400 absolute bottom-20">* Please fill out the form completely.</p>
+                        <p v-show=" showWarning.create" class="text-sm text-red-400 absolute bottom-20">* Please fill out the form completely.</p>
                         <button type="button" 
                             class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-800"
-                              @click="createBooking($event); !showWarningCreate ? $emit('closeCreateModal') : ''">Create</button>
+                              @click="createBooking($event); !showWarning.create ? $emit('closeCreateModal') : ''">Create</button>
                      <!-- ; clearCreatingBooking() -->
                      <!-- validateBooking() ? $emit('createBooking', creatingBooking, $event) : '' -->
                     </form>

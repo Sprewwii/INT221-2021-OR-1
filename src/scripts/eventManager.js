@@ -78,7 +78,7 @@ export const eventManager = reactive({
       },
       body: JSON.stringify({
         startTime: new Date(booking.startTime).toISOString(),
-        note: booking.note,
+        note: booking.note ? booking.note : null,
       })
     });
   
