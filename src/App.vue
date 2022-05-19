@@ -51,14 +51,7 @@ aside, #cards, #popupCreate {
     background-color: #292B2E;
 }
 
-.router-link-active {
-  background-color: #1b1c1e58;
-  border-top-right-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-  padding: 1rem;
-  /* padding-left: 2rem; */
-  /* width: 100vw; */
-}
+
 /* 
 li:hover {
     background-color: #1b1c1e58;

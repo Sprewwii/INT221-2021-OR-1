@@ -7,7 +7,7 @@ defineEmits(['closeCreateModal'])
 
 const eventCategories = computed(() => eventManager.eventCategories);
 const creatingBooking = ref({})
-const showWarning = ref({create:false,email:false,dateTimePast:false,dateTimeOverlap:false})
+const showWarning = ref({isName:false,isEmail:false,isCategory:false,isStartTime:false,create:false,email:false,dateTimePast:false,dateTimeOverlap:false})
 
 const validateEmail = () => {
     showWarning.value.email = !validation.isEmail(creatingBooking.value.email)
@@ -20,20 +20,43 @@ const validateDateTime = () => {
 }
 
 const createBooking = (e) => {
-     if(creatingBooking.value.name && creatingBooking.value.email && creatingBooking.value.category && creatingBooking.value.startTime && !showWarning.value.email && !showWarning.value.dateTimePast && !showWarning.value.dateTimeOverlap){
-  e.preventDefault();
+    console.log(import.meta.env.VITE_API)
+    console.log(creatingBooking.value.name);
+    showWarning.value.create = false
+    if(!creatingBooking.value.name)  showWarning.value.isName = true
+    if(!creatingBooking.value.email)  showWarning.value.isEmail = true
+    if(!creatingBooking.value.category)  showWarning.value.isCategory = true
+    if(!creatingBooking.value.startTime)  showWarning.value.isStartTime = true
+
+
+    for (let warning in showWarning.value) {
+  if(warning != "create" && showWarning.value[warning] === true){
+        console.log(`${warning}: ${showWarning.value[warning]}`);
+        showWarning.value.create = true
+  }
+}
+
+if(!showWarning.value.create){
+      e.preventDefault();
   eventManager.createEvent(creatingBooking.value);
   clearCreatingBooking()
-//   toggleCreateModal();
-     }else{
-         showWarning.value.create= true
-     }
+}
+
+//      if(creatingBooking.value.name && creatingBooking.value.email && creatingBooking.value.category && creatingBooking.value.startTime && !showWarning.value.email && !showWarning.value.dateTimePast && !showWarning.value.dateTimeOverlap){
+// e.preventDefault();
+//   eventManager.createEvent(creatingBooking.value);
+//   clearCreatingBooking()
+// //   toggleCreateModal();
+//      }else{
+//          showWarning.value.create = true
+//      }
 };
 
 const clearCreatingBooking = () => {
-    showWarning.value.email = false
-     showWarning.value.create= false
-    showWarning.value.dateTimePast = false
+    showWarning.value = {isName:false,isEmail:false,isCategory:false,isStartTime:false,create:false,email:false,dateTimePast:false,dateTimeOverlap:false}
+    // showWarning.value.email = false
+    //  showWarning.value.create= false
+    // showWarning.value.dateTimePast = false
     creatingBooking.value = {}
 }
 
@@ -59,23 +82,27 @@ const clearCreatingBooking = () => {
                             <label for="name" class="block mb-3 text-sm font-medium text-neutral-300">Name</label>
                             <input v-model="creatingBooking.name" maxlength="100" type="text" name="name" id="name"
                                 class="text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border border-neutral-700 placeholder-neutral-400 text-white"
-                                placeholder="Example OR-1" required/>
+                                placeholder="Example OR-1" @blur="!creatingBooking.name ? showWarning.isName = true : showWarning.isName = false " required/>
+                             <p v-show="showWarning.isName" class="text-sm text-red-400 absolute mt-1">* Enter your name.</p>
                         </div>
                         <div>
                             <label for="email" class="block mb-3 text-sm font-medium text-neutral-300">Email</label>
-                            <input v-model="creatingBooking.email" maxlength="50" type="email" name="email" id="email"
+                            <input v-model="creatingBooking.email" name="email" id="email"
                                 class="text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border border-neutral-700 placeholder-neutral-400 text-white"
                                 placeholder="Example@mail.kmutt.ac.th" required
-                                @blur="validateEmail()"
+                                @blur="validateEmail();!creatingBooking.email ? showWarning.isEmail = true : showWarning.isEmail = false "
                                >
-                            <p v-show="showWarning.email" class="text-sm text-red-400 absolute mt-1">* Email must be a valid email address</p>
-
+                            <p v-if="showWarning.isEmail" class="text-sm text-red-400 absolute mt-1">* Enter your email.</p>
+                            <p v-else-if="showWarning.email" class="text-sm text-red-400 absolute mt-1">* Email must be a valid email address.</p>
+                            <!-- <div class="flex justify-end">
+                                <p class="text-sm text-gray-500 absolute mt-1">{{creatingBooking.email ? creatingBooking.email.length : 0}}/50</p>    
+                            </div> -->
                         </div>
                         <div>
                             <label for="category" class="block mb-3 text-sm font-medium text-neutral-300">Choose Event
                                 Category</label>
                             <div class="flex">
-                                <select @change="validateDateTime()" v-model="creatingBooking.category"
+                                <select @change="validateDateTime()" @blur="(!creatingBooking.category) ? showWarning.isCategory = true : showWarning.isCategory = false " v-model="creatingBooking.category"
                                     class="text-white bg-neutral-700 border border-neutral-700 hover:bg-neutral-800 focus:outline-none focus:ring-violet-300 focus:border-violet-500 rounded-lg text-sm text-left inline-flex items-center">
                                     <option value="" selected disabled hidden></option>
                                     <option :value="eventCategory" v-for="(eventCategory, index) in eventCategories"
@@ -89,7 +116,9 @@ const clearCreatingBooking = () => {
                                     <p v-else class="select-none">{{ creatingBooking.category.categoryDuration }} minutes
                                     </p>
                                 </div>
+                                
                             </div>
+                            <p v-if="showWarning.isCategory" class="text-sm text-red-400 absolute mt-1">* Enter your event category.</p>
                         </div>
                         <div>
                             <label class="block mb-3 text-sm font-medium text-neutral-300">Start Time</label>
@@ -99,8 +128,9 @@ const clearCreatingBooking = () => {
 
 <!-- :minTime="{ hours: new Date().getHours(), minutes: new Date().getMinutes()+1 }" -->
                             <Datepicker v-model="creatingBooking.startTime" :minDate="new Date()" 
-                            @blur="validateDateTime()" class="dp__theme_light" placeholder="Select Date" position="center" required/>    
-                            <p v-if="showWarning.dateTimePast" class="text-sm text-red-400 absolute mt-1">* Please choose future dates.</p>
+                            @blur="validateDateTime(); !creatingBooking.startTime ? showWarning.isStartTime = true : showWarning.isStartTime = false " class="dp__theme_light" placeholder="Select Date" position="center" required/>    
+                            <p v-if="showWarning.isStartTime" class="text-sm text-red-400 absolute mt-1">* Enter your event start time.</p>
+                            <p v-else-if="showWarning.dateTimePast" class="text-sm text-red-400 absolute mt-1">* Please choose future dates.</p>
                             <p v-else-if="showWarning.dateTimeOverlap" class="text-sm text-red-400 absolute mt-1">* Please choose another time.</p>
                         </div>
                         <div>
@@ -109,7 +139,7 @@ const clearCreatingBooking = () => {
                                 class="mb-4 text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border border-neutral-700 placeholder-neutral-400 text-white"
                                 placeholder="detail..."> </textarea>
                         </div>
-                        <p v-show=" showWarning.create" class="text-sm text-red-400 absolute bottom-20">* Please fill out the form completely.</p>
+                    
                         <button type="button" 
                             class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-800"
                               @click="createBooking($event); !showWarning.create ? $emit('closeCreateModal') : ''">Create</button>
@@ -117,7 +147,7 @@ const clearCreatingBooking = () => {
                      <!-- validateBooking() ? $emit('createBooking', creatingBooking, $event) : '' -->
                     </form>
                 </div>
-            </div>S
+            </div>
         </div>
     </div>
 </template>

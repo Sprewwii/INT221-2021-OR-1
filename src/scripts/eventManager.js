@@ -3,7 +3,7 @@ export const eventManager = reactive({
   eventList: [],
   eventCategories: [],
   getEvents: async function () {
-    const res = await fetch("http://intproj21.sit.kmutt.ac.th/or1/api/events") 
+    const res = await fetch(`${import.meta.env.VITE_API}/events`) 
     if (res.status === 200) {
       this.eventList = await res.json()
     } else {
@@ -11,7 +11,7 @@ export const eventManager = reactive({
     }
   },
   getEventById: async function (eventId) {
-    const res = await fetch(`http://intproj21.sit.kmutt.ac.th/or1/api/events/${eventId}`)
+    const res = await fetch(`${import.meta.env.VITE_API}/events/${eventId}`)
     if (res.status === 200) {
       return await res.json()
     } else {
@@ -19,7 +19,7 @@ export const eventManager = reactive({
     }
   },
   getEventCategories: async function () {
-    const res = await fetch("http://intproj21.sit.kmutt.ac.th/or1/api/eventCategories") 
+    const res = await fetch(`${import.meta.env.VITE_API}/eventCategories`) 
     if (res.status === 200) {
       this.eventCategories = await res.json()
     } else {
@@ -31,7 +31,7 @@ export const eventManager = reactive({
   },
   createEvent: async function (booking) {
     console.log({...booking,startTime:new Date(booking.startTime).toISOString()})
-    const res = await fetch('http://intproj21.sit.kmutt.ac.th/or1/api/events', {
+    const res = await fetch(`${import.meta.env.VITE_API}/events`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -58,7 +58,7 @@ export const eventManager = reactive({
     }
   },
   deleteEvent: async function (eventId) {
-    const res = await fetch(`http://intproj21.sit.kmutt.ac.th/or1/api/events/${eventId}`, {
+    const res = await fetch(`${import.meta.env.VITE_API}/events/${eventId}`, {
       method: "DELETE",
     });
   
@@ -71,7 +71,7 @@ export const eventManager = reactive({
     }
   },
   editEvent: async function (booking) {
-    const res = await fetch(`http://intproj21.sit.kmutt.ac.th/or1/api/events/${booking.id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API}/events/${booking.id}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json'
