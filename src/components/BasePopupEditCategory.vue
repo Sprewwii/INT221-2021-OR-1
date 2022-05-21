@@ -33,7 +33,7 @@ showWarning.value.dateTimeOverlap = false
                 </button>
 
                 <div class="py-6 px-6 lg:px-8">
-                    <h3 class="mb-4 text-2xl font-medium text-white">Edit Schedule Event</h3>
+                    <h3 class="mb-4 text-2xl font-medium text-white">Edit Schedule Event {{currenCategoryName}}</h3>
                     <form class="space-y-8">
 
                         <div>
@@ -43,7 +43,7 @@ showWarning.value.dateTimeOverlap = false
                                 class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="Example OR-1" required
                                >
-                               <p v-if="editingCategory.categoryName = '' && editingCategory.categoryName.length <= 0" class="text-sm text-red-400 absolute mt-1">* Enter category name.</p>
+                               <p v-if="editingCategory.categoryName && editingCategory.categoryName.length <= 0" class="text-sm text-red-400 absolute mt-1">* Enter category name.</p>
                             <div v-if="editingCategory.categoryName" class="flex justify-end">
                                 <p :class="{'text-red-400': editingCategory.categoryName.length > 100}" class="text-sm text-gray-500 absolute mt-1">{{editingCategory.categoryName.length}}/100</p>    
                             </div>
