@@ -8,7 +8,7 @@ export const validation = reactive({
         )
     },
     isPast : function(startTime){
-     return startTime < new Date(new Date().getTime())
+     return startTime < new Date()
    },
     isOverlap : function(currentBooking){
         if(currentBooking.category){

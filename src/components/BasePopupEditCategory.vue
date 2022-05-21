@@ -1,0 +1,75 @@
+<script setup>
+import iconClose from "./icons/IconClose.vue"
+import { eventManager } from "../scripts/eventManager.js"
+import { validation } from "../scripts/validation.js"
+
+import { ref, computed } from "vue"
+const props = defineProps({
+    editingCategory: {
+        type: Object,
+        default: {}
+    }
+})
+defineEmits(['editCategory', 'closeEditModal'])
+const currenCategoryName = props.editingCategory.categoryName
+const editingCategory = computed(() => props.editingCategory)
+const showWarning = ref({dateTimePast:false,dateTimeOverlap:false})
+
+const clearEditingBooking = () => { 
+showWarning.value.dateTimePast = false 
+showWarning.value.dateTimeOverlap = false 
+}
+
+</script>
+<template>
+    <div
+        class="bg-black/30 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
+        <div
+            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto">
+            <div class="relative rounded-lg shadow bg-gray-800">
+                <button type="button" @click="$emit('closeEditModal')"
+                    class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white">
+                    <iconClose />
+                </button>
+
+                <div class="py-6 px-6 lg:px-8">
+                    <h3 class="mb-4 text-2xl font-medium text-white">Edit Schedule Event {{editingCategory.currentCategoryName}}</h3>
+                    <form class="space-y-8">
+
+                        <div>
+                            <label for="name" class="block mb-3 text-sm font-medium text-neutral-300">Name</label>
+                            <input v-model="editingCategory.categoryName" name="name" id="name" type="text"
+                                class="text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border border-neutral-700 placeholder-neutral-400 text-white"
+                                placeholder="Example OR-1" required
+                               >
+                        </div>
+                        <div>
+                            <label for="duration" class="block mb-3 text-sm font-medium text-neutral-300">Duration</label>
+                            <div class="flex flex-row items-center">
+                            <input v-model="editingCategory.categoryDuration" name="duration" id="duration" type="number" min="1" max="480"
+                                class="w-1/2 text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border border-neutral-700 placeholder-neutral-400 text-white"
+                                required
+                               >
+                            <p class="text-neutral-400 ml-4">minutes</p>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="description" class="block mb-3 text-sm font-medium text-neutral-300">Description</label>
+                            <textarea v-model="editingCategory.categoryDescription" name="description" id="description" type="text"
+                                class="text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border border-neutral-700 placeholder-neutral-400 text-white"
+                                placeholder="description..." required rows="5"
+                               ></textarea>
+                        </div>
+        
+              
+                        <button @click="$emit('editCategory',editingCategory.categoryName !== editingCategory.currentCategoryName ? editingCategory : {categoryId:editingCategory.categoryId,categoryDuration:editingCategory.categoryDuration, categoryDescription:editingCategory.categoryDescription}, $event)"
+                            class="w-full text-white bg-pink-600 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+ 
+<style>
+</style>

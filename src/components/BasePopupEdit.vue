@@ -12,6 +12,7 @@ const props = defineProps({
 })
 defineEmits(['editBooking', 'closeEditModal'])
 const editingBooking = computed(() => props.editingBooking)
+
 const showWarning = ref({dateTimePast:false,dateTimeOverlap:false})
 
 const validateDateTime = () => { 

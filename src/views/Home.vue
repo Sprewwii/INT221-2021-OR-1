@@ -6,6 +6,7 @@ import BaseScheduleList from "../components/BaseScheduleList.vue";
 import BasePopupEdit from "../components/BasePopupEdit.vue";
 // import iconPlus from "../components/icons/IconPlus.vue";
 import BasePopupConfirm from "../components/BasePopupConfirm.vue";
+import { validation } from "../scripts/validation.js" 
 
 
 const bookingList = computed(() => eventManager.eventList);
@@ -54,12 +55,18 @@ const deleteBooking = () => {
   selectBooking(0)
 }
 
+// const filterBookingsPast = computed(() => bookingList.value.filter((booking) => validation.isPast(new Date(booking.startTime))))
+
 
 </script>
 
 <template>
   <div class="pb-64">
-   
+    <label for="filter">Choose a car:</label>
+    <select name="filter" id="filter" v-model="filter">
+      <option value="filterBookingsPast">Past</option>
+      <option value="filterBookingsPast">Past2</option>
+    </select>
     <BaseScheduleList :bookingList="bookingList" :selectedBookingId="selectedBookingId" @selectBooking="selectBooking" @editBooking="editBooking" @deleteBooking="toggleDeleteConfirm"/>
     <!-- :selectedBookingId="selectedBookingId" @selectBooking="selectBooking" -->
      <!-- <BasePopupCreate

@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import Home from '../views/Home.vue'
 import BaseBookingDetails from '../views/BookingDetails.vue'
 import CategoryList from '../views/CategoryList.vue'
+import AboutUs from '../views/AboutUs.vue'
 
 const history = createWebHistory('/or1/');
 const routes = [
@@ -20,7 +21,11 @@ const routes = [
         name: 'CategoryList',
         component: CategoryList
     },
-   
+    {
+        path: '/about',
+        name: 'AboutUs',
+        component: AboutUs
+    },
 ]
 
 const router = createRouter({history,routes})

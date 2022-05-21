@@ -64,6 +64,7 @@ export const eventManager = reactive({
   
     if (res.status === 200) {
       // const deletedBooking = await res.json()
+      // console.log("del "+deletedBooking)
       this.eventList = this.eventList.filter((event) => event.id != eventId)
 
     } else {
@@ -84,7 +85,10 @@ export const eventManager = reactive({
   
     if (res.status === 200) {
       const editedBooking = await res.json();
-      const foundBooking = this.eventList.find((event) => event.id === editedBooking.id)
+      const foundBooking = this.eventList.find((event) => 
+ event.id === editedBooking.id
+     )
+      console.log("foud " + foundBooking)
       foundBooking.note = editedBooking.note
       foundBooking.startTime = editedBooking.startTime
       this.sortByDateDesc();
@@ -94,7 +98,31 @@ export const eventManager = reactive({
   },
   sortByDateDesc: function(){
     this.eventList = this.eventList.sort((a,b) => new Date(b.startTime) - new Date(a.startTime))
-  }
+  },
+  editEventCategory: async function (category) {
+    console.log("edit" + category.categoryDescription)
+    const res = await fetch(`${import.meta.env.VITE_API}/eventCategories/${category.categoryId}`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(category)
+    });
+  
+    if (res.status === 200) {
+      const editedCategory = await res.json();
+      const foundCategory = this.eventCategories.find((eventCategory) => 
+eventCategory.categoryId === category.categoryId
+  )
+      foundCategory.categoryName = editedCategory.categoryName
+      foundCategory.categoryDuration = editedCategory.categoryDuration
+      foundCategory.categoryDescription = editedCategory.categoryDescription
+
+      console.log("แก้ไขข้อมูลได้")
+    } else {
+      console.log("ไม่สามารถแก้ไขข้อมูลได้")
+    }
+  },
 })
 
 // console.log({  name: booking.name,

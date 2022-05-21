@@ -16,10 +16,7 @@ const props = defineProps({
     default: 0
   },
 })
-const a = () => {
-  selectedBookingId === 0
-  console.log("abc")
-}
+
 const selectedBookingId = computed(() => props.selectedBookingId)
 
 defineEmits(['selectBooking','editBooking','deleteBooking'])
@@ -92,11 +89,11 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
             <td class="pr-3">
 
 
-              <div class="dropdown inline-block relative">
+              <div class="inline-block relative">
                 <button @click="$emit('selectBooking', booking.id)">
                   <iconMenuKebabVue />
                 </button>
-                <ul class="dropdown-menu absolute text-white pt-1 z-10" v-show="selectedBookingId === booking.id"
+                <ul class="absolute text-white pt-1 z-10" v-show="selectedBookingId === booking.id"
                 >
                   <li>
                     <button

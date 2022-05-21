@@ -15,19 +15,18 @@ const validateEmail = () => {
 
 const validateDateTime = () => {
     if(!creatingBooking.value.startTime) return;
+    console.log("valid "+creatingBooking.value.startTime);
     showWarning.value.dateTimePast = validation.isPast(creatingBooking.value.startTime)
     showWarning.value.dateTimeOverlap = validation.isOverlap(creatingBooking.value)
 }
 
 const createBooking = (e) => {
-    console.log(import.meta.env.VITE_API)
-    console.log(creatingBooking.value.name);
+    e.preventDefault();
     showWarning.value.create = false
     if(!creatingBooking.value.name)  showWarning.value.isName = true
     if(!creatingBooking.value.email)  showWarning.value.isEmail = true
     if(!creatingBooking.value.category)  showWarning.value.isCategory = true
     if(!creatingBooking.value.startTime)  showWarning.value.isStartTime = true
-
 
     for (let warning in showWarning.value) {
   if(warning != "create" && showWarning.value[warning] === true){
@@ -36,8 +35,12 @@ const createBooking = (e) => {
   }
 }
 
+if(!showWarning.value.create && (creatingBooking.value.name.length > 100 || creatingBooking.value.email.length > 50 || creatingBooking.value.note && creatingBooking.value.note.length > 500) ) 
+{showWarning.value.create = true
+console.log("error")
+}
+
 if(!showWarning.value.create){
-      e.preventDefault();
   eventManager.createEvent(creatingBooking.value);
   clearCreatingBooking()
 }
@@ -80,24 +83,30 @@ const clearCreatingBooking = () => {
                     <form class="space-y-8">
                         <div>
                             <label for="name" class="block mb-3 text-sm font-medium text-neutral-300">Name</label>
-                            <input v-model="creatingBooking.name" maxlength="100" type="text" name="name" id="name"
-                                class="text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border border-neutral-700 placeholder-neutral-400 text-white"
+                            <input v-model="creatingBooking.name" type="text" name="name" id="name"
+                             :class="[creatingBooking.name && creatingBooking.name.length > 100 ?'border-red-400 focus:ring-red-400 focus:border-red-400':'border-neutral-700 focus:ring-violet-500 focus:border-violet-500' ]"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="Example OR-1" @blur="!creatingBooking.name ? showWarning.isName = true : showWarning.isName = false " required/>
                              <p v-show="showWarning.isName" class="text-sm text-red-400 absolute mt-1">* Enter your name.</p>
+                              <div v-if="creatingBooking.name" class="flex justify-end">
+                                <p :class="{'text-red-400': creatingBooking.name.length > 100}" class="text-sm text-gray-500 absolute mt-1">{{creatingBooking.name.length}}/100</p>    
+                            </div>
                         </div>
                         <div>
                             <label for="email" class="block mb-3 text-sm font-medium text-neutral-300">Email</label>
-                            <input v-model="creatingBooking.email" name="email" id="email"
-                                class="text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border border-neutral-700 placeholder-neutral-400 text-white"
+                            <input v-model="creatingBooking.email" name="email" id="email" type="text"
+                               :class="[creatingBooking.email && creatingBooking.email.length > 50 ?'border-red-400 focus:ring-red-400 focus:border-red-400':'border-neutral-700 focus:ring-violet-500 focus:border-violet-500' ]"
+                                class="text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="Example@mail.kmutt.ac.th" required
                                 @blur="validateEmail();!creatingBooking.email ? showWarning.isEmail = true : showWarning.isEmail = false "
                                >
                             <p v-if="showWarning.isEmail" class="text-sm text-red-400 absolute mt-1">* Enter your email.</p>
                             <p v-else-if="showWarning.email" class="text-sm text-red-400 absolute mt-1">* Email must be a valid email address.</p>
-                            <!-- <div class="flex justify-end">
-                                <p class="text-sm text-gray-500 absolute mt-1">{{creatingBooking.email ? creatingBooking.email.length : 0}}/50</p>    
-                            </div> -->
+                            <div v-if="creatingBooking.email" class="flex justify-end">
+                                <p :class="{'text-red-400': creatingBooking.email.length > 50}" class="text-sm text-gray-500 absolute mt-1">{{creatingBooking.email.length}}/50</p>    
+                            </div>
                         </div>
+                    
                         <div>
                             <label for="category" class="block mb-3 text-sm font-medium text-neutral-300">Choose Event
                                 Category</label>
@@ -135,9 +144,13 @@ const clearCreatingBooking = () => {
                         </div>
                         <div>
                             <label for="note" class="block mb-3 text-sm font-medium text-neutral-300">Note</label>
-                            <textarea v-model="creatingBooking.note" maxlength="500" name="text" id="text"
-                                class="mb-4 text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border border-neutral-700 placeholder-neutral-400 text-white"
+                            <textarea v-model="creatingBooking.note" name="text" id="text"
+                                  :class="[creatingBooking.note && creatingBooking.note.length > 500 ?'border-red-400 focus:ring-red-400 focus:border-red-400':'border-neutral-700 focus:ring-violet-500 focus:border-violet-500' ]"
+                                class="text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="detail..."> </textarea>
+                            <div v-if="creatingBooking.note" class="flex justify-end">
+                                <p :class="{'text-red-400': creatingBooking.note.length > 500}" class="text-sm text-gray-500 absolute mt-1">{{creatingBooking.note.length}}/500</p>    
+                            </div>
                         </div>
                     
                         <button type="button" 

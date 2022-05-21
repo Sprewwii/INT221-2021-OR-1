@@ -35,7 +35,7 @@ const selectedPage = ref(1)
                   01</p>
                <ul class="w-full space-y-2">
                   <li :class="selectedPage === 1 ? 'bg-neutral-900':''" @click="selectedPage = 1">
-                     <router-link :to="{ name: 'Home' }" active-class="text-primary">
+                     <router-link :to="{ name: 'Home' }">
                         <div class="flex items-center p-4 text-lg font-normal rounded-lg text-white w-full">
                            <iconCalendar width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
                            <span class="ml-3">Scheduled Event</span>
@@ -43,14 +43,21 @@ const selectedPage = ref(1)
                      </router-link>
                   </li>
                   <li :class="selectedPage === 2 ? 'bg-neutral-900':''" @click="selectedPage = 2">
-                     <router-link :to="{ name: 'CategoryList' }" active-class="text-red">
+                     <router-link :to="{ name: 'CategoryList' }">
                         <div class="flex w-full items-center p-4 text-lg font-normal rounded-lg text-white">
                            <iconCategory width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
                            <span class="ml-3">Event Categories</span>
                         </div>
                      </router-link>
                   </li>
-
+    <li :class="selectedPage === 3 ? 'bg-neutral-900':''" @click="selectedPage = 3">
+                     <router-link :to="{ name: 'AboutUs' }">
+                        <div class="flex w-full items-center p-4 text-lg font-normal rounded-lg text-white">
+                           <iconCategory width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
+                           <span class="ml-3">Among Us</span>
+                        </div>
+                     </router-link>
+                  </li>
                </ul>
           
                <button
@@ -66,13 +73,5 @@ const selectedPage = ref(1)
 </template>
  
 <style>
-.router-link-active,.router-link-exact-active {
-     background-color: #0f101158;
-  /* border-top-right-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-  padding: 1rem;
-  width:100%;
-  margin-left: 100px; */
-/* #1b1c1e58 */
-}
+
 </style>

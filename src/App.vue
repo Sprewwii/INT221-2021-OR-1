@@ -47,7 +47,7 @@ table {
 }
 
 
-aside, #cards, #popupCreate {
+aside, #cards, #popupCreate, #cardMember {
     background-color: #292B2E;
 }
 
