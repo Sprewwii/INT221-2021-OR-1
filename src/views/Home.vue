@@ -62,11 +62,12 @@ const deleteBooking = () => {
 
 <template>
   <div class="pb-64">
-    <label for="filter">Choose a car:</label>
+    <div class="ml-96">
     <select name="filter" id="filter" v-model="filter">
       <option value="filterBookingsPast">Past</option>
       <option value="filterBookingsPast">Past2</option>
     </select>
+    </div>
     <BaseScheduleList :bookingList="bookingList" :selectedBookingId="selectedBookingId" @selectBooking="selectBooking" @editBooking="editBooking" @deleteBooking="toggleDeleteConfirm"/>
     <!-- :selectedBookingId="selectedBookingId" @selectBooking="selectBooking" -->
      <!-- <BasePopupCreate
@@ -78,6 +79,7 @@ const deleteBooking = () => {
       @deleteBooking="deleteBooking" />
     <BasePopupEdit v-show="Object.keys(editingBooking).length > 0" @closeEditModal="editingBooking = {}" :editingBooking="editingBooking"
       @editBooking="updateEditingBooking" />
+      
   </div>
 </template>
 

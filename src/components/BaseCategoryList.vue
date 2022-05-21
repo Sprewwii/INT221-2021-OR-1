@@ -18,18 +18,15 @@ const props = defineProps({
 defineEmits(['selectCategory','editBooking'])
 
 const selectedCategoryId = computed(() => props.selectedCategoryId)
-const a = () => {
-console.log("sdad")
-}
 
-// transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300
+
 </script>
  
 <template>
 
   <div class="grid gap-10 grid-cols-3 ml-32 mr-24 mt-6">
     <div
-      class="block p-6 bg-white rounded-lg shadow-md text-gray-400 text-center w-full"
+      class="block p-6 bg-white rounded-lg shadow-md text-gray-400 text-center w-full transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
       id="cards" v-for="eventCategory in categoryList" :key="eventCategory.categoryId">
       <div class="w-full inline-block relative">
         <div class="flex items-end justify-end z-50">

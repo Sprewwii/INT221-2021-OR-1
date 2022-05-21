@@ -24,5 +24,8 @@ export const validation = reactive({
             booking.endTime = new Date(new Date(booking.startTime).getTime() + booking.duration * 60000)
             return booking.id !== currentBooking.id && booking.categoryName === currentBooking.categoryName && currentBooking.startTime <= booking.endTime && booking.startTime <= currentBooking.endTime
         })//booking.name !== currentBooking.name && 
+   },
+   validateCategoryDuration :function(duration){
+        return duration >= 1 && duration <= 480
    }
 })

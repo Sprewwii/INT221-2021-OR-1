@@ -18,6 +18,25 @@ export const eventManager = reactive({
       console.log(`ไม่พบข้อมูล event Id: ${eventId}`)
     }
   },
+
+  // filterfetch
+  getEventPast: async function () {
+    const res = await fetch(`${import.meta.env.VITE_API}/events/past`)
+    if (res.status === 200) {
+    return await res.json()
+    } else {
+     console.log('ไม่พบข้อมูล event Past')
+    }
+  },
+  getEventFuture: async function () {
+    const res = await fetch(`${import.meta.env.VITE_API}/events/future`)
+    if (res.status === 200) {
+      return await res.json()
+    } else {
+      console.log('ไม่พบข้อมูล event Future')
+    }
+  },
+
   getEventCategories: async function () {
     const res = await fetch(`${import.meta.env.VITE_API}/eventCategories`) 
     if (res.status === 200) {

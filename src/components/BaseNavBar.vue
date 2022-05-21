@@ -2,6 +2,7 @@
 import iconCalendar from './icons/IconCalendar.vue';
 import iconCategory from './icons/IconCategory.vue';
 import iconPlus from './icons/IconPlus.vue';
+import iconAboutUs from './icons/IconAboutUs.vue';
 import { ref } from "vue";
 
 defineEmits(['toggleCreateModal'])
@@ -53,8 +54,8 @@ const selectedPage = ref(1)
     <li :class="selectedPage === 3 ? 'bg-neutral-900':''" @click="selectedPage = 3">
                      <router-link :to="{ name: 'AboutUs' }">
                         <div class="flex w-full items-center p-4 text-lg font-normal rounded-lg text-white">
-                           <iconCategory width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
-                           <span class="ml-3">Among Us</span>
+                           <iconAboutUs width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
+                           <span class="ml-3">About Us</span>
                         </div>
                      </router-link>
                   </li>

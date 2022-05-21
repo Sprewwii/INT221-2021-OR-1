@@ -13,7 +13,7 @@ const props = defineProps({
 defineEmits(['editCategory', 'closeEditModal'])
 const currenCategoryName = props.editingCategory.categoryName
 const editingCategory = computed(() => props.editingCategory)
-const showWarning = ref({dateTimePast:false,dateTimeOverlap:false})
+const showWarning = ref({duration:false,dateTimeOverlap:false})
 
 const clearEditingBooking = () => { 
 showWarning.value.dateTimePast = false 
@@ -33,25 +33,33 @@ showWarning.value.dateTimeOverlap = false
                 </button>
 
                 <div class="py-6 px-6 lg:px-8">
-                    <h3 class="mb-4 text-2xl font-medium text-white">Edit Schedule Event {{editingCategory.currentCategoryName}}</h3>
+                    <h3 class="mb-4 text-2xl font-medium text-white">Edit Schedule Event</h3>
                     <form class="space-y-8">
 
                         <div>
                             <label for="name" class="block mb-3 text-sm font-medium text-neutral-300">Name</label>
                             <input v-model="editingCategory.categoryName" name="name" id="name" type="text"
-                                class="text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border border-neutral-700 placeholder-neutral-400 text-white"
+                             :class="[(editingCategory.categoryName && (editingCategory.categoryName.length > 100)) ?'border-red-400 focus:ring-red-400 focus:border-red-400':'border-neutral-700 focus:ring-violet-500 focus:border-violet-500' ]"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="Example OR-1" required
                                >
+                               <p v-if="editingCategory.categoryName = '' && editingCategory.categoryName.length <= 0" class="text-sm text-red-400 absolute mt-1">* Enter category name.</p>
+                            <div v-if="editingCategory.categoryName" class="flex justify-end">
+                                <p :class="{'text-red-400': editingCategory.categoryName.length > 100}" class="text-sm text-gray-500 absolute mt-1">{{editingCategory.categoryName.length}}/100</p>    
+                            </div>
                         </div>
                         <div>
                             <label for="duration" class="block mb-3 text-sm font-medium text-neutral-300">Duration</label>
                             <div class="flex flex-row items-center">
                             <input v-model="editingCategory.categoryDuration" name="duration" id="duration" type="number" min="1" max="480"
-                                class="w-1/2 text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border border-neutral-700 placeholder-neutral-400 text-white"
+                            :class="[!validation.validateCategoryDuration(editingCategory.categoryDuration) ?'border-red-400 focus:ring-red-400 focus:border-red-400':'border-neutral-700 focus:ring-violet-500 focus:border-violet-500' ]"
+                                class="w-1/2 text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 required
                                >
                             <p class="text-neutral-400 ml-4">minutes</p>
+                            
                             </div>
+                             <p v-if="!validation.validateCategoryDuration(editingCategory.categoryDuration)" class="text-sm text-red-400 absolute mt-1">* Duration must between 1 to 480 minutes.</p>
                         </div>
                         <div>
                             <label for="description" class="block mb-3 text-sm font-medium text-neutral-300">Description</label>

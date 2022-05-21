@@ -24,8 +24,8 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
 </script>
 
 <template>
-  <div class="ml-64 mr-12">
-    <h1 class="text-gray-300 text-2xl mb-3 mr-8 ml-32 md:mx-16 lg:mx-32 font-medium mt-16 select-none">
+  <div class="ml-64 mr-12 mt-6">
+    <h1 class="text-gray-300 text-2xl mb-3 mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none">
       Scheduled Events
     </h1>
     <div class="relative shadow-2xl mr-8 ml-32 mt-10">

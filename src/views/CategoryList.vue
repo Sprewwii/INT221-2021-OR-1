@@ -45,7 +45,7 @@ const cleanEditingCategory = () => {
             <BaseCategoryList :categoryList="eventCategories" :selectedCategoryId="selectedCategoryId" @selectCategory="selectCategory" @editCategory="editCategory"/>
         </div>
 
-    <BasePopupEditCategory v-show="Object.keys(editingCategory).length > 0" :editingCategory="editingCategory" @editCategory="updateEditCategory" @closeEditModal="cleanEditingCategory"/>
+    <BasePopupEditCategory v-show="Object.keys(editingCategory).length > 1" :editingCategory="editingCategory" @editCategory="updateEditCategory" @closeEditModal="cleanEditingCategory"/>
     </div>
 </template>
 
