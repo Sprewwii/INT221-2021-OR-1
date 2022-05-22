@@ -13,7 +13,7 @@ const selectedPage = ref(1)
    <div>
       <div>
          <aside class="h-screen fixed top-0 w-72 rounded-r-2xl shadow-2xl overflow-hidden" aria-label="Sidebar">
-            <div class="flex flex-col items-center overflow-hidden py-4 bg-black-800 mt-3">
+            <div class="flex flex-col items-center overflow-hidden py-4 mt-3">
                <div class="flex items-center">
                   <iconCalendar width="5em" height="5em" fill="#7c3aed" />
                   <div class="ml-2 mt-3">
@@ -34,33 +34,34 @@ const selectedPage = ref(1)
                </div>
                <p class="self-center text-base font-medium whitespace-nowrap text-gray-500 mt-3 mb-16 select-none">ADMIN
                   01</p>
-               <ul class="w-full space-y-2">
-                  <li :class="selectedPage === 1 ? 'bg-neutral-900':''" @click="selectedPage = 1">
+               <!-- <ul class="w-full space-y-2">
+                  <li> -->
+
                      <router-link :to="{ name: 'Home' }">
-                        <div class="flex items-center p-4 text-lg font-normal rounded-lg text-white w-full">
+                        <div class="flex items-center p-6 text-lg font-normal rounded-lg text-white w-full">
                            <iconCalendar width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
                            <span class="ml-3">Scheduled Event</span>
                         </div>
                      </router-link>
-                  </li>
-                  <li :class="selectedPage === 2 ? 'bg-neutral-900':''" @click="selectedPage = 2">
+                  <!-- </li>
+                  <li> -->
                      <router-link :to="{ name: 'CategoryList' }">
-                        <div class="flex w-full items-center p-4 text-lg font-normal rounded-lg text-white">
+                        <div class="flex w-full items-center p-6 text-lg font-normal rounded-lg text-white">
                            <iconCategory width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
                            <span class="ml-3">Event Categories</span>
                         </div>
                      </router-link>
-                  </li>
-    <li :class="selectedPage === 3 ? 'bg-neutral-900':''" @click="selectedPage = 3">
+                  <!-- </li>
+    <li> -->
                      <router-link :to="{ name: 'AboutUs' }">
-                        <div class="flex w-full items-center p-4 text-lg font-normal rounded-lg text-white">
+                        <div class="flex w-full items-center p-6 text-lg font-normal rounded-lg text-white">
                            <iconAboutUs width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
                            <span class="ml-3">About Us</span>
                         </div>
                      </router-link>
-                  </li>
+                  <!-- </li>
                </ul>
-          
+           -->
                <button
                   class="flex absolute bottom-16 w-2/3 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
                   @click="$emit('toggleCreateModal')">

@@ -40,8 +40,8 @@ const aboutUsList = [
 </script>
  
 <template>
-  <div class="ml-64 mr-12 overflow-hidden">
-    <h1 class="text-gray-300 text-2xl mb-3 ml-32 font-medium mt-16 select-none">
+  <div class="ml-64 mr-12 mt-16 overflow-hidden">
+    <h1 class="text-gray-300 text-2xl mb-3 ml-32 font-medium select-none">
       About Us (OR-1)
     </h1>
 <div class="flex flex-row ml-32 mr- justify-evenly space-x-6">

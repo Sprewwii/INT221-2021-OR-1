@@ -21,21 +21,30 @@ export const eventManager = reactive({
 
   // filterfetch
   getEventPast: async function () {
-    const res = await fetch(`${import.meta.env.VITE_API}/events/past`)
+    const res = await fetch(`${import.meta.env.VITE_API}/events/past`) 
     if (res.status === 200) {
-    return await res.json()
+      this.eventList = await res.json()
     } else {
-     console.log('ไม่พบข้อมูล event Past')
+      console.log("ไม่พบข้อมูล")
     }
   },
   getEventFuture: async function () {
-    const res = await fetch(`${import.meta.env.VITE_API}/events/future`)
+    const res = await fetch(`${import.meta.env.VITE_API}/events/future`) 
     if (res.status === 200) {
-      return await res.json()
+      this.eventList = await res.json()
     } else {
-      console.log('ไม่พบข้อมูล event Future')
+      console.log("ไม่พบข้อมูล")
     }
   },
+  getEventDate: async function (date) {
+    const res = await fetch(`${import.meta.env.VITE_API}/events/date/${date}`) 
+    if (res.status === 200) {
+      this.eventList = await res.json()
+    } else {
+      console.log("ไม่พบข้อมูล")
+    }
+  },
+
 
   getEventCategories: async function () {
     const res = await fetch(`${import.meta.env.VITE_API}/eventCategories`) 
@@ -136,7 +145,7 @@ eventCategory.categoryId === category.categoryId
       foundCategory.categoryName = editedCategory.categoryName
       foundCategory.categoryDuration = editedCategory.categoryDuration
       foundCategory.categoryDescription = editedCategory.categoryDescription
-
+      this.getEvents()
       console.log("แก้ไขข้อมูลได้")
     } else {
       console.log("ไม่สามารถแก้ไขข้อมูลได้")

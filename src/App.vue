@@ -22,7 +22,7 @@ const toggleCreateModal = () => {
 </script>
  
 <template>
-  <div class="h-screen w-screen">
+  <div class="h-screen w-screen overflow-hidden">
     <router-view></router-view>
     <Navbar @toggleCreateModal="toggleCreateModal"/>
         <BasePopupCreate
@@ -51,6 +51,16 @@ aside, #cards, #popupCreate, #cardMember {
     background-color: #292B2E;
 }
 
+.router-link-active {
+  background-color: #1b1c1e58;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  /* background-color: #1b1c1e58; */
+/* 
+  padding: 0.5rem; */
+  /* padding-left: 2rem; */
+  /* width: 100vw; */
+}
 
 /* 
 li:hover {

@@ -2,6 +2,7 @@
 import iconClose from "./icons/IconClose.vue"
 import { eventManager } from "../scripts/eventManager.js"
 import { validation } from "../scripts/validation.js"
+import { decorator } from "../scripts/decorator.js"
 
 import { ref, computed } from "vue"
 const props = defineProps({
@@ -10,10 +11,10 @@ const props = defineProps({
         default: {}
     }
 })
+
 defineEmits(['editCategory', 'closeEditModal'])
 const currenCategoryName = props.editingCategory.categoryName
 const editingCategory = computed(() => props.editingCategory)
-const showWarning = ref({duration:false,dateTimeOverlap:false})
 
 const clearEditingBooking = () => { 
 showWarning.value.dateTimePast = false 
@@ -33,17 +34,18 @@ showWarning.value.dateTimeOverlap = false
                 </button>
 
                 <div class="py-6 px-6 lg:px-8">
-                    <h3 class="mb-4 text-2xl font-medium text-white">Edit Schedule Event {{currenCategoryName}}</h3>
+                    <h3 class="mb-4 text-2xl font-medium text-white">Edit Event Category</h3>
                     <form class="space-y-8">
 
                         <div>
                             <label for="name" class="block mb-3 text-sm font-medium text-neutral-300">Name</label>
                             <input v-model="editingCategory.categoryName" name="name" id="name" type="text"
-                             :class="[(editingCategory.categoryName && (editingCategory.categoryName.length > 100)) ?'border-red-400 focus:ring-red-400 focus:border-red-400':'border-neutral-700 focus:ring-violet-500 focus:border-violet-500' ]"
+                            @blur="editingCategory.categoryName = editingCategory.categoryName.trim()"
+                             :class="[validation.validateLengthAndNotNull(editingCategory.categoryName,100) ? decorator.normalFormBorder : decorator.redFormBorder]"
                                 class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="Example OR-1" required
                                >
-                               <p v-if="editingCategory.categoryName && editingCategory.categoryName.length <= 0" class="text-sm text-red-400 absolute mt-1">* Enter category name.</p>
+                               <p v-if="editingCategory.categoryName === ''" class="text-sm text-red-400 absolute mt-1">* Enter category name.</p>
                             <div v-if="editingCategory.categoryName" class="flex justify-end">
                                 <p :class="{'text-red-400': editingCategory.categoryName.length > 100}" class="text-sm text-gray-500 absolute mt-1">{{editingCategory.categoryName.length}}/100</p>    
                             </div>
@@ -52,7 +54,7 @@ showWarning.value.dateTimeOverlap = false
                             <label for="duration" class="block mb-3 text-sm font-medium text-neutral-300">Duration</label>
                             <div class="flex flex-row items-center">
                             <input v-model="editingCategory.categoryDuration" name="duration" id="duration" type="number" min="1" max="480"
-                            :class="[!validation.validateCategoryDuration(editingCategory.categoryDuration) ?'border-red-400 focus:ring-red-400 focus:border-red-400':'border-neutral-700 focus:ring-violet-500 focus:border-violet-500' ]"
+                            :class="[validation.validateCategoryDuration(editingCategory.categoryDuration)? decorator.normalFormBorder : decorator.redFormBorder]"
                                 class="w-1/2 text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 required
                                >
@@ -64,13 +66,17 @@ showWarning.value.dateTimeOverlap = false
                         <div>
                             <label for="description" class="block mb-3 text-sm font-medium text-neutral-300">Description</label>
                             <textarea v-model="editingCategory.categoryDescription" name="description" id="description" type="text"
-                                class="text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border border-neutral-700 placeholder-neutral-400 text-white"
+                                :class="[validation.validateLength(editingCategory.categoryDescription,500) ? decorator.normalFormBorder : decorator.redFormBorder]"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="description..." required rows="5"
                                ></textarea>
+                                 <div v-if="editingCategory.categoryDescription" class="flex justify-end">
+                                <p :class="{'text-red-400': editingCategory.categoryDescription.length > 500}" class="text-sm text-gray-500 absolute mt-1">{{editingCategory.categoryDescription.length}}/500</p>    
+                            </div>
                         </div>
         
               
-                        <button @click="$emit('editCategory',editingCategory.categoryName !== editingCategory.currentCategoryName ? editingCategory : {categoryId:editingCategory.categoryId,categoryDuration:editingCategory.categoryDuration, categoryDescription:editingCategory.categoryDescription}, $event)"
+                        <button @click="$event.preventDefault(); validation.validateCreateCategory(editingCategory) ? $emit('editCategory',editingCategory.categoryName !== editingCategory.currentCategoryName ? editingCategory : {categoryId:editingCategory.categoryId,categoryDuration:editingCategory.categoryDuration, categoryDescription:editingCategory.categoryDescription}, $event) : '' "
                             class="w-full text-white bg-pink-600 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800">Update</button>
                     </form>
                 </div>

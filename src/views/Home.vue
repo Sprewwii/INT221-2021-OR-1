@@ -6,31 +6,37 @@ import BaseScheduleList from "../components/BaseScheduleList.vue";
 import BasePopupEdit from "../components/BasePopupEdit.vue";
 // import iconPlus from "../components/icons/IconPlus.vue";
 import BasePopupConfirm from "../components/BasePopupConfirm.vue";
-import { validation } from "../scripts/validation.js" 
+import BaseButtonFilter from "../components/BaseButtonFilter.vue";
+import { validation } from "../scripts/validation.js";
 
+const showInsertDate = ref(false)
+const filterDate = (date) => eventManager.getEventDate(date)
 
+const filterFetch = ref();
+const date = ref();
 const bookingList = computed(() => eventManager.eventList);
+
 // const eventCategories = computed(() => eventManager.eventCategories);
 // const isShowCreateModal = ref(false);
-const isShowDeleteBookingConfirm = ref(false)
+const isShowDeleteBookingConfirm = ref(false);
 const selectedBookingId = ref(0);
-const editingBooking = ref({})
+const editingBooking = ref({});
 
 const selectBooking = (id) => {
   if (selectedBookingId.value === id) {
-    selectedBookingId.value = 0
+    selectedBookingId.value = 0;
   } else {
-    selectedBookingId.value = id
+    selectedBookingId.value = id;
   }
-}
+};
 
 // const toggleCreateModal = () => {
 //   isShowCreateModal.value = !isShowCreateModal.value;
 // }
 
 const toggleDeleteConfirm = () => {
-  isShowDeleteBookingConfirm.value = !isShowDeleteBookingConfirm.value
-}
+  isShowDeleteBookingConfirm.value = !isShowDeleteBookingConfirm.value;
+};
 
 // const createBooking = (booking,e) => {
 //   e.preventDefault();
@@ -39,47 +45,63 @@ const toggleDeleteConfirm = () => {
 // };
 
 const editBooking = async () => {
-  editingBooking.value = await eventManager.getEventById(selectedBookingId.value);
-} 
+  editingBooking.value = await eventManager.getEventById(
+    selectedBookingId.value
+  );
+};
 
-const updateEditingBooking = (booking,e) => {
+const updateEditingBooking = (booking, e) => {
   e.preventDefault();
-  eventManager.editEvent(booking)
-  editingBooking.value = {}
-  selectBooking(0)
-}
+  eventManager.editEvent(booking);
+  editingBooking.value = {};
+  selectBooking(0);
+};
 
 const deleteBooking = () => {
-  eventManager.deleteEvent(selectedBookingId.value)
-  toggleDeleteConfirm()
-  selectBooking(0)
-}
+  eventManager.deleteEvent(selectedBookingId.value);
+  toggleDeleteConfirm();
+  selectBooking(0);
+};
 
 // const filterBookingsPast = computed(() => bookingList.value.filter((booking) => validation.isPast(new Date(booking.startTime))))
 
+    // <div class="ml-64 mt-16 w-full">
 
 </script>
 
 <template>
-  <div class="pb-64">
-    <div class="ml-96">
-    <select name="filter" id="filter" v-model="filter">
-      <option value="filterBookingsPast">Past</option>
-      <option value="filterBookingsPast">Past2</option>
-    </select>
+    <div class="ml-64 mt-16 w-full">
+    <div class="flex">
+    <h1 class="text-gray-300 text-2xl mb-3 mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none">
+      Scheduled Events
+    </h1>
+    <BaseButtonFilter/>
+    
     </div>
-    <BaseScheduleList :bookingList="bookingList" :selectedBookingId="selectedBookingId" @selectBooking="selectBooking" @editBooking="editBooking" @deleteBooking="toggleDeleteConfirm"/>
+    <BaseScheduleList 
+      :bookingList="bookingList"
+      :selectedBookingId="selectedBookingId"
+      @selectBooking="selectBooking"
+      @editBooking="editBooking"
+      @deleteBooking="toggleDeleteConfirm"
+    />
     <!-- :selectedBookingId="selectedBookingId" @selectBooking="selectBooking" -->
-     <!-- <BasePopupCreate
+    <!-- <BasePopupCreate
       v-show="isShowCreateModal"
       :eventCategories="eventCategories"
       @closeCreateModal="toggleCreateModal"
     /> -->
-    <BasePopupConfirm v-show="isShowDeleteBookingConfirm" @closeConfirmModal="toggleDeleteConfirm"
-      @deleteBooking="deleteBooking" />
-    <BasePopupEdit v-show="Object.keys(editingBooking).length > 0" @closeEditModal="editingBooking = {}" :editingBooking="editingBooking"
-      @editBooking="updateEditingBooking" />
-      
+    <BasePopupConfirm
+      v-show="isShowDeleteBookingConfirm"
+      @closeConfirmModal="toggleDeleteConfirm"
+      @deleteBooking="deleteBooking"
+    />
+    <BasePopupEdit
+      v-show="Object.keys(editingBooking).length > 0"
+      @closeEditModal="editingBooking = {}"
+      :editingBooking="editingBooking"
+      @editBooking="updateEditingBooking"
+    />
   </div>
 </template>
 

@@ -25,7 +25,21 @@ export const validation = reactive({
             return booking.id !== currentBooking.id && booking.categoryName === currentBooking.categoryName && currentBooking.startTime <= booking.endTime && booking.startTime <= currentBooking.endTime
         })//booking.name !== currentBooking.name && 
    },
+    validateCreateCategory :function(category){
+
+        console.log("validation")
+        return this.validateLengthAndNotNull(category.categoryName,100) && this.validateCategoryDuration(category.categoryDuration) && this.validateLength(category.categoryDescription,500)
+   },
    validateCategoryDuration :function(duration){
         return duration >= 1 && duration <= 480
-   }
+   },
+   validateLengthAndNotNull :function(value,maxLength){
+    return value && value.length <= maxLength//|| editingCategory.categoryName !== ''
+},
+validateLength :function(value,maxLength){
+    return value == null || value == '' || (value && value.length <= maxLength)//|| editingCategory.categoryName !== ''
+},
+isNotNull:function(value){
+    return value != null && value != ''
+},
 })

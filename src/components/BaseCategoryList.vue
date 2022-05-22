@@ -15,7 +15,7 @@ const props = defineProps({
   },
 })
 
-defineEmits(['selectCategory','editBooking'])
+defineEmits(['selectCategory', 'editBooking'])
 
 const selectedCategoryId = computed(() => props.selectedCategoryId)
 
@@ -28,38 +28,42 @@ const selectedCategoryId = computed(() => props.selectedCategoryId)
     <div
       class="block p-6 bg-white rounded-lg shadow-md text-gray-400 text-center w-full transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
       id="cards" v-for="eventCategory in categoryList" :key="eventCategory.categoryId">
-      <div class="w-full inline-block relative">
-        <div class="flex items-end justify-end z-50">
-          <button @click="$emit('selectCategory', eventCategory.categoryId)" class="">
-            <iconMenuKebabVue />
-          </button>
+
+     
+
+
+      <div class="flex flex-col items-center">
+        <div class="grid grid-cols-7 gap-4">
+        <h5 class="text-xl font-semibold break-words w-full tracking-tight text-white text-center tracking-wider col-span-6 pl-10">{{
+            eventCategory.categoryName
+        }}</h5> 
+
+
+        <div class="inline-block relative w-full justify-end">
+        <div class="flex justify-end">
+        <button @click="$emit('selectCategory', eventCategory.categoryId)" class="">
+          <iconMenuKebabVue />
+        </button>
         </div>
-        <div class="absolute left-16">
-        <ul class="text-white pt-2 z-40"
-          v-show="selectedCategoryId === eventCategory.categoryId">
+        <div class="flex justify-end w-full pt-3 ml-20">
+        <ul class="absolute text-white z-10" v-show="selectedCategoryId === eventCategory.categoryId">
           <li>
-            <button
-              class="rounded bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex z-50"
-              @click="$emit('editCategory',{...eventCategory})">
-              <iconEdit class="mr-2" />Edit
-            </button>
+             <button
+                class="rounded bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex z-50"
+                @click="$emit('editCategory', { ...eventCategory })">
+                <iconEdit class="mr-2" />Edit
+              </button>
           </li>
-          
-
-
-        </ul>
+          </ul>
         </div>
       </div>
-      <div class="flex flex-col items-center">
-        <h5 class="text-xl font-semibold tracking-tight text-white text-center tracking-wider">{{
-            eventCategory.categoryName
-        }}</h5>
+    </div>
 
         <p class="bg-violet-600 rounded-lg text-white text-center w-1/2 my-5 pt-1">{{ eventCategory.categoryDuration }}
           minutes</p>
         <div class="flex flex-col items-center justify-center w-full h-full">
           <p v-if="eventCategory.categoryDescription == null" class="font-normal text-gray-500">No Description</p>
-          <p v-else class="font-normal text-gray-300">{{ eventCategory.categoryDescription }}</p>
+          <p v-else class="font-normal text-gray-300 break-words w-full">{{ eventCategory.categoryDescription }}</p>
         </div>
       </div>
     </div>

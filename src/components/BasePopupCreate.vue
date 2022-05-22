@@ -2,6 +2,7 @@
 import iconClose from "./icons/IconClose.vue"
 import { eventManager } from "../scripts/eventManager.js"
 import { validation } from "../scripts/validation.js"
+import { decorator } from "../scripts/decorator.js"
 import { ref, computed } from "vue"
 defineEmits(['closeCreateModal'])
 
@@ -15,7 +16,6 @@ const validateEmail = () => {
 
 const validateDateTime = () => {
     if(!creatingBooking.value.startTime) return;
-    console.log("valid "+creatingBooking.value.startTime);
     showWarning.value.dateTimePast = validation.isPast(creatingBooking.value.startTime)
     showWarning.value.dateTimeOverlap = validation.isOverlap(creatingBooking.value)
 }
@@ -79,39 +79,37 @@ const clearCreatingBooking = () => {
                 </button>
 
                 <div class="py-6 px-6 lg:px-8 ">
-                    <h3 class="mb-4 text-2xl font-medium text-white">Create Schedule Event</h3>
+                    <h3 class="mb-4 text-2xl font-medium text-white">Create Schedule Event {{validation.validateLengthAndNotNull(creatingBooking.name,10)}}</h3>
                     <form class="space-y-8">
                         <div>
                             <label for="name" class="block mb-3 text-sm font-medium text-neutral-300">Name</label>
                             <input v-model="creatingBooking.name" type="text" name="name" id="name"
-                             :class="[creatingBooking.name && creatingBooking.name.length > 100 ?'border-red-400 focus:ring-red-400 focus:border-red-400':'border-neutral-700 focus:ring-violet-500 focus:border-violet-500' ]"
+                             :class="[validation.validateLength(creatingBooking.name,100) ? decorator.normalFormBorder : decorator.redFormBorder]"
                                 class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
-                                placeholder="Example OR-1" @blur="!creatingBooking.name ? showWarning.isName = true : showWarning.isName = false " required/>
+                                placeholder="Example OR-1" @blur="showWarning.isName = !creatingBooking.name"/>
                              <p v-show="showWarning.isName" class="text-sm text-red-400 absolute mt-1">* Enter your name.</p>
                               <div v-if="creatingBooking.name" class="flex justify-end">
-                                <p :class="{'text-red-400': creatingBooking.name.length > 100}" class="text-sm text-gray-500 absolute mt-1">{{creatingBooking.name.length}}/100</p>    
+                                <p :class="{'text-red-400': !validation.validateLength(creatingBooking.name,100)}" class="text-sm text-gray-500 absolute mt-1">{{creatingBooking.name.length}}/100</p>    
                             </div>
                         </div>
                         <div>
                             <label for="email" class="block mb-3 text-sm font-medium text-neutral-300">Email</label>
                             <input v-model="creatingBooking.email" name="email" id="email" type="text"
-                               :class="[creatingBooking.email && creatingBooking.email.length > 50 ?'border-red-400 focus:ring-red-400 focus:border-red-400':'border-neutral-700 focus:ring-violet-500 focus:border-violet-500' ]"
-                                class="text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
-                                placeholder="Example@mail.kmutt.ac.th" required
-                                @blur="validateEmail();!creatingBooking.email ? showWarning.isEmail = true : showWarning.isEmail = false "
-                               >
+                              :class="[validation.validateLength(creatingBooking.email,50) ? decorator.normalFormBorder : decorator.redFormBorder]"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
+                                placeholder="Example@mail.kmutt.ac.th"
+                                @blur="showWarning.isEmail = !creatingBooking.email; validateEmail()"/>
                             <p v-if="showWarning.isEmail" class="text-sm text-red-400 absolute mt-1">* Enter your email.</p>
                             <p v-else-if="showWarning.email" class="text-sm text-red-400 absolute mt-1">* Email must be a valid email address.</p>
                             <div v-if="creatingBooking.email" class="flex justify-end">
-                                <p :class="{'text-red-400': creatingBooking.email.length > 50}" class="text-sm text-gray-500 absolute mt-1">{{creatingBooking.email.length}}/50</p>    
+                                <p :class="{'text-red-400': !validation.validateLength(creatingBooking.email,50)}" class="text-sm text-gray-500 absolute mt-1">{{creatingBooking.email.length}}/50</p>    
                             </div>
                         </div>
                     
                         <div>
-                            <label for="category" class="block mb-3 text-sm font-medium text-neutral-300">Choose Event
-                                Category</label>
+                            <label for="category" class="block mb-3 text-sm font-medium text-neutral-300">Choose Event Category</label>
                             <div class="flex">
-                                <select @change="validateDateTime()" @blur="(!creatingBooking.category) ? showWarning.isCategory = true : showWarning.isCategory = false " v-model="creatingBooking.category"
+                                <select @change="validateDateTime();showWarning.isCategory = !creatingBooking.category" v-model="creatingBooking.category"
                                     class="text-white bg-neutral-700 border border-neutral-700 hover:bg-neutral-800 focus:outline-none focus:ring-violet-300 focus:border-violet-500 rounded-lg text-sm text-left inline-flex items-center">
                                     <option value="" selected disabled hidden></option>
                                     <option :value="eventCategory" v-for="(eventCategory, index) in eventCategories"
@@ -137,7 +135,7 @@ const clearCreatingBooking = () => {
 
 <!-- :minTime="{ hours: new Date().getHours(), minutes: new Date().getMinutes()+1 }" -->
                             <Datepicker v-model="creatingBooking.startTime" :minDate="new Date()" 
-                            @blur="validateDateTime(); !creatingBooking.startTime ? showWarning.isStartTime = true : showWarning.isStartTime = false " class="dp__theme_light" placeholder="Select Date" position="center" required/>    
+                            @blur="validateDateTime();  showWarning.isStartTime = !creatingBooking.startTime" class="dp__theme_light" placeholder="Select Date" position="center" required/>    
                             <p v-if="showWarning.isStartTime" class="text-sm text-red-400 absolute mt-1">* Enter your event start time.</p>
                             <p v-else-if="showWarning.dateTimePast" class="text-sm text-red-400 absolute mt-1">* Please choose future dates.</p>
                             <p v-else-if="showWarning.dateTimeOverlap" class="text-sm text-red-400 absolute mt-1">* Please choose another time.</p>
@@ -145,11 +143,11 @@ const clearCreatingBooking = () => {
                         <div>
                             <label for="note" class="block mb-3 text-sm font-medium text-neutral-300">Note</label>
                             <textarea v-model="creatingBooking.note" name="text" id="text"
-                                  :class="[creatingBooking.note && creatingBooking.note.length > 500 ?'border-red-400 focus:ring-red-400 focus:border-red-400':'border-neutral-700 focus:ring-violet-500 focus:border-violet-500' ]"
-                                class="text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
+                                  :class="[validation.validateLength(creatingBooking.note,500) ? decorator.normalFormBorder : decorator.redFormBorder]"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="detail..."> </textarea>
                             <div v-if="creatingBooking.note" class="flex justify-end">
-                                <p :class="{'text-red-400': creatingBooking.note.length > 500}" class="text-sm text-gray-500 absolute mt-1">{{creatingBooking.note.length}}/500</p>    
+                                <p :class="{'text-red-400': !validation.validateLength(creatingBooking.note,500)}" class="text-sm text-gray-500 absolute mt-1">{{creatingBooking.note.length}}/500</p>    
                             </div>
                         </div>
                     
