@@ -23,12 +23,13 @@ const toggleCreateModal = () => {
  
 <template>
   <div class="h-screen w-screen overflow-hidden">
-    <router-view></router-view>
     <Navbar @toggleCreateModal="toggleCreateModal"/>
         <BasePopupCreate
       v-show="isShowCreateModal"
       @closeCreateModal="toggleCreateModal"
     />
+    <router-view></router-view>
+    
   </div>
 </template>
  

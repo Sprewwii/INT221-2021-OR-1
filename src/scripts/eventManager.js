@@ -36,7 +36,7 @@ export const eventManager = reactive({
       console.log("ไม่พบข้อมูล")
     }
   },
-  getEventDate: async function (date) {
+  getEventByDate: async function (date) {
     const res = await fetch(`${import.meta.env.VITE_API}/events/date/${date}`) 
     if (res.status === 200) {
       this.eventList = await res.json()
@@ -44,8 +44,14 @@ export const eventManager = reactive({
       console.log("ไม่พบข้อมูล")
     }
   },
-
-
+  getEventByCategory: async function (categoryId) {
+    const res = await fetch(`${import.meta.env.VITE_API}/events/categories/${categoryId}`) 
+    if (res.status === 200) {
+      this.eventList = await res.json()
+    } else {
+      console.log("ไม่พบข้อมูล")
+    }
+  },
   getEventCategories: async function () {
     const res = await fetch(`${import.meta.env.VITE_API}/eventCategories`) 
     if (res.status === 200) {

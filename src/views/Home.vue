@@ -9,11 +9,13 @@ import BasePopupConfirm from "../components/BasePopupConfirm.vue";
 import BaseButtonFilter from "../components/BaseButtonFilter.vue";
 import { validation } from "../scripts/validation.js";
 
+
+const eventCategories = computed(() => eventManager.eventCategories);
 const showInsertDate = ref(false)
 const filterDate = (date) => eventManager.getEventDate(date)
 
 const filterFetch = ref();
-const date = ref();
+
 const bookingList = computed(() => eventManager.eventList);
 
 // const eventCategories = computed(() => eventManager.eventCategories);
@@ -65,44 +67,45 @@ const deleteBooking = () => {
 
 // const filterBookingsPast = computed(() => bookingList.value.filter((booking) => validation.isPast(new Date(booking.startTime))))
 
-    // <div class="ml-64 mt-16 w-full">
+// <div class="ml-64 mt-16 w-full">
+const date = ref("04/11/2023");
+const a = () => {
+  console.log("abc")
+}
+
 
 </script>
 
 <template>
-    <div class="ml-64 mt-16 w-full">
-    <div class="flex">
-    <h1 class="text-gray-300 text-2xl mb-3 mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none">
-      Scheduled Events
-    </h1>
-    <BaseButtonFilter/>
-    
+  <div class="ml-64 mt-16 w-3/4">
+
+    <!-- <button @click="date = '04/25/2023'">click</button> -->
+    <!-- <div class="ml-32" inline-datepicker :data-date="date"><input inline-datepicker v-model="date"></div> -->
+    <!-- <input class="ml-32" inline-datepicker data-date="04/11/2023"> -->
+  <p class="ml-32">ควยเอ้ยยย</p>
+
+
+    <div class="flex justify-between">
+      <h1 class="text-gray-300 text-2xl mb-3 mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none">
+        Scheduled Events
+      </h1>
+      <BaseButtonFilter :eventCategories="eventCategories" />
+
     </div>
-    <BaseScheduleList 
-      :bookingList="bookingList"
-      :selectedBookingId="selectedBookingId"
-      @selectBooking="selectBooking"
-      @editBooking="editBooking"
-      @deleteBooking="toggleDeleteConfirm"
-    />
+    <BaseScheduleList :bookingList="bookingList" :selectedBookingId="selectedBookingId" @selectBooking="selectBooking"
+      @editBooking="editBooking" @deleteBooking="toggleDeleteConfirm" />
     <!-- :selectedBookingId="selectedBookingId" @selectBooking="selectBooking" -->
     <!-- <BasePopupCreate
       v-show="isShowCreateModal"
       :eventCategories="eventCategories"
       @closeCreateModal="toggleCreateModal"
     /> -->
-    <BasePopupConfirm
-      v-show="isShowDeleteBookingConfirm"
-      @closeConfirmModal="toggleDeleteConfirm"
-      @deleteBooking="deleteBooking"
-    />
-    <BasePopupEdit
-      v-show="Object.keys(editingBooking).length > 0"
-      @closeEditModal="editingBooking = {}"
-      :editingBooking="editingBooking"
-      @editBooking="updateEditingBooking"
-    />
+    <BasePopupConfirm v-show="isShowDeleteBookingConfirm" @closeConfirmModal="toggleDeleteConfirm"
+      @deleteBooking="deleteBooking" />
+    <BasePopupEdit v-show="Object.keys(editingBooking).length > 0" @closeEditModal="editingBooking = {}"
+      :editingBooking="editingBooking" @editBooking="updateEditingBooking" />
   </div>
+
 </template>
 
 <style>
