@@ -25,19 +25,19 @@ const selectedPage = ref(1)
 
 
                <div class="relative">
-                  <div class="z-40 absolute top-0 right-0 mr-1 mt-16 w-7 h-7 rounded-full bg-violet-600 animate-ping">
-                  </div>
+                  <div class="z-40 absolute top-0 right-0 mr-1 mt-16 w-7 h-7 rounded-full bg-violet-600 animate-ping"></div>
                   <div class="z-40 absolute top-0 right-0 mr-1 mt-16 w-7 h-7 rounded-full bg-violet-600"></div>
                   <!-- <img src="../images/profile.jpg" class="rounded-full h-32 mt-16 shadow-xl opacity-90 outline outline-offset-8 outline-violet-600 outline-4" draggable="false"> -->
                   <img src="../images/profile.jpg" class="rounded-full h-32 mt-16 shadow-xl opacity-90"
                      draggable="false">
                </div>
-               <p class="self-center text-base font-medium whitespace-nowrap text-gray-500 mt-3 mb-16 select-none">ADMIN
+               <p class="self-center text-base font-medium whitespace-nowrap text-gray-500 mt-3 mb-8 select-none">ADMIN
                   01</p>
                <!-- <ul class="w-full space-y-2">
                   <li> -->
 
-                     <router-link :to="{ name: 'Home' }">
+<div class = "flex flex-col space-y-5">
+                     <router-link :to="{ name: 'Home' }" class="mr-8">
                         <div class="flex items-center p-6 text-lg font-normal rounded-lg text-white w-full">
                            <iconCalendar width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
                            <span class="ml-3">Scheduled Event</span>
@@ -45,7 +45,7 @@ const selectedPage = ref(1)
                      </router-link>
                   <!-- </li>
                   <li> -->
-                     <router-link :to="{ name: 'CategoryList' }">
+                     <router-link :to="{ name: 'CategoryList' }" class="mr-8">
                         <div class="flex w-full items-center p-6 text-lg font-normal rounded-lg text-white">
                            <iconCategory width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
                            <span class="ml-3">Event Categories</span>
@@ -53,12 +53,13 @@ const selectedPage = ref(1)
                      </router-link>
                   <!-- </li>
     <li> -->
-                     <router-link :to="{ name: 'AboutUs' }">
+                     <router-link :to="{ name: 'AboutUs' }" class="mr-8">
                         <div class="flex w-full items-center p-6 text-lg font-normal rounded-lg text-white">
                            <iconAboutUs width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
                            <span class="ml-3">About Us</span>
                         </div>
                      </router-link>
+               </div>
                   <!-- </li>
                </ul>
            -->

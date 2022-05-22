@@ -15,10 +15,14 @@ const props = defineProps({
     type: Number,
     default: 0
   },
+  noEventsWarning: {
+    type: String,
+    default: ""
+  },
 })
 
 const selectedBookingId = computed(() => props.selectedBookingId)
-
+const noEventsWarning = computed(() => props.noEventsWarning)
 defineEmits(['selectBooking','editBooking','deleteBooking'])
 
 </script>
@@ -43,7 +47,7 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
           </tr>
         </thead>
         <tbody v-if="bookingList.length === 0">
-          <td colspan="7" class="py-64 text-xl">No Scheduled Event</td>
+          <td colspan="7" class="py-64 text-xl">{{noEventsWarning}}</td>
         </tbody>
 
         <tbody v-else v-for="booking in bookingList" :key="booking.id">

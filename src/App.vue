@@ -59,7 +59,7 @@ aside, #cards, #popupCreate, #cardMember {
   /* background-color: #1b1c1e58; */
 /* 
   padding: 0.5rem; */
-  /* padding-left: 2rem; */
+  /* padding-left: -2rem; */
   /* width: 100vw; */
 }
 

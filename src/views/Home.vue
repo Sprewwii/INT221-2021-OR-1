@@ -8,18 +8,12 @@ import BasePopupEdit from "../components/BasePopupEdit.vue";
 import BasePopupConfirm from "../components/BasePopupConfirm.vue";
 import BaseButtonFilter from "../components/BaseButtonFilter.vue";
 import { validation } from "../scripts/validation.js";
-
+import BaseClock from "../components/BaseClock.vue"
 
 const eventCategories = computed(() => eventManager.eventCategories);
-const showInsertDate = ref(false)
-const filterDate = (date) => eventManager.getEventDate(date)
-
-const filterFetch = ref();
-
 const bookingList = computed(() => eventManager.eventList);
 
-// const eventCategories = computed(() => eventManager.eventCategories);
-// const isShowCreateModal = ref(false);
+const noEventsWarning = ref("No Scheduled Event");
 const isShowDeleteBookingConfirm = ref(false);
 const selectedBookingId = ref(0);
 const editingBooking = ref({});
@@ -65,35 +59,37 @@ const deleteBooking = () => {
   selectBooking(0);
 };
 
+const changeFilterCategory = (categoryNumber) => {
+  
+  if(categoryNumber === "0" || categoryNumber === "3" || categoryNumber === "4") noEventsWarning.value = "No Scheduled Events"
+  else if(categoryNumber === "1") noEventsWarning.value = "No Past Events"
+    else if(categoryNumber === "2") noEventsWarning.value = "No On-Going or Upcoming Events"
+    console.log(noEventsWarning.value + typeof categoryNumber)
+}
+
 // const filterBookingsPast = computed(() => bookingList.value.filter((booking) => validation.isPast(new Date(booking.startTime))))
 
 // <div class="ml-64 mt-16 w-full">
-const date = ref("04/11/2023");
-const a = () => {
-  console.log("abc")
-}
-
 
 </script>
 
 <template>
-  <div class="ml-64 mt-16 w-3/4">
-
+  <div class="ml-64 mt-16 w-full pr-80">
     <!-- <button @click="date = '04/25/2023'">click</button> -->
     <!-- <div class="ml-32" inline-datepicker :data-date="date"><input inline-datepicker v-model="date"></div> -->
     <!-- <input class="ml-32" inline-datepicker data-date="04/11/2023"> -->
-  <p class="ml-32">ควยเอ้ยยย</p>
 
 
-    <div class="flex justify-between">
-      <h1 class="text-gray-300 text-2xl mb-3 mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none">
+    <div class="flex justify-between items-center">
+      <h1 class="text-gray-300 text-2xl mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none inline-block align-middle">
         Scheduled Events
       </h1>
-      <BaseButtonFilter :eventCategories="eventCategories" />
+      <BaseClock/>
+      <BaseButtonFilter :eventCategories="eventCategories" @changeFilterCategory="changeFilterCategory"/>
 
     </div>
-    <BaseScheduleList :bookingList="bookingList" :selectedBookingId="selectedBookingId" @selectBooking="selectBooking"
-      @editBooking="editBooking" @deleteBooking="toggleDeleteConfirm" />
+    <BaseScheduleList :bookingList="bookingList" :selectedBookingId="selectedBookingId" :noEventsWarning="noEventsWarning" @selectBooking="selectBooking"
+      @editBooking="editBooking" @deleteBooking="toggleDeleteConfirm" class="pr-12"/>
     <!-- :selectedBookingId="selectedBookingId" @selectBooking="selectBooking" -->
     <!-- <BasePopupCreate
       v-show="isShowCreateModal"

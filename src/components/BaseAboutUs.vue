@@ -16,7 +16,7 @@ const aboutUsList = [
         nickname: "Prew",
         img: "./images/profile/sprew.jpg",
         position: "Backend",
-        description: "เกินปุ้่ยมุ้ย"
+        description: "เจ๋งแจ๋ว ฮู้วววววว"
     },
     {      
         id: "63130500128",

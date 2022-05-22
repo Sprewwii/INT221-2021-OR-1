@@ -84,7 +84,7 @@ const clearCreatingBooking = () => {
                         <div>
                             <label for="name" class="block mb-3 text-sm font-medium text-neutral-300">Name</label>
                             <input v-model="creatingBooking.name" type="text" name="name" id="name"
-                             :class="[validation.validateLength(creatingBooking.name,100) ? decorator.normalFormBorder : decorator.redFormBorder]"
+                             :class="[validation.validateLength(creatingBooking.name,100) && !showWarning.isName ? decorator.normalFormBorder : decorator.redFormBorder]"
                                 class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="Example OR-1" @blur="showWarning.isName = !creatingBooking.name"/>
                              <p v-show="showWarning.isName" class="text-sm text-red-400 absolute mt-1">* Enter your name.</p>
@@ -95,7 +95,7 @@ const clearCreatingBooking = () => {
                         <div>
                             <label for="email" class="block mb-3 text-sm font-medium text-neutral-300">Email</label>
                             <input v-model="creatingBooking.email" name="email" id="email" type="text"
-                              :class="[validation.validateLength(creatingBooking.email,50) ? decorator.normalFormBorder : decorator.redFormBorder]"
+                              :class="[validation.validateLength(creatingBooking.email,50) && !showWarning.isEmail && !showWarning.email ? decorator.normalFormBorder : decorator.redFormBorder]"
                                 class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="Example@mail.kmutt.ac.th"
                                 @blur="showWarning.isEmail = !creatingBooking.email; validateEmail()"/>
