@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vuepic/vue-datepicker": "^3.2.1",
     "flowbite": "^1.4.5",
     "vue": "^3.2.25",
     "vue-router": "^4.0.14",
