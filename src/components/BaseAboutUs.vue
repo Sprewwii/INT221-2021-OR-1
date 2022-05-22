@@ -5,7 +5,7 @@ const aboutUsList = [
         name: "Thanadol",
         surname: "Wangsirisomboon",
         nickname: "Mos",
-        img: "/src/images/profile/mos.jpg", 
+        img: "./images/profile/mos.jpg", 
         position: "Frontend",
         description: "มอส ปฏิภาณ ปะติมาการ"
     },
@@ -14,7 +14,7 @@ const aboutUsList = [
         name: "Supicha",
         surname: "Piriyasiriphan",
         nickname: "Prew",
-        img: "/src/images/profile/sprew.jpg",
+        img: "./images/profile/sprew.jpg",
         position: "Backend",
         description: "เกินปุ้่ยมุ้ย"
     },
@@ -23,7 +23,7 @@ const aboutUsList = [
         name: "Athiti",
         surname: "Khongsobsin",
         nickname: "James",
-        img: "/src/images/profile/james.jpg",
+        img: "./images/profile/james.jpg",
         position: "Infra & Database",
         description: "เจมส์ไม่โกรธน้า"
     },
@@ -32,7 +32,7 @@ const aboutUsList = [
         name: "Olarn",
         surname: "Rojanapornpun",
         nickname: "Aj. Olarn",
-        img: "/src/images/profile/olarn.png",
+        img: "./images/profile/olarn.png",
         position: "Product Owner (PO)",
         description: "อาจารย์ที่ปรีกษาประจำกลุ่ม OR-1"
     }
