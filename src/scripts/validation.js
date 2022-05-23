@@ -25,9 +25,7 @@ export const validation = reactive({
             return booking.id !== currentBooking.id && booking.categoryName === currentBooking.categoryName && currentBooking.startTime <= booking.endTime && booking.startTime <= currentBooking.endTime
         })//booking.name !== currentBooking.name && 
    },
-    validateCreateCategory :function(category){
-
-        console.log("validation")
+    validateEditCategory :function(category){
         return this.validateLengthAndNotNull(category.categoryName,100) && this.validateCategoryDuration(category.categoryDuration) && this.validateLength(category.categoryDescription,500)
    },
    validateCategoryDuration :function(duration){
@@ -42,4 +40,11 @@ validateLength :function(value,maxLength){
 isNotNull:function(value){
     return value != null && value != ''
 },
+validateUniqueCategoryName: function(editingCategory){
+    for(let category of eventManager.eventCategories){
+        console.log(editingCategory.categoryName+editingCategory.categoryId + " " + category.categoryName+category.categoryId)
+        if(editingCategory.categoryName === category.categoryName && editingCategory.categoryId != category.categoryId) return false
+    }
+    return true
+}
 })

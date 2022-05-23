@@ -1,8 +1,8 @@
 <script setup>
-import { ref, computed } from "vue"
-import iconMenuKebabVue from "./icons/IconMenuKebab.vue";
-import iconDelete from "./icons/IconDelete.vue";
-import iconEdit from "./icons/IconEdit.vue";
+import { computed } from "vue"
+import IconMenuKebabVue from "./icons/IconMenuKebab.vue";
+import IconDelete from "./icons/IconDelete.vue";
+import IconEdit from "./icons/IconEdit.vue";
 
 const props = defineProps({
   categoryList: {
@@ -18,47 +18,39 @@ const props = defineProps({
 defineEmits(['selectCategory', 'editBooking'])
 
 const selectedCategoryId = computed(() => props.selectedCategoryId)
-
-
 </script>
  
 <template>
-
   <div class="grid gap-10 grid-cols-3 ml-32 mr-24 mt-6">
     <div
       class="block p-6 bg-white rounded-lg shadow-md text-gray-400 text-center w-full transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
       id="cards" v-for="eventCategory in categoryList" :key="eventCategory.categoryId">
-
-     
-
-
       <div class="flex flex-col items-center">
         <div class="grid grid-cols-7 gap-4">
-        <h5 class="text-xl font-semibold break-words w-full tracking-tight text-white text-center tracking-wider col-span-6 pl-10">{{
-            eventCategory.categoryName
-        }}</h5> 
-
-
-        <div class="inline-block relative w-full justify-end">
-        <div class="flex justify-end">
-        <button @click="$emit('selectCategory', eventCategory.categoryId)" class="">
-          <iconMenuKebabVue />
-        </button>
-        </div>
-        <div class="flex justify-end w-full pt-3 ml-20">
-        <ul class="absolute text-white z-10" v-show="selectedCategoryId === eventCategory.categoryId">
-          <li>
-             <button
-                class="rounded bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex z-50"
-                @click="$emit('editCategory', { ...eventCategory })">
-                <iconEdit class="mr-2" />Edit
+          <h5
+            class="text-xl font-semibold break-words w-full tracking-tight text-white text-center tracking-wider col-span-6 pl-10">
+            {{
+                eventCategory.categoryName
+            }}</h5>
+          <div class="inline-block relative w-full justify-end">
+            <div class="flex justify-end">
+              <button @click="$emit('selectCategory', eventCategory.categoryId)" class="px-2 py-1">
+                <IconMenuKebabVue />
               </button>
-          </li>
-          </ul>
+            </div>
+            <div class="flex justify-end w-full pt-3 ml-20">
+              <ul class="absolute text-white z-10" v-show="selectedCategoryId === eventCategory.categoryId">
+                <li>
+                  <button
+                    class="rounded bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex z-50"
+                    @click="$emit('editCategory', { ...eventCategory })">
+                    <IconEdit class="mr-2" />Edit
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-
         <p class="bg-violet-600 rounded-lg text-white text-center w-1/2 my-5 pt-1">{{ eventCategory.categoryDuration }}
           minutes</p>
         <div class="flex flex-col items-center justify-center w-full h-full">
@@ -68,7 +60,6 @@ const selectedCategoryId = computed(() => props.selectedCategoryId)
       </div>
     </div>
   </div>
-
 </template>
  
 <style>

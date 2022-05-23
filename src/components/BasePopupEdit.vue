@@ -1,18 +1,20 @@
 <script setup>
-import iconClose from "./icons/IconClose.vue"
+import { ref, computed } from "vue"
+import IconClose from "./icons/IconClose.vue"
 import { eventManager } from "../scripts/eventManager.js"
 import { validation } from "../scripts/validation.js"
+import { decorator } from "../scripts/decorator.js"
 
-import { ref, computed } from "vue"
 const props = defineProps({
     editingBooking: {
         type: Object,
         default: {}
     }
 })
-defineEmits(['editBooking', 'closeEditModal'])
-const editingBooking = computed(() => props.editingBooking)
 
+defineEmits(['editBooking', 'closeEditModal'])
+
+const editingBooking = computed(() => props.editingBooking)
 const showWarning = ref({dateTimePast:false,dateTimeOverlap:false})
 
 const validateDateTime = () => { 
@@ -31,10 +33,10 @@ showWarning.value.dateTimeOverlap = false
         class="bg-black/30 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
         <div
             class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto">
-            <div class="relative rounded-lg shadow bg-gray-800">
+            <div class="relative rounded-lg shadow" id="popupEdit">
                 <button type="button" @click="$emit('closeEditModal')"
-                    class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white">
-                    <iconClose />
+                    class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                    <IconClose />
                 </button>
 
                 <div class="py-6 px-6 lg:px-8">
@@ -71,7 +73,7 @@ showWarning.value.dateTimeOverlap = false
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-300">Start Time</label>
                         
-                                <Datepicker v-model="editingBooking.startTime" :minDate="new Date()" 
+                                <Datepicker v-model="editingBooking.startTime" :minDate="new Date()" dark
                             @blur="validateDateTime()" class="dp__theme_light" placeholder="Select Date" position="center" required/>    
                             <p v-if="showWarning.dateTimePast" class="text-sm text-red-400 absolute mt-1">* Please choose future dates.</p>
                             <p v-else-if="showWarning.dateTimeOverlap" class="text-sm text-red-400 absolute mt-1">* Please choose another time.</p>
@@ -79,12 +81,16 @@ showWarning.value.dateTimeOverlap = false
                         </div>
                         <div>
                             <label for="note" class="block mb-2 text-sm font-medium text-gray-300">Note</label>
-                            <textarea v-model="editingBooking.note" maxlength="500" name="text" id="text"
-                                class="border text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+                            <textarea v-model="editingBooking.note" name="text" id="text"
+                             :class="[validation.validateLength(editingBooking.note,500) ? decorator.normalFormBorder : decorator.redFormBorder]"
+                                class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 placeholder-gray-400 text-white"
                                 placeholder="detail..."> </textarea>
+                                   <div v-if="editingBooking.note" class="flex justify-end">
+                                <p :class="{'text-red-400': !validation.validateLength(editingBooking.note,500)}" class="text-sm text-gray-500 absolute mt-1">{{editingBooking.note.length}}/500</p>    
+                            </div>
                         </div>
                         <button @click="$emit('editBooking', {id:editingBooking.id,startTime: editingBooking.startTime,note: editingBooking.note}, $event)"
-                            class="w-full text-white bg-pink-600 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800">Update</button>
+                            class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center :bg-violet-600">Update</button>
                     </form>
                 </div>
             </div>
@@ -92,5 +98,3 @@ showWarning.value.dateTimeOverlap = false
     </div>
 </template>
  
-<style>
-</style>

@@ -1,6 +1,6 @@
 <script setup>
-import iconWarning from "./icons/IconWarning.vue"
-import iconClose from "./icons/IconClose.vue"
+import IconWarning from "./icons/IconWarning.vue"
+import IconClose from "./icons/IconClose.vue"
 
 defineEmits(['closeConfirmModal', 'deleteBooking'])
 </script>
@@ -12,11 +12,11 @@ defineEmits(['closeConfirmModal', 'deleteBooking'])
             <div class="relative p-4 w-full max-w-md h-full">
                 <div class="relative rounded-lg shadow" id="popupConfirm">
                     <button type="button" @click="$emit('closeConfirmModal')"
-                        class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-2 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white">
-                        <iconClose />
+                        class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-2 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                        <IconClose />
                     </button>
                     <div class="py-6 px-6 lg:px-8 text-white text-center flex flex-col justify-center items-center">
-                        <iconWarning />
+                        <IconWarning />
                         <h3 class="text-3xl font-bold text-white mt-5">Delete ?</h3>
                         <p class="text-gray-400">Are you sure to delete this scheduled event ?</p>
 

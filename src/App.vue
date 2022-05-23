@@ -1,18 +1,17 @@
 <script setup>
 import { onBeforeMount } from "vue"
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { eventManager } from "./scripts/eventManager.js"
 import Navbar from "./components/BaseNavBar.vue"
 import BasePopupCreate from "./components/BasePopupCreate.vue";
+import BasePopupSuccess from "./components/BasePopupSuccess.vue";
 
 onBeforeMount(async () => {
   await eventManager.getEvents();
   await eventManager.getEventCategories();
-  // bookingList.value = eventManager.eventList;
-
-  // eventManager.getEventTest();
 });
 
+const popupSuccessText = ref(null)
 const isShowCreateModal = ref(false);
 
 const toggleCreateModal = () => {
@@ -22,14 +21,12 @@ const toggleCreateModal = () => {
 </script>
  
 <template>
-  <div class="h-screen w-screen overflow-hidden">
-    <Navbar @toggleCreateModal="toggleCreateModal"/>
-        <BasePopupCreate
-      v-show="isShowCreateModal"
-      @closeCreateModal="toggleCreateModal"
-    />
+  <div class="h-screen w-screen overflow-x-hidden">
+    <Navbar @toggleCreateModal="toggleCreateModal" />
+    <BasePopupCreate v-show="isShowCreateModal" @closeCreateModal="toggleCreateModal()" @showPopupSuccess="toggleCreateModal();popupSuccessText = 'Add Booking'" />
+     <BasePopupSuccess v-show="popupSuccessText" :popupSuccessText="popupSuccessText"
+      @closeSuccessModal="popupSuccessText = null" />
     <router-view></router-view>
-    
   </div>
 </template>
  
@@ -39,32 +36,16 @@ const toggleCreateModal = () => {
 body {
   font-family: 'IBM Plex Sans Thai', sans-serif;
   background-color: #191B1E;
-  /* background: linear-gradient(#191B1E, #2c2f34); */
   background-attachment: fixed;
 }
+
 table {
   background-color: #292B2E;
   border-radius: 1rem;
 }
 
-
-aside, #cards, #popupCreate, #cardMember {
+#cards, #popupCreate, #cardMember, .background-gray, #popupEdit{
     background-color: #292B2E;
 }
 
-.router-link-active {
-  background-color: #1b1c1e58;
-  border-top-right-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-  /* background-color: #1b1c1e58; */
-/* 
-  padding: 0.5rem; */
-  /* padding-left: -2rem; */
-  /* width: 100vw; */
-}
-
-/* 
-li:hover {
-    background-color: #1b1c1e58;
-} */
 </style>

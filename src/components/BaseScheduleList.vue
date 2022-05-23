@@ -1,10 +1,10 @@
 <script setup>
-import { ref,computed } from "vue"
+import { computed } from "vue"
 
 import { eventManager } from "../scripts/eventManager.js"
-import iconMenuKebabVue from "./icons/IconMenuKebab.vue";
-import iconDelete from "./icons/IconDelete.vue";
-import iconEdit from "./icons/IconEdit.vue";
+import IconMenuKebabVue from "./icons/IconMenuKebab.vue";
+import IconDelete from "./icons/IconDelete.vue";
+import IconEdit from "./icons/IconEdit.vue";
 
 const props = defineProps({
   bookingList: {
@@ -21,10 +21,10 @@ const props = defineProps({
   },
 })
 
+defineEmits(['selectBooking', 'editBooking', 'deleteBooking'])
+
 const selectedBookingId = computed(() => props.selectedBookingId)
 const noEventsWarning = computed(() => props.noEventsWarning)
-defineEmits(['selectBooking','editBooking','deleteBooking'])
-
 </script>
 
 <template>
@@ -47,15 +47,13 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
           </tr>
         </thead>
         <tbody v-if="bookingList.length === 0">
-          <td colspan="7" class="py-64 text-xl">{{noEventsWarning}}</td>
+          <td colspan="7" class="py-64 text-xl">{{ noEventsWarning }}</td>
         </tbody>
-
         <tbody v-else v-for="booking in bookingList" :key="booking.id">
           <tr class="border-t border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal">
             <th scope="row" class="pl-6 font-normal text-white text-left break-words">
-               <router-link :to="{ name: 'BaseBookingDetails', params: { id: booking.id } }"
-                class="hover:underline">
-              {{ booking.name }}
+              <router-link :to="{ name: 'BaseBookingDetails', params: { id: booking.id } }" class="hover:underline">
+                {{ booking.name }}
               </router-link>
             </th>
             <td>
@@ -70,7 +68,6 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
                   })
               }}
             </td>
-
             <td class="px-6 py-4">
               {{
                   new Date(booking.startTime).toLocaleTimeString("it-IT", {
@@ -82,36 +79,26 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
             <td class="px-6 py-4">
               {{ booking.duration }}
             </td>
-            <!-- <td class="pr-10 py-4 text-right"> -->
-              <!-- <router-link :to="{ name: 'BaseBookingDetails', params: { id: booking.id } }"
-                class="text-pink-500 hover:underline">Details</router-link>
-
-            </td> -->
             <td class="pr-3">
-
-
               <div class="inline-block relative">
-                <button @click="$emit('selectBooking', booking.id)">
-                  <iconMenuKebabVue />
+                <button @click="$emit('selectBooking', booking.id)" class="p-3">
+                  <IconMenuKebabVue />
                 </button>
-                <ul class="absolute text-white pt-1 z-10" v-show="selectedBookingId === booking.id"
-                >
+                <ul class="absolute text-white pt-1 z-10" v-show="selectedBookingId === booking.id">
                   <li>
                     <button
                       class="rounded-t bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
                       @click="$emit('editBooking')">
-                      <iconEdit class="mr-2" />Edit
+                      <IconEdit class="mr-2" />Edit
                     </button>
                   </li>
                   <li>
                     <button
                       class="rounded-b bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full items-center flex border-t border-l-0 border-r-0 border-b-0 border-gray-600"
                       @click="$emit('deleteBooking')">
-                      <iconDelete class="mr-2" />Delete
+                      <IconDelete class="mr-2" />Delete
                     </button>
                   </li>
-
-
                 </ul>
               </div>
             </td>
