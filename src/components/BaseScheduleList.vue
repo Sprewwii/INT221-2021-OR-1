@@ -52,7 +52,7 @@ defineEmits(['selectBooking','editBooking','deleteBooking'])
 
         <tbody v-else v-for="booking in bookingList" :key="booking.id">
           <tr class="border-t border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal">
-            <th scope="row" class="pl-6 font-normal text-white text-left">
+            <th scope="row" class="pl-6 font-normal text-white text-left break-words">
                <router-link :to="{ name: 'BaseBookingDetails', params: { id: booking.id } }"
                 class="hover:underline">
               {{ booking.name }}

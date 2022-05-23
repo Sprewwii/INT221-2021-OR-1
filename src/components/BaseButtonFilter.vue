@@ -18,9 +18,9 @@ const filterNumber = ref(0);
 const filterCategory = ref("");
 const date = ref();
 
-const onChange = () => {
+const changeFilter = () => {
     showInsertDate.value = false
-    filterCategory.value = ""
+     filterCategory.value = ""
   switch (filterNumber.value) {
     case "0": {
       eventManager.getEvents()
@@ -41,6 +41,7 @@ const onChange = () => {
     }
       break;
   }
+ 
 // onChange; 
 };
 
@@ -59,7 +60,7 @@ console.log(categoryId)
       </option>
     </select>
     <input type="date" v-model="date" v-show="filterNumber === '4'" @change="filterDate(date)">
-    <select name="filterNumber" @change="onChange;$emit('changeFilterCategory',filterNumber)" v-model="filterNumber" class=" border text-sm rounded-lg block w-full p-2.5 bg-violet-600 placeholder-gray-400 text-white text-center px-10 appearance-none">
+    <select name="filterNumber" @change="changeFilter();$emit('changeFilterCategory',filterNumber)" v-model="filterNumber" class=" border text-sm rounded-lg block w-full p-2.5 bg-violet-600 placeholder-gray-400 text-white text-center px-10 appearance-none">
       <option value="0">All Event</option>
       <option value="1">Past Event</option>
       <option value="2">Upcoming Event</option>

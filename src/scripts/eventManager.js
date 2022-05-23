@@ -18,8 +18,6 @@ export const eventManager = reactive({
       console.log(`ไม่พบข้อมูล event Id: ${eventId}`)
     }
   },
-
-  // filterfetch
   getEventPast: async function () {
     const res = await fetch(`${import.meta.env.VITE_API}/events/past`) 
     if (res.status === 200) {
@@ -81,12 +79,8 @@ export const eventManager = reactive({
     });
   
     if (res.status === 200) {
-      const addedBooking = await res.json();
-      const eventCategory = this.getEventCategoryById(booking.category.categoryId)
-      addedBooking.categoryName = eventCategory.categoryName
-      this.eventList.push(addedBooking);
-      this.sortByDateDesc();
-      // this.getEvents()
+      this.getEvents()
+      
     } else {
       console.log("ไม่สามารถเพิ่มข้อมูลได้")
     }
@@ -97,9 +91,7 @@ export const eventManager = reactive({
     });
   
     if (res.status === 200) {
-      // const deletedBooking = await res.json()
-      // console.log("del "+deletedBooking)
-      this.eventList = this.eventList.filter((event) => event.id != eventId)
+      this.getEvents()
 
     } else {
       console.log(`ไม่พบข้อมูล event Id: ${eventId}`)
@@ -118,20 +110,10 @@ export const eventManager = reactive({
     });
   
     if (res.status === 200) {
-      const editedBooking = await res.json();
-      const foundBooking = this.eventList.find((event) => 
- event.id === editedBooking.id
-     )
-      console.log("foud " + foundBooking)
-      foundBooking.note = editedBooking.note
-      foundBooking.startTime = editedBooking.startTime
-      this.sortByDateDesc();
+      this.getEvents()
     } else {
       console.log("ไม่สามารถแก้ไขข้อมูลได้")
     }
-  },
-  sortByDateDesc: function(){
-    this.eventList = this.eventList.sort((a,b) => new Date(b.startTime) - new Date(a.startTime))
   },
   editEventCategory: async function (category) {
     console.log("edit" + category.categoryDescription)
