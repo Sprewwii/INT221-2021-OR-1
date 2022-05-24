@@ -3,7 +3,7 @@ export const eventManager = reactive({
   eventList: [],
   eventCategories: [],
   getEvents: async function () {
-    const res = await fetch(`${import.meta.env.VITE_API}/events`);
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events`);
     if (res.status === 200) {
       this.eventList = await res.json();
     } else {
@@ -11,7 +11,7 @@ export const eventManager = reactive({
     }
   },
   getEventById: async function (eventId) {
-    const res = await fetch(`${import.meta.env.VITE_API}/events/${eventId}`);
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events/${eventId}`);
     if (res.status === 200) {
       return await res.json();
     } else {
@@ -19,7 +19,7 @@ export const eventManager = reactive({
     }
   },
   getEventsPast: async function () {
-    const res = await fetch(`${import.meta.env.VITE_API}/events/past`);
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events/past`);
     if (res.status === 200) {
       this.eventList = await res.json();
     } else {
@@ -27,7 +27,7 @@ export const eventManager = reactive({
     }
   },
   getEventsFuture: async function () {
-    const res = await fetch(`${import.meta.env.VITE_API}/events/future`);
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events/future`);
     if (res.status === 200) {
       this.eventList = await res.json();
     } else {
@@ -35,7 +35,7 @@ export const eventManager = reactive({
     }
   },
   getEventsByDate: async function (date) {
-    const res = await fetch(`${import.meta.env.VITE_API}/events/date/${date}`);
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events/date/${date}`);
     if (res.status === 200) {
       this.eventList = await res.json();
     } else {
@@ -44,7 +44,7 @@ export const eventManager = reactive({
   },
   getEventsByCategory: async function (categoryId) {
     const res = await fetch(
-      `${import.meta.env.VITE_API}/events/${categoryId}/categories`
+      `${import.meta.env.VITE_API}/events/${categoryId}/api/categories`
     );
     if (res.status === 200) {
       this.eventList = await res.json();
@@ -53,7 +53,7 @@ export const eventManager = reactive({
     }
   },
   getEventCategories: async function () {
-    const res = await fetch(`${import.meta.env.VITE_API}/eventCategories`);
+    const res = await fetch(`${import.meta.env.VITE_API}/api/eventCategories`);
     if (res.status === 200) {
       this.eventCategories = await res.json();
     } else {
@@ -66,7 +66,7 @@ export const eventManager = reactive({
     );
   },
   createEvent: async function (booking) {
-    const res = await fetch(`${import.meta.env.VITE_API}/events`, {
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -88,7 +88,7 @@ export const eventManager = reactive({
     }
   },
   deleteEvent: async function (eventId) {
-    const res = await fetch(`${import.meta.env.VITE_API}/events/${eventId}`, {
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events/${eventId}`, {
       method: "DELETE",
     });
 
@@ -100,7 +100,7 @@ export const eventManager = reactive({
   },
   editEvent: async function (booking) {
     const res = await fetch(
-      `${import.meta.env.VITE_API}/events/${booking.id}`,
+      `${import.meta.env.VITE_API}/api/events/${booking.id}`,
       {
         method: "PATCH",
         headers: {
@@ -121,7 +121,7 @@ export const eventManager = reactive({
   },
   editEventCategory: async function (category) {
     const res = await fetch(
-      `${import.meta.env.VITE_API}/eventCategories/${category.categoryId}`,
+      `${import.meta.env.VITE_API}/api/eventCategories/${category.categoryId}`,
       {
         method: "PATCH",
         headers: {
