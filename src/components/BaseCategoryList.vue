@@ -54,7 +54,7 @@ const selectedCategoryId = computed(() => props.selectedCategoryId)
         <p class="bg-violet-600 rounded-lg text-white text-center w-1/2 my-5 pt-1">{{ eventCategory.categoryDuration }}
           minutes</p>
         <div class="flex flex-col items-center justify-center w-full h-full">
-          <p v-if="eventCategory.categoryDescription == null" class="font-normal text-gray-500">No Description</p>
+          <p v-if="!eventCategory.categoryDescription" class="font-normal text-gray-500">No Description</p>
           <p v-else class="font-normal text-gray-300 break-words w-full">{{ eventCategory.categoryDescription }}</p>
         </div>
       </div>

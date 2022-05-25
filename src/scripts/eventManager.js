@@ -44,7 +44,7 @@ export const eventManager = reactive({
   },
   getEventsByCategory: async function (categoryId) {
     const res = await fetch(
-      `${import.meta.env.VITE_API}/events/${categoryId}/api/categories`
+      `${import.meta.env.VITE_API}/api/events/${categoryId}/categories`
     );
     if (res.status === 200) {
       this.eventList = await res.json();
@@ -108,7 +108,7 @@ export const eventManager = reactive({
         },
         body: JSON.stringify({
           startTime: new Date(booking.startTime).toISOString(),
-          note: booking.note ? booking.note : null,
+          note: booking.note,
         }),
       }
     );
