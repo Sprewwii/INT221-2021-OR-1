@@ -16,8 +16,8 @@ const props = defineProps({
 
 defineEmits(['editCategory', 'closeEditModal'])
 
-const currenCategoryName = props.editingCategory.categoryName
 const editingCategory = computed(() => props.editingCategory)
+editingCategory.currentCategoryName = props.editingCategory.categoryName
 const isCategoryNameUnique = ref(true)
 </script>
 <template>
@@ -32,7 +32,7 @@ const isCategoryNameUnique = ref(true)
                 </button>
 
                 <div class="py-6 px-6 lg:px-8">
-                    <h3 class="mb-4 text-2xl font-medium text-white">Edit Event Category</h3>
+                    <h3 class="mb-4 text-2xl font-medium text-white">Edit Event Category {{editingCategory.currentCategoryName}}</h3>
                     <form class="space-y-8">
 
                         <div>

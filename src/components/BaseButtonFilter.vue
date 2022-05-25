@@ -20,8 +20,6 @@ const choosedDate = ref("")
 
 const chooseFilter = (filter) => {
   eventFilter.selectedFilter = filter;
-  console.log(filter);
-  console.log(selectedFilter.value);
   selectedFilter.value.getEvents();
   filterList[3].selectedCategory = null;
   toggleFilterList();

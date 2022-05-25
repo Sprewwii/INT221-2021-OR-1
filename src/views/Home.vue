@@ -29,6 +29,7 @@ const editBooking = async () => {
   editingBooking.value = await eventManager.getEventById(
     selectedBookingId.value
   );
+  editingBooking.value.currentStartTime = editingBooking.value.startTime;
 };
 
 const updateEditingBooking = (booking, e) => {

@@ -89,7 +89,7 @@ showWarning.value.dateTimeOverlap = false
                                 <p :class="{'text-red-400': !validation.validateLength(editingBooking.note,500)}" class="text-sm text-gray-500 absolute mt-1">{{editingBooking.note.length}}/500</p>    
                             </div>
                         </div>
-                        <button @click="$emit('editBooking', {id:editingBooking.id,startTime: editingBooking.startTime,note: editingBooking.note}, $event)"
+                        <button @click="$emit('editBooking', {id:editingBooking.id,startTime: editingBooking.currentStartTime == editingBooking.startTime ? null :  new Date(editingBooking.startTime).toISOString() ,note: editingBooking.note}, $event)"
                             class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center :bg-violet-600">Update</button>
                     </form>
                 </div>

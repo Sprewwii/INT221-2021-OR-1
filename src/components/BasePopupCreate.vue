@@ -22,6 +22,7 @@ const validateDateTime = () => {
 }
 
 const createBooking = (e) => {
+    validateDateTime();
     e.preventDefault();
     showWarning.value.create = false
     if (!creatingBooking.value.name) showWarning.value.isName = true

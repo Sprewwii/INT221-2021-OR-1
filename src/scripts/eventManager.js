@@ -99,6 +99,7 @@ export const eventManager = reactive({
     }
   },
   editEvent: async function (booking) {
+    console.log(booking);
     const res = await fetch(
       `${import.meta.env.VITE_API}/api/events/${booking.id}`,
       {
@@ -107,7 +108,7 @@ export const eventManager = reactive({
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          startTime: new Date(booking.startTime).toISOString(),
+          startTime: booking.startTime,
           note: booking.note,
         }),
       }
