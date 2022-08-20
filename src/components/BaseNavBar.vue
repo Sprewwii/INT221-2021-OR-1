@@ -30,25 +30,32 @@ const selectedPage = ref(1)
                      draggable="false">
                </div>
                <p class="self-center text-base font-medium whitespace-nowrap text-gray-500 mt-3 mb-8 select-none">ADMIN 01</p>
-               <div class="flex flex-col space-y-5">
+               <div class="flex flex-col space-y-0">
                   <router-link :to="{ name: 'Home' }" class="mr-8">
-                     <div class="flex items-center p-6 text-lg font-normal rounded-lg text-white w-full">
+                     <div class="flex items-center p-4 text-lg font-normal rounded-lg text-white w-full">
                         <IconCalendar width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
                         <span class="ml-3">Scheduled Event</span>
                      </div>
                   </router-link>
                   <router-link :to="{ name: 'CategoryList' }" class="mr-8">
-                     <div class="flex w-full items-center p-6 text-lg font-normal rounded-lg text-white">
+                     <div class="flex w-full items-center p-4 text-lg font-normal rounded-lg text-white">
                         <IconCategory width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
                         <span class="ml-3">Event Categories</span>
                      </div>
                   </router-link>
+                  <router-link :to="{ name: 'UserList' }" class="mr-8">
+                     <div class="flex w-full items-center p-4 text-lg font-normal rounded-lg text-white">
+                        <IconAboutUs width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
+                        <span class="ml-3">Users</span>
+                     </div>
+                  </router-link>
                   <router-link :to="{ name: 'AboutUs' }" class="mr-8">
-                     <div class="flex w-full items-center p-6 text-lg font-normal rounded-lg text-white">
+                     <div class="flex w-full items-center p-4 text-lg font-normal rounded-lg text-white">
                         <IconAboutUs width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
                         <span class="ml-3">About Us</span>
                      </div>
                   </router-link>
+                
                </div>
                <button
                   class="flex absolute bottom-16 w-2/3 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"

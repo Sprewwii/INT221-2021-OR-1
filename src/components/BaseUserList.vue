@@ -1,30 +1,26 @@
 <script setup>
 import { computed } from "vue"
-
-import { eventManager } from "../scripts/eventManager.js"
+import { userManager } from "../scripts/userManager.js"
+import { role } from "../scripts/role.js"
 import IconMenuKebabVue from "./icons/IconMenuKebab.vue";
 import IconDelete from "./icons/IconDelete.vue";
 import IconEdit from "./icons/IconEdit.vue";
 
 const props = defineProps({
-  bookingList: {
+  userList: {
     type: Array,
     default: []
   },
-  selectedBookingId: {
+  selectedUserId: { 
     type: Number,
     default: 0
   },
-  noEventsWarning: {
-    type: String,
-    default: ""
-  },
 })
 
-defineEmits(['selectBooking', 'editBooking', 'deleteBooking'])
+defineEmits(['selectUser', 'editUser', 'deleteUser'])
 
-const selectedBookingId = computed(() => props.selectedBookingId)
-const noEventsWarning = computed(() => props.noEventsWarning)
+const selectedUserId = computed(() => props.selectedUserId)
+const noUsersWarning = computed(() => props.noUsersWarning)
 </script>
 
 <template>
@@ -34,68 +30,46 @@ const noEventsWarning = computed(() => props.noEventsWarning)
         <thead class="text-xs uppercase text-gray-300 sm:text-sm">
           <tr>
             <th scope="col" class="px-6 py-3 w-4/12">Name</th>
-            <th scope="col" class="px-6 py-3 w-3/12">Category</th>
-            <th scope="col" class="px-6 py-3 w-2/12">Date Time</th>
-            <th scope="col" class="px-6 py-3 w-1/12">Time</th>
-            <th scope="col" class="px-6 py-3 w-1/12">
-              Duration <br />
-              <p class="text-xs">(minutes)</p>
-            </th>
+            <th scope="col" class="px-6 py-3 w-3/12">Email</th>
+            <th scope="col" class="px-6 py-3 w-2/12">Role</th>
             <th colspan="2" class="px-6 py-3">
               <span class="sr-only">Details</span>
             </th>
           </tr>
         </thead>
-        <tbody v-if="bookingList.length === 0">
-          <td colspan="7" class="py-64 text-xl">{{ noEventsWarning }}</td>
+        <tbody v-if="userList.length === 0">
+          <td colspan="7" class="py-64 text-xl">No Users</td>
         </tbody>
-        <tbody v-else v-for="booking in bookingList" :key="booking.id">
+        <tbody v-else v-for="user in userList" :key="user.userId">
           <tr class="border-t border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal">
             <th scope="row" class="pl-6 font-normal text-white text-left break-words">
-              <router-link :to="{ name: 'BookingDetails', params: { id: booking.id } }" class="hover:underline">
-                {{ booking.name }}
+              <router-link :to="{ name: 'UserDetails', params: { id: user.userId } }" class="hover:underline">
+                {{ user.name }}
               </router-link>
             </th>
             <td>
-              {{ booking.categoryName }}
+              {{ user.email }}
             </td>
             <td class="px-6 py-4">
-              {{
-                  new Date(booking.startTime).toLocaleString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })
-              }}
-            </td>
-            <td class="px-6 py-4">
-              {{
-                  new Date(booking.startTime).toLocaleTimeString("it-IT", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
-              }}
-            </td>
-            <td class="px-6 py-4">
-              {{ booking.duration }}
+              {{ user.role }}
             </td>
             <td class="pr-3">
               <div class="inline-block relative">
-                <button @click="$emit('selectBooking', booking.id)" class="p-3">
+                <button @click="$emit('selectUser', user.userId)" class="p-3">
                   <IconMenuKebabVue />
                 </button>
-                <ul class="absolute text-white pt-1 z-10" v-show="selectedBookingId === booking.id">
+                <ul class="absolute text-white pt-1 z-10" v-show="selectedUserId === user.userId">
                   <li>
                     <button
                       class="rounded-t bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
-                      @click="$emit('editBooking')">
+                      @click="$emit('editUser')">
                       <IconEdit class="mr-2" />Edit
                     </button>
                   </li>
                   <li>
                     <button
                       class="rounded-b bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full items-center flex border-t border-l-0 border-r-0 border-b-0 border-gray-600"
-                      @click="$emit('deleteBooking')">
+                      @click="$emit('deleteUser')">
                       <IconDelete class="mr-2" />Delete
                     </button>
                   </li>

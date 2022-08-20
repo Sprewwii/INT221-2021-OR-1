@@ -1,8 +1,10 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import Home from '../views/Home.vue'
-import BaseBookingDetails from '../views/BookingDetails.vue'
+import BookingDetails from '../views/BookingDetails.vue'
 import CategoryList from '../views/CategoryList.vue'
 import AboutUs from '../views/AboutUs.vue'
+import UserList from '../views/UserList.vue'
+import UserDetails from '../views/UserDetails.vue'
 
 const history = createWebHistory('/or1/');
 const routes = [
@@ -13,8 +15,8 @@ const routes = [
     },
     {
         path: '/details/:id',
-        name: 'BaseBookingDetails',
-        component: BaseBookingDetails
+        name: 'BookingDetails',
+        component: BookingDetails
     },
     {
         path: '/category-list',
@@ -22,9 +24,19 @@ const routes = [
         component: CategoryList
     },
     {
+        path: '/users/:id',
+        name: 'UserDetails',
+        component: UserDetails
+    },
+    {
         path: '/about',
         name: 'AboutUs',
         component: AboutUs
+    },
+    {
+        path: '/users',
+        name: 'UserList',
+        component: UserList
     },
 ]
 

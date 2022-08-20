@@ -2,6 +2,7 @@
 import { onBeforeMount } from "vue"
 import { ref } from "vue";
 import { eventManager } from "./scripts/eventManager.js"
+import { userManager } from "./scripts/userManager.js"
 import Navbar from "./components/BaseNavBar.vue"
 import BasePopupCreate from "./components/BasePopupCreate.vue";
 import BasePopupSuccess from "./components/BasePopupSuccess.vue";
@@ -9,6 +10,7 @@ import BasePopupSuccess from "./components/BasePopupSuccess.vue";
 onBeforeMount(async () => {
   await eventManager.getEvents();
   await eventManager.getEventCategories();
+  await userManager.getUsers();
 });
 
 const popupSuccessText = ref(null)
