@@ -12,7 +12,7 @@ const selectedUserId = ref(0);
 const editingBooking = ref({});
 
 // const noUsersMessage = ref("");
-// const isShowDeleteBookingConfirm = ref(false);
+const isShowDeleteBookingConfirm = ref(false);
 // const popupSuccessText = ref(null)
 
 const selectUser = (id) => {
@@ -39,15 +39,17 @@ const selectUser = (id) => {
 //   popupSuccessText.value = "Edit Booking"
 // };
 
-// const toggleDeleteConfirm = () => {
-//   isShowDeleteBookingConfirm.value = !isShowDeleteBookingConfirm.value;
-// };
+const toggleDeleteConfirm = () => {
+  isShowDeleteBookingConfirm.value = !isShowDeleteBookingConfirm.value;
+};
 
-// const deleteBooking = () => {
-//   eventManager.deleteEvent(selectedBookingId.value);
-//   toggleDeleteConfirm();
-//   selectBooking(0);
-// };
+const toggleSuccessText
+
+const deleteUser = () => {
+  userManager.deleteUser(selectedUserId.value);
+  toggleDeleteConfirm();
+  selectUser(0);
+};
 
 // const setNoEventMessage = (message) => {
 //   noEventMessage.value = message
@@ -65,16 +67,16 @@ const selectUser = (id) => {
     <BaseUserList :userList="userList" :selectedUserId="selectedUserId" @selectUser="selectUser" @editUser="editUser"
       @deleteUser="toggleDeleteConfirm" class="pr-12" />
 
- <!-- <BaseUserList :userList="userList" :selectedUserId="selectedUserId"
+    <!-- <BaseUserList :userList="userList" :selectedUserId="selectedUserId"
       :noUsersWarning="noUsersMessage" @selectBooking="selectBooking" @editBooking="editBooking"
       @deleteBooking="toggleDeleteConfirm" class="pr-12" /> -->
 
     <!-- <BasePopupSuccess v-show="popupSuccessText" :popupSuccessText="popupSuccessText"
-      @closeSuccessModal="popupSuccessText = null" />
+      @closeSuccessModal="popupSuccessText = null" /> -->
     <BasePopupConfirm v-show="isShowDeleteBookingConfirm" @closeConfirmModal="toggleDeleteConfirm"
-      @deleteBooking="deleteBooking" />
-    <BasePopupEdit v-show="Object.keys(editingBooking).length > 0" @closeEditModal="editingBooking = {}"
-      :editingBooking="editingBooking" @editBooking="updateEditingBooking" /> -->
+      @deleteBooking="deleteUser" />
+    <!-- <BasePopupEdit v-show="Object.keys(editingBooking).length > 0" @closeEditModal="editingBooking = {}"
+      :editingBooking="editingBooking" @editBooking="updateEditingBooking" />  -->
   </div>
 
 </template>

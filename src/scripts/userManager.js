@@ -23,4 +23,15 @@ export const userManager = reactive({
           console.log(`ไม่พบข้อมูล event Id: ${userId}`);
         }
       },
+      deleteUser: async function (userId) {
+        const res = await fetch(`${import.meta.env.VITE_API}/api/users/${userId}`, {
+          method: "DELETE",
+        });
+    
+        if (res.status === 200) {
+          this.getUsers();
+        } else {
+          console.log(`ไม่พบข้อมูล user Id: ${userId}`);
+        }
+      }
 })
