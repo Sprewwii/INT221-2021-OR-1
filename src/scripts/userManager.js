@@ -35,15 +35,16 @@ export const userManager = reactive({
         role: user.role,
       })
   })
-  .then(res => {
+  const info = await res.json()
+  const info2 = await res.text()
     if(res.status === 200) {
       this.getUsers();
       console.log("create")
+     }else{
+      console.log(res)
+      console.log(info)
+      console.log(info2)
      }
-  })
-  .catch(err => {
-
-  })
 
     // console.log(res.json)
   },
