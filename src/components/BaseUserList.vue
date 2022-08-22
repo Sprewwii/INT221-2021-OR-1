@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue"
 import { userManager } from "../scripts/userManager.js"
-import { role } from "../scripts/role.js"
+import { roles } from "../scripts/roles.js"
 import IconMenuKebabVue from "./icons/IconMenuKebab.vue";
 import IconDelete from "./icons/IconDelete.vue";
 import IconEdit from "./icons/IconEdit.vue";

@@ -46,4 +46,14 @@ validateUniqueCategoryName: function(editingCategory){
     }
     return true
 }
+// validateUniqueNameEmailUser: function(user, editingUser){
+//     if(user.name != editingUser.name){
+//         if(user.email != editingUser.email){
+//           return user
+//         }
+//         user = {userId: user.id, name: user.name, role: user.role}
+//         return user
+//       }
+//     return ""
+// }
 }
