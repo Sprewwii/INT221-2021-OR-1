@@ -60,6 +60,11 @@ const deleteUser = () => {
   selectUser(0);
 };
 
+const setPopupSuccessText = (text) => {
+  console.log(text)
+  popupSuccessText.value = text
+}
+
 // const setNoEventMessage = (message) => {
 //   noEventMessage.value = message
 // }
@@ -89,7 +94,7 @@ const deleteUser = () => {
     <BasePopupSuccess v-show="popupSuccessText" :popupSuccessText="popupSuccessText"
       @closeSuccessModal="popupSuccessText = null" />
     
-    <BasePopupCreateUser v-show="showingPopup === 'create'" @closeCreateModal="toggleModal('create')"/> 
+    <BasePopupCreateUser v-show="showingPopup === 'create'" @closeCreateModal="toggleModal('create')" @showPopupSuccess="setPopupSuccessText"/> 
 
     <BasePopupConfirm v-show="showingPopup === 'delete'" @closeConfirmModal="toggleModal('delete')"
       @deleteBooking="deleteUser"/> 
