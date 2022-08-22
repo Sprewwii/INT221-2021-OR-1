@@ -40,8 +40,10 @@ export const userManager = reactive({
     if(res.status === 200) {
       this.getUsers();
       console.log("create")
+      return true
      }else{
-      console.log(res)
+      console.log("ไม่สามารถสร้าง User ได้")
+      return false
      }
 
     // console.log(res.json)
@@ -69,11 +71,7 @@ export const userManager = reactive({
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        }),
+        body: JSON.stringify(user),
       }
     );
 

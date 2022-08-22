@@ -49,6 +49,9 @@ onBeforeMount(async () => {
                     minute: "2-digit"
                   })
               }}
+              in
+              {{new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split(' ')[2].substring(0, 3) + " time (" + new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split(' ')[2].substring(3, 5) + ":00)"}}
+              
             </div>
 
             <div>
@@ -67,6 +70,9 @@ onBeforeMount(async () => {
                     minute: "2-digit"
                   })
               }}
+               in
+              {{new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split(' ')[2].substring(0, 3) + " time (" + new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split(' ')[2].substring(3, 5) + ":00)"}}
+              
             </div>
 
           </div>

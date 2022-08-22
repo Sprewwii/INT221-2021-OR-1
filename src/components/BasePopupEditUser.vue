@@ -28,6 +28,19 @@ const userName = editingUser.value.name
 // showWarning.value.dateTimeOverlap = false 
 // }
 
+const saveEditingUser = () => {
+    if(editingUser.value.name !== editingUser.value.currentName && editingUser.value.email !== editingUser.value.currentEmail){
+        return {userId:editingUser.value.userId, name: editingUser.value.name, email: editingUser.value.email, role: editingUser.value.role}
+    }
+    if(editingUser.value.email !== editingUser.value.currentEmail && editingUser.value.name == editingUser.value.currentName){
+        return {userId:editingUser.value.userId, email: editingUser.value.email, role: editingUser.value.role}
+    }
+    if(editingUser.value.email == editingUser.value.currentEmail && editingUser.value.name !== editingUser.value.currentName){
+        return {userId:editingUser.value.userId, name: editingUser.value.name, role: editingUser.value.role}
+    }
+    return {userId:editingUser.value.userId, role: editingUser.value.role} 
+}
+
 </script>
 <template>
     <div
@@ -41,33 +54,41 @@ const userName = editingUser.value.name
                 </button>
 
                 <div class="py-6 px-6 lg:px-8">
-                    <h3 class="mb-4 text-2xl font-medium text-white">Edit User</h3>
+                    <h3 class="mb-4 text-2xl font-medium text-white">Edit User {{editingUser.role}}</h3>
                     <form class="space-y-6">
                         <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-300">Name</label>
                             <input v-model="editingUser.name"
                                 class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-white" >
-                                <!-- <p v-show="editingUser.name == userName">ควย</p> -->
                         </div>
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-300">Email</label>
                             <input class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-white"  v-model="editingUser.email">  
                         </div>
-                        <div>
-                            <label for="role" class="block mb-3 text-sm font-medium text-neutral-300">Role</label>
-                            <div class="flex">
-                                <select 
-                                    v-model="editingUser.role"
-                                    class="text-white bg-neutral-700 border border-neutral-700 hover:bg-neutral-800 focus:outline-none focus:ring-violet-300 focus:border-violet-500 rounded-lg text-sm text-left inline-flex items-center">
-                                    <option value="" selected disabled hidden></option>
-                                    <option :value="role" v-for="(role, index) in roles"
-                                        :key="index">
-                                        {{ role }}
-                                    </option>
-                                </select>
-                            </div>
 
+
+                         <div>
+                            <label for="role" class="block text-sm font-medium text-neutral-300">
+                                <span>Role</span></label>
+                            <span class="text-gray-500 text-xs">If you didn't select any role. Your role will be a student.</span>
+
+                            <div class="grid grid-cols-3 gap-8 mt-3">
+                                <div @click="editingUser.role = role" v-for="(role, index) in roles" :key="index">
+                                    
+                                    <label
+                                    :class="editingUser.role == role ? 'border-violet-400 ring-1 ring-violet-400 bg-violet-400 text-gray-800' : ''"
+                                        class="hover:bg-violet-500  bg-neutral-700 block p-4 text-sm font-medium text-white text-center transition-colors border border-gray-500 rounded-lg shadow-sm cursor-pointer"
+                                        for="standard_alt">
+                                        <span> {{role}} </span>
+
+                                    </label>
+
+                                </div>
+
+                        
+                            </div>
                         </div>
+
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-300">Inserted On</label>
                         <div class="flex">
@@ -86,8 +107,8 @@ const userName = editingUser.value.name
                             </div>
                         </div>
                         </div>
-                        
-                        <button @click="$emit('editingUser', {userId:editingUser.userId, name: editingUser.name, email: editingUser.email, role: editingUser.role}, $event)"
+                        <!-- -->
+                        <button @click="$emit('editingUser', saveEditingUser(), $event)"
                             class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center :bg-violet-600">Update</button>
                     </form>
                 </div>

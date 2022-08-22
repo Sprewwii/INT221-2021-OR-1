@@ -4,6 +4,7 @@ import IconCalendar from './icons/IconCalendar.vue';
 import IconCategory from './icons/IconCategory.vue';
 import IconPlus from './icons/IconPlus.vue';
 import IconAboutUs from './icons/IconAboutUs.vue';
+import IconUsername from './icons/IconUsername.vue'
 
 defineEmits(['toggleCreateModal'])
 const selectedPage = ref(1)
@@ -45,7 +46,7 @@ const selectedPage = ref(1)
                   </router-link>
                   <router-link :to="{ name: 'UserList' }" class="mr-8">
                      <div class="flex w-full items-center p-4 text-lg font-normal rounded-lg text-white">
-                        <IconAboutUs width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
+                        <IconUsername width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
                         <span class="ml-3">Users</span>
                      </div>
                   </router-link>

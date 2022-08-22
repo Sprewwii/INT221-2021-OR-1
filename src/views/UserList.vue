@@ -34,10 +34,8 @@ const createUser = () => {
 const editUser = async () => {
   showingPopup.value = "edit"
   editingUser.value = await userManager.getUserById(selectedUserId.value);
-  // editingUser.value.currentStartTime = editingBooking.value.startTime;
+  editingUser.value = { ...editingUser.value, currentName: editingUser.value.name, currentEmail: editingUser.value.email}
 };
-
-// const validation
 
 const updateEditingUser = (user, e) => {
   e.preventDefault();
@@ -60,10 +58,6 @@ const deleteUser = () => {
   selectUser(0);
 };
 
-const setPopupSuccessText = (text) => {
-  console.log(text)
-  popupSuccessText.value = text
-}
 
 // const setNoEventMessage = (message) => {
 //   noEventMessage.value = message
@@ -94,12 +88,12 @@ const setPopupSuccessText = (text) => {
     <BasePopupSuccess v-show="popupSuccessText" :popupSuccessText="popupSuccessText"
       @closeSuccessModal="popupSuccessText = null" />
     
-    <BasePopupCreateUser v-show="showingPopup === 'create'" @closeCreateModal="toggleModal('create')" @showPopupSuccess="setPopupSuccessText"/> 
+    <BasePopupCreateUser v-show="showingPopup === 'create'" @closeCreateModal="toggleModal('create')" @showPopupSuccess="popupSuccessText = 'Create User'; toggleModal('create')"/> 
 
     <BasePopupConfirm v-show="showingPopup === 'delete'" @closeConfirmModal="toggleModal('delete')"
       @deleteBooking="deleteUser"/> 
 
-    <BasePopupEditUser v-show="showingPopup === 'edit'" @closeEditModal="toggleModal('edit')"
+    <BasePopupEditUser v-show="showingPopup === 'edit'" @closeEditModal="toggleModal('edit'); editingUser = {}"
       :editingUser="editingUser" @editingUser="updateEditingUser" /> 
   </div>
 

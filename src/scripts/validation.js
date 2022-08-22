@@ -1,5 +1,6 @@
 
 import { eventManager } from "./eventManager.js"
+import { userManager } from "./userManager.js"
 
 export const validation = {
     isEmail: function(email){
@@ -42,18 +43,26 @@ isNotNull:function(value){
 },
 validateUniqueCategoryName: function(editingCategory){
     for(let category of eventManager.eventCategories){
-        if(editingCategory.categoryName === category.categoryName && editingCategory.categoryId != category.categoryId) return false
+        if(editingCategory.categoryName === category.categoryName && editingCategory.categoryId !== category.categoryId) return false
+    }
+    return true
+},
+validateUniqueName: function(currentUser){
+    for(let user of userManager.userList){
+        console.log(user.name + " " + currentUser.name+ " " +user.userId+ " " +currentUser.userId)
+        if(user.name === currentUser.name) {
+            return false
+        }
+    }
+    return true
+},
+validateUniqueEmail: function(currentUser){
+    for(let user of userManager.userList){
+        if(user.email === currentUser.email) {
+            return false
+        }
     }
     return true
 }
-// validateUniqueNameEmailUser: function(user, editingUser){
-//     if(user.name != editingUser.name){
-//         if(user.email != editingUser.email){
-//           return user
-//         }
-//         user = {userId: user.id, name: user.name, role: user.role}
-//         return user
-//       }
-//     return ""
-// }
+
 }
