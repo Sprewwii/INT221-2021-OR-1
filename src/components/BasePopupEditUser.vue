@@ -29,16 +29,29 @@ const userName = editingUser.value.name
 // }
 
 const saveEditingUser = () => {
-    if(editingUser.value.name !== editingUser.value.currentName && editingUser.value.email !== editingUser.value.currentEmail){
+    if(editingUser.value.name !== editingUser.value.currentName && editingUser.value.email !== editingUser.value.currentEmail && editingUser.value.role !== editingUser.value.currentRole){
         return {userId:editingUser.value.userId, name: editingUser.value.name, email: editingUser.value.email, role: editingUser.value.role}
     }
-    if(editingUser.value.email !== editingUser.value.currentEmail && editingUser.value.name == editingUser.value.currentName){
+    if(editingUser.value.name !== editingUser.value.currentName && editingUser.value.email !== editingUser.value.currentEmail){
+        return {userId:editingUser.value.userId, name: editingUser.value.name, email: editingUser.value.email}
+    }
+    if(editingUser.value.email !== editingUser.value.currentEmail && editingUser.value.role !== editingUser.value.currentRole){
         return {userId:editingUser.value.userId, email: editingUser.value.email, role: editingUser.value.role}
     }
-    if(editingUser.value.email == editingUser.value.currentEmail && editingUser.value.name !== editingUser.value.currentName){
+    if(editingUser.value.name !== editingUser.value.currentName && editingUser.value.role !== editingUser.value.currentRole){
         return {userId:editingUser.value.userId, name: editingUser.value.name, role: editingUser.value.role}
     }
-    return {userId:editingUser.value.userId, role: editingUser.value.role} 
+    if(editingUser.value.name !== editingUser.value.currentName){
+        return {userId:editingUser.value.userId, name: editingUser.value.name} 
+    }
+    if(editingUser.value.email !== editingUser.value.currentEmail){
+        return {userId:editingUser.value.userId, email: editingUser.value.email} 
+    }
+    if(editingUser.value.role !== editingUser.value.currentRole){
+        return {userId:editingUser.value.userId, role: editingUser.value.role} 
+    }
+    return {}
+    
 }
 
 </script>

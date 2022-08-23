@@ -34,12 +34,12 @@ const createUser = () => {
 const editUser = async () => {
   showingPopup.value = "edit"
   editingUser.value = await userManager.getUserById(selectedUserId.value);
-  editingUser.value = { ...editingUser.value, currentName: editingUser.value.name, currentEmail: editingUser.value.email}
+  editingUser.value = { ...editingUser.value, currentName: editingUser.value.name, currentEmail: editingUser.value.email, currentRole: editingUser.value.role}
 };
 
 const updateEditingUser = (user, e) => {
   e.preventDefault();
-  userManager.editUser(user);
+  if(Object.keys(user).length !== 0)userManager.editUser(user);
   editingUser.value = {};
   selectUser(0);
   toggleModal("")
