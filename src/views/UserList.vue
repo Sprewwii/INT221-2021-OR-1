@@ -43,7 +43,7 @@ const updateEditingUser = (user, e) => {
   editingUser.value = {};
   selectUser(0);
   toggleModal("")
-  popupSuccessText.value = "Edit Booking"
+  popupSuccessText.value = "Edit User"
 };
 
 const toggleModal = (modal) => {
