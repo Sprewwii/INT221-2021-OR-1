@@ -42,8 +42,14 @@ export const userManager = reactive({
       console.log("create")
       return true
      }else{
-      console.log("ไม่สามารถสร้าง User ได้")
-      return false
+      // console.log("ไม่สามารถสร้าง User ได้")
+      // return false
+      let error=""
+      for(let i = 0; i < info.details.length; i++) {
+        console.log(info.details[i].errorMessage)
+        error += info.details[i].errorMessage + " \n"      }
+        console.log(error)
+        return false
      }
 
     // console.log(res.json)

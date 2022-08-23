@@ -54,7 +54,7 @@ const saveEditingUser = () => {
                 </button>
 
                 <div class="py-6 px-6 lg:px-8">
-                    <h3 class="mb-4 text-2xl font-medium text-white">Edit User {{editingUser.role}}</h3>
+                    <h3 class="mb-4 text-2xl font-medium text-white">Edit User</h3>
                     <form class="space-y-6">
                         <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-300">Name</label>
