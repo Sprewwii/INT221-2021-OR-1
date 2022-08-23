@@ -39,11 +39,11 @@ const editUser = async () => {
 
 const updateEditingUser = (user, e) => {
   e.preventDefault();
-  if(Object.keys(user).length !== 0)userManager.editUser(user);
+  if(user){userManager.editUser(user);
   editingUser.value = {};
   selectUser(0);
   toggleModal("")
-  popupSuccessText.value = "Edit User"
+  popupSuccessText.value = "Edit User"}
 };
 
 const toggleModal = (modal) => {

@@ -80,11 +80,17 @@ export const userManager = reactive({
         body: JSON.stringify(user),
       }
     );
-
+    const info = await res.json()
     if (res.status === 200) {
       this.getUsers();
     } else {
       console.log("ไม่สามารถแก้ไขข้อมูลได้");
+      let error=""
+      for(let i = 0; i < info.details.length; i++) {
+        console.log(info.details[i].errorMessage)
+        error += info.details[i].errorMessage + " \n"      }
+        console.log(error)
+        // return false
     }
   },
 });
