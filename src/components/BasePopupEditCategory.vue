@@ -32,14 +32,14 @@ const isCategoryNameUnique = ref(true)
                 </button>
 
                 <div class="py-6 px-6 lg:px-8">
-                    <h3 class="mb-4 text-2xl font-medium text-white">Edit Event Category {{editingCategory.currentCategoryName}}</h3>
+                    <h3 class="mb-4 text-2xl font-medium text-white">Edit Event Category</h3>
                     <form class="space-y-8">
 
                         <div>
                             <label for="name" class="block mb-3 text-sm font-medium text-neutral-300">Name</label>
                             <input v-model="editingCategory.categoryName" name="name" id="name" type="text"
                                 @blur="editingCategory.categoryName = editingCategory.categoryName.trim();"
-                                :class="[validation.validateLengthAndNotNull(editingCategory.categoryName, 100) && isCategoryNameUnique ? decorator.normalFormBorder : decorator.redFormBorder]"
+                                :class="[validation.validateLengthAndNotNull(editingCategory.categoryName, 1, 100) && isCategoryNameUnique ? decorator.normalFormBorder : decorator.redFormBorder]"
                                 class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="Example OR-1" required>
                             <p v-if="editingCategory.categoryName === ''" class="text-sm text-red-400 absolute mt-1">*

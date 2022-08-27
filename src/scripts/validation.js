@@ -32,12 +32,13 @@ export const validation = {
    validateCategoryDuration :function(duration){
         return duration >= 1 && duration <= 480
    },
-   validateLengthAndNotNull :function(value,maxLength){
-    return value && value.length <= maxLength
+   validateLengthAndNotNull :function(value,minLength,maxLength){
+    return value && value.length >= minLength && value.length <= maxLength
 },
 validateLength :function(value,maxLength){
     return value == null || value == '' || (value && value.length <= maxLength)
 },
+
 isNotNull:function(value){
     return value != null && value != ''
 },
@@ -63,6 +64,9 @@ validateUniqueEmail: function(currentUser){
         }
     }
     return true
-}
+},
+validateConfirmPassword: function(password,confirmPassword){
+    return password === confirmPassword
+},
 
 }
