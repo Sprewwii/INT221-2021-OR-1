@@ -8,6 +8,7 @@ import BasePopupConfirm from "../components/BasePopupConfirm.vue";
 import BasePopupSuccess from "../components/BasePopupSuccess.vue";
 import BasePopupCreateUser from "../components/BasePopupCreateUser.vue";
 import IconPlus from "../components/icons/IconPlus.vue"
+import BaseMatchPassword from "../components/BaseMatchPassword.vue"
 
 const userList = computed(() => userManager.userList);
 const selectedUserId = ref(0);
@@ -39,11 +40,13 @@ const editUser = async () => {
 
 const updateEditingUser = (user, e) => {
   e.preventDefault();
-  if(user){userManager.editUser(user);
-  editingUser.value = {};
-  selectUser(0);
-  toggleModal("")
-  popupSuccessText.value = "Edit User"}
+  if(user){
+    userManager.editUser(user);
+    editingUser.value = {};
+    selectUser(0);
+    toggleModal("")
+    popupSuccessText.value = "Edit User"
+    }
 };
 
 const toggleModal = (modal) => {
@@ -55,9 +58,17 @@ const toggleModal = (modal) => {
 const deleteUser = () => {
   userManager.deleteUser(selectedUserId.value);
   toggleModal('delete')
-  selectUser(0);
-};
+  selectUser(0)
+}
 
+const matchPassword = () => {
+  showingPopup.value = "matchPassword"
+}
+
+const matching = (user, e) => {
+    e.preventDefault();
+    userManager.matchingPassword(user)
+}
 
 // const setNoEventMessage = (message) => {
 //   noEventMessage.value = message
@@ -78,7 +89,7 @@ const deleteUser = () => {
         <span class="ml-3">Create User</span>
       </button>
     </div>
-    <BaseUserList :userList="userList" :selectedUserId="selectedUserId" @selectUser="selectUser" @editUser="editUser"
+    <BaseUserList :userList="userList" :selectedUserId="selectedUserId" @selectUser="selectUser" @editUser="editUser" @matchPassword="matchPassword"
       @deleteUser="toggleModal('delete')" class="pr-12" />
 
     <!-- <BaseUserList :userList="userList" :selectedUserId="selectedUserId"
@@ -95,6 +106,8 @@ const deleteUser = () => {
 
     <BasePopupEditUser v-show="showingPopup === 'edit'" @closeEditModal="toggleModal('edit'); editingUser = {}"
       :editingUser="editingUser" @editingUser="updateEditingUser" /> 
+    
+    <BaseMatchPassword v-show="showingPopup === 'matchPassword'" @closeEditModal="toggleModal('matchPassword')" @matching="matching"/>
   </div>
 
 </template>

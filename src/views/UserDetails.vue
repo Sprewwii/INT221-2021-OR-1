@@ -35,11 +35,10 @@ onBeforeMount(async () => {
             <div>
               <p class="text-gray-500 text-xs">Create on</p>
               {{
-               
                   new Date(userDetails.createdOn).toLocaleString("en-US", {
                     year: "numeric",
                     month: "short",
-                    day: "numeric",
+                    day: "numeric", 
                   })
               }}
               at
@@ -50,8 +49,8 @@ onBeforeMount(async () => {
                   })
               }}
               in
-              {{new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split(' ')[2].substring(0, 3) + 
-              " time (" + new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split(' ')[2].substring(3, 5) + ":00)"}}
+              {{new Date().toLocaleTimeString('en-CA',{timeZoneName:'short'}).split(' ')[2] +
+               " time ("  + new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split(' ')[2].substring(3, 5) + ":00)"}} 
               
             </div>
 
@@ -72,7 +71,8 @@ onBeforeMount(async () => {
                   })
               }}
                in
-              {{new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split(' ')[2].substring(0, 3) + " time (" + new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split(' ')[2].substring(3, 5) + ":00)"}}
+              {{new Date().toLocaleTimeString('en-CA',{timeZoneName:'short'}).split(' ')[2] +
+               " time ("  + new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split(' ')[2].substring(3, 5) + ":00)"}} 
               
             </div>
 

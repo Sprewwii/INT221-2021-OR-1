@@ -93,4 +93,51 @@ export const userManager = reactive({
         // return false
     }
   },
+
+  // matchingPassword: async function (user) {
+  //   console.log(user)
+  //   const res = await fetch(`${import.meta.env.VITE_API}/api/match`, {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       email: user.email,
+  //       password: user.password,
+  //     })
+  // })
+  // // const info = await res.json()
+  //   if (res.status === 200) {
+  //     console.log("Password Matched")
+  //   } else {
+  //     console.log("Password NOT Matched");
+  //     // let error=""
+  //     // for(let i = 0; i < info.details.length; i++) {
+  //     //   console.log(info.details[i].errorMessage)
+  //     //   error += info.details[i].errorMessage + " \n"      }
+  //     //   console.log(error)
+  //       // return false
+  //   }
+  // },
+
+
+  matchingPassword: async function (user) {
+    const res = await fetch(`${import.meta.env.VITE_API}/api/match`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email: user.email,
+        password: user.password
+      })
+  })
+    if(res.status === 200) {
+      console.log("Password Matched")
+      return true
+     }else{
+      console.log("Password NOT Matched")
+        return false
+     }
+  },
 });
