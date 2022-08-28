@@ -5,20 +5,20 @@ import { validation } from "../scripts/validation.js";
 import BaseUserList from "../components/BaseUserList.vue";
 import BasePopupEditUser from "../components/BasePopupEditUser.vue";
 import BasePopupConfirm from "../components/BasePopupConfirm.vue";
-import BasePopupSuccess from "../components/BasePopupSuccess.vue";
+import BasePopup from "../components/BasePopup.vue";
 import BasePopupCreateUser from "../components/BasePopupCreateUser.vue";
 import IconPlus from "../components/icons/IconPlus.vue"
-import BaseMatchPassword from "../components/BaseMatchPassword.vue"
+import BaseLogin from "../components/BaseLogin.vue"
 
 const userList = computed(() => userManager.userList);
 const selectedUserId = ref(0);
 const editingUser = ref({});
-const showingPopup = ref("");
+const showingPopup = ref({});
 
 
 // const noUsersMessage = ref("");
 const isShowDeleteBookingConfirm = ref(false);
-const popupSuccessText = ref(null)
+const popup = ref({})
 
 const selectUser = (id) => {
   if (selectedUserId.value === id) {
@@ -45,7 +45,7 @@ const updateEditingUser = (user, e) => {
     editingUser.value = {};
     selectUser(0);
     toggleModal("")
-    popupSuccessText.value = "Edit User"
+    popup.value = "Edit User"
     }
 };
 
@@ -61,13 +61,21 @@ const deleteUser = () => {
   selectUser(0)
 }
 
-const matchPassword = () => {
-  showingPopup.value = "matchPassword"
+const popupLogin = () => {
+  showingPopup.value = "login"
 }
 
-const matching = (user, e) => {
+const loginUser = (userLogin, e) => {
     e.preventDefault();
-    userManager.matchingPassword(user)
+    if(userManager.login(userLogin)){
+      showingPopup.value = 'login'
+    }
+}
+
+const showPopup = (newPopup) => {
+  console.log("pop "+newPopup) //มอสสึ แใ่
+  if(newPopup && newPopup.type !== 'error') toggleModal('create')
+  popup.value = newPopup
 }
 
 // const setNoEventMessage = (message) => {
@@ -81,7 +89,7 @@ const matching = (user, e) => {
       <h1 class="text-gray-300 text-2xl mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none inline-block align-middle">
         User List
       </h1>
-
+            <button @click="popupLogin">Login</button> 
       <button
         class="flex w-48 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
         @click="createUser()">
@@ -89,17 +97,13 @@ const matching = (user, e) => {
         <span class="ml-3">Create User</span>
       </button>
     </div>
-    <BaseUserList :userList="userList" :selectedUserId="selectedUserId" @selectUser="selectUser" @editUser="editUser" @matchPassword="matchPassword"
+    <BaseUserList :userList="userList" :selectedUserId="selectedUserId" @selectUser="selectUser" @editUser="editUser"
       @deleteUser="toggleModal('delete')" class="pr-12" />
 
-    <!-- <BaseUserList :userList="userList" :selectedUserId="selectedUserId"
-      :noUsersWarning="noUsersMessage" @selectBooking="selectBooking" @editBooking="editBooking"
-      @deleteBooking="toggleDeleteConfirm" class="pr-12" /> -->
-
-    <BasePopupSuccess v-show="popupSuccessText" :popupSuccessText="popupSuccessText"
-      @closeSuccessModal="popupSuccessText = null" />
+    <BasePopup v-show="Object.keys(popup).length !== 0" :popupText="popup.text" :popupType="popup.type"
+      @closePopup="popup = {}" />     
     
-    <BasePopupCreateUser v-show="showingPopup === 'create'" @closeCreateModal="toggleModal('create')" @showPopupSuccess="popupSuccessText = 'Create User'; toggleModal('create')"/> 
+    <BasePopupCreateUser v-show="showingPopup === 'create'" @showPopup="showPopup" @closeCreateModal="toggleModal('create');"/> 
 
     <BasePopupConfirm v-show="showingPopup === 'delete'" @closeConfirmModal="toggleModal('delete')"
       @deleteBooking="deleteUser"/> 
@@ -107,7 +111,7 @@ const matching = (user, e) => {
     <BasePopupEditUser v-show="showingPopup === 'edit'" @closeEditModal="toggleModal('edit'); editingUser = {}"
       :editingUser="editingUser" @editingUser="updateEditingUser" /> 
     
-    <BaseMatchPassword v-show="showingPopup === 'matchPassword'" @closeEditModal="toggleModal('matchPassword')" @matching="matching"/>
+    <BaseLogin v-show="showingPopup === 'login'" @closeEditModal="toggleModal('login')" @loginUser="loginUser" @showPopupSuccess="popup = {text:'Create User Success !',type:'success'}; toggleModal('login')"/>
   </div>
 
 </template>

@@ -5,7 +5,7 @@ import { eventManager } from "./scripts/eventManager.js"
 import { userManager } from "./scripts/userManager.js"
 import Navbar from "./components/BaseNavBar.vue"
 import BasePopupCreate from "./components/BasePopupCreate.vue";
-import BasePopupSuccess from "./components/BasePopupSuccess.vue";
+import BasePopup from "./components/BasePopup.vue";
 
 onBeforeMount(async () => {
   await eventManager.getEvents();
@@ -13,7 +13,7 @@ onBeforeMount(async () => {
   await userManager.getUsers();
 });
 
-const popupSuccessText = ref(null)
+const popupText = ref(null)
 const isShowCreateModal = ref(false);
 
 const toggleCreateModal = () => {
@@ -25,9 +25,9 @@ const toggleCreateModal = () => {
 <template>
   <div class="h-screen w-screen overflow-x-hidden">
     <Navbar @toggleCreateModal="toggleCreateModal" />
-    <BasePopupCreate v-show="isShowCreateModal" @closeCreateModal="toggleCreateModal()" @showPopupSuccess="toggleCreateModal();popupSuccessText = 'Add Booking'" />
-     <BasePopupSuccess v-show="popupSuccessText" :popupSuccessText="popupSuccessText"
-      @closeSuccessModal="popupSuccessText = null" />
+    <BasePopupCreate v-show="isShowCreateModal" @closeCreateModal="toggleCreateModal()" @showPopupSuccess="toggleCreateModal();popupText = 'Add Booking Success !'" />
+   <BasePopup v-show="popupText" :popupText="popupText" :popupType="'success'"
+      @closePopup="popupText = null" />
     <router-view></router-view>
   </div>
 </template>

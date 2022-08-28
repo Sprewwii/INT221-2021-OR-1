@@ -79,7 +79,6 @@ const noUsersWarning = computed(() => props.noUsersWarning)
           </tr>
         </tbody>
       </table>
-      <button @click="$emit('matchPassword')">Match Password</button> 
     </div>
   </div>
 </template>

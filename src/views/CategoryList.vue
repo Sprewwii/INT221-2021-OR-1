@@ -2,14 +2,14 @@
 import { ref, computed } from "vue";
 import BaseCategoryList from "../components/BaseCategoryList.vue"
 import BasePopupEditCategory from "../components/BasePopupEditCategory.vue";
-import BasePopupSuccess from "../components/BasePopupSuccess.vue";
+import BasePopup from "../components/BasePopup.vue";
 import IconPlus from "../components/icons/IconPlus.vue";
 import { eventManager } from "../scripts/eventManager.js"
 
 const eventCategories = computed(() => eventManager.eventCategories);
 const editingCategory = ref({})
 const selectedCategoryId = ref(0);
-const popupSuccessText = ref(null)
+const popupText = ref(null)
 
 const selectCategory = (id) => {
   if (selectedCategoryId.value === id) {
@@ -28,7 +28,7 @@ const updateEditCategory = (eventCategory, e) => {
   e.preventDefault();
   eventManager.editEventCategory(eventCategory)
   cleanEditingCategory()
-  popupSuccessText.value='Edit Event Category';
+  popupText.value='Edit Event Category';
 }
 
 const cleanEditingCategory = () => {
@@ -49,8 +49,8 @@ const cleanEditingCategory = () => {
     </div>
     <BasePopupEditCategory v-show="Object.keys(editingCategory).length > 0" :editingCategory="editingCategory"
       @editCategory="updateEditCategory" @closeEditModal="cleanEditingCategory" />
-         <BasePopupSuccess v-show="popupSuccessText" :popupSuccessText="popupSuccessText"
-      @closeSuccessModal="popupSuccessText = null" />
+             <BasePopup v-show="popupText" :popupText="popupText" :popupType="'success'"
+      @closePopup="popupText = null" />
   </div>
 </template>
 

@@ -33,15 +33,19 @@ export const userManager = reactive({
         name: user.name,
         email: user.email,
         role: user.role,
+        password:user.password,
       }),
     });
     const info = await res.json();
     // const info2 = await res.text()
+    let a = res.status
+    console.log(a)
     if (res.status === 200) {
       this.getUsers();
       console.log("create");
       return true;
     } else {
+      console.log("create error");
       // console.log("ไม่สามารถสร้าง User ได้")
       // return false
       let error = "";
@@ -95,42 +99,16 @@ export const userManager = reactive({
     }
   },
 
-  // matchingPassword: async function (user) {
-  //   console.log(user)
-  //   const res = await fetch(`${import.meta.env.VITE_API}/api/match`, {
-  //     method: "POST",
-  //     headers: {
-  //       "content-type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       email: user.email,
-  //       password: user.password,
-  //     })
-  // })
-  // // const info = await res.json()
-  //   if (res.status === 200) {
-  //     console.log("Password Matched")
-  //   } else {
-  //     console.log("Password NOT Matched");
-  //     // let error=""
-  //     // for(let i = 0; i < info.details.length; i++) {
-  //     //   console.log(info.details[i].errorMessage)
-  //     //   error += info.details[i].errorMessage + " \n"      }
-  //     //   console.log(error)
-  //       // return false
-  //   }
-  // },
-
-
-  matchingPassword: async function (user) {
+  login: async function (userLogin) {
+    console.log(userLogin)
     const res = await fetch(`${import.meta.env.VITE_API}/api/match`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        email: user.email,
-        password: user.password
+        email: userLogin.email,
+        password: userLogin.password
       })
   })
     if(res.status === 200) {

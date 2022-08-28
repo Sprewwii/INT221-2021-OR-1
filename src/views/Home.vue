@@ -5,7 +5,7 @@ import { validation } from "../scripts/validation.js";
 import BaseScheduleList from "../components/BaseScheduleList.vue";
 import BasePopupEdit from "../components/BasePopupEdit.vue";
 import BasePopupConfirm from "../components/BasePopupConfirm.vue";
-import BasePopupSuccess from "../components/BasePopupSuccess.vue";
+import BasePopup from "../components/BasePopup.vue";
 import BaseButtonFilter from "../components/BaseButtonFilter.vue";
 
 const bookingList = computed(() => eventManager.eventList);
@@ -66,8 +66,8 @@ const setNoEventMessage = (message) => {
     <BaseScheduleList :bookingList="bookingList" :selectedBookingId="selectedBookingId"
       :noEventsWarning="noEventMessage" @selectBooking="selectBooking" @editBooking="editBooking"
       @deleteBooking="toggleDeleteConfirm" class="pr-12" />
-    <BasePopupSuccess v-show="popupSuccessText" :popupSuccessText="popupSuccessText"
-      @closeSuccessModal="popupSuccessText = null" />
+        <BasePopup v-show="popupText" :popupText="popupText" :popupType="'success'"
+      @closePopup="popupText = null" />
     <BasePopupConfirm v-show="isShowDeleteBookingConfirm" @closeConfirmModal="toggleDeleteConfirm"
       @deleteBooking="deleteBooking" />
     <BasePopupEdit v-show="Object.keys(editingBooking).length > 0" @closeEditModal="editingBooking = {}"

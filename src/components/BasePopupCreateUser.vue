@@ -6,7 +6,7 @@ import { validation } from "../scripts/validation.js"
 import { decorator } from "../scripts/decorator.js"
 import { roles } from "../scripts/roles.js"
 
-const emit = defineEmits(['closeCreateModal', 'showPopupSuccess'])
+const emit = defineEmits(['closeCreateModal', 'showPopup'])
 
 const creatingUser = ref({})
 const showWarning = ref({ isName: false, isEmail: false, create: false, email: false, isNameNotUnique: false, isEmailNotUnique: false , isConfirmPassword:false})
@@ -27,7 +27,8 @@ const validateUniqueEmail = () => {
 }
 
 
-const createUser = (e) => {
+const createUser = async (e) => {
+    console.log("create user")
     e.preventDefault();
     showWarning.value.create = false
     if (!creatingUser.value.name) showWarning.value.isName = true
@@ -51,11 +52,15 @@ const createUser = (e) => {
 
 
     if (!showWarning.value.create) {
-        let createUser = userManager.createUser(creatingUser.value)
-        if (createUser === true) {
+        let response = await userManager.createUser(creatingUser.value)
+        console.log(response)
+        if (response === true) {
             clearCreatingUser()
+            console.log("show")
+            emit('showPopup',{text:"Create User Success !",type:"success"})
         } else {
             showWarning.value.create = true
+            emit('showPopup',{text:response,type:"error"})
         }
     }
 };
@@ -86,7 +91,7 @@ const clearCreatingUser = () => {
                                 :class="[validation.validateLength(creatingUser.name, 100) && !showWarning.isName ? decorator.normalFormBorder : decorator.redFormBorder]"
                                 class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="Example Prew Sud Narak"
-                                @blur="showWarning.isName = !creatingUser.name; validateUniqueName(); creatingUser.name = creatingUser.name.trim()" />
+                                @blur="showWarning.isName = !creatingUser.name; validateUniqueName(); creatingUser ? creatingUser.name = creatingUser.name.trim():''" />
                             <p v-show="showWarning.isName" class="text-[12px] text-red-400 absolute mt-1">* Enter your name.
                             </p>
                             <p v-show="showWarning.isNameNotUnique" class="text-[12px] text-red-400 absolute mt-1">* This name is already in use.
@@ -193,7 +198,7 @@ const clearCreatingUser = () => {
 
                         <button type="button"
                             class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                            @click="createUser($event); !showWarning.create ? $emit('showPopupSuccess') : ''">Create</button>
+                            @click="createUser($event);">Create</button>
                     </form>
                 </div>
             </div>

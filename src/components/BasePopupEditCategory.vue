@@ -14,6 +14,10 @@ const props = defineProps({
 
 })
 
+function a() {
+    console.log(isCategoryNameUnique)
+}
+
 defineEmits(['editCategory', 'closeEditModal'])
 
 const editingCategory = computed(() => props.editingCategory)

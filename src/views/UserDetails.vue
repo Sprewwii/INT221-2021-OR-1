@@ -73,7 +73,6 @@ onBeforeMount(async () => {
                in
               {{new Date().toLocaleTimeString('en-CA',{timeZoneName:'short'}).split(' ')[2] +
                " time ("  + new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split(' ')[2].substring(3, 5) + ":00)"}} 
-              
             </div>
 
           </div>
