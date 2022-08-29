@@ -3,6 +3,10 @@ import IconSuccess from "./icons/IconSuccess.vue"
 import IconClose from "./icons/IconClose.vue"
 
 const props = defineProps({
+    popupHeader: {
+        type: String,
+        default: "Create User"
+    },
     popupText: {
         type: String,
         default: ""
@@ -10,7 +14,7 @@ const props = defineProps({
     popupType: {
         type: String,
         default: "success"
-    }
+    },
 })
 
 defineEmits(['closePopup'])
@@ -30,11 +34,11 @@ defineEmits(['closePopup'])
                         
                         <div v-if="popupType === 'success'" class="gap-y-2 text-white text-center flex flex-col justify-center items-center">
                           <IconSuccess />
-                            <h3 class="text-3xl font-bold text-white mt-5">{{popupText}}</h3>
+                            <h3 class="text-3xl font-bold text-white mt-5">{{popupText}} </h3>
 </div>
                         <div v-else-if="popupType === 'error'" class="gap-y-2 text-white text-center flex flex-col justify-center items-center">
-                            <h3 class="text-3xl font-bold text-white mt-5">Create User Failed !</h3>
-                             <p class="text-3xl font-bold text-white mt-5">{{popupText}}</p>
+                            <h3 class="text-3xl font-bold text-white mt-5">{{popupHeader}} Failed !</h3>
+                             <p class="text-xl font-bold text-white mt-5">{{popupText}}</p>
                         </div>    
                           
             

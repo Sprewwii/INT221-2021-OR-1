@@ -15,7 +15,7 @@ const editingBooking = ref({});
 
 const noEventMessage = ref("");
 const isShowDeleteBookingConfirm = ref(false);
-const popupSuccessText = ref(null)
+const popupText = ref(null)
 
 const selectBooking = (id) => {
   if (selectedBookingId.value === id) {
@@ -37,7 +37,7 @@ const updateEditingBooking = (booking, e) => {
   eventManager.editEvent(booking);
   editingBooking.value = {};
   selectBooking(0);
-  popupSuccessText.value = "Edit Booking"
+  popupText.value = "Edit Booking"
 };
 
 const toggleDeleteConfirm = () => {

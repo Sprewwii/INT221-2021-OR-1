@@ -57,10 +57,10 @@ const createUser = async (e) => {
         if (response === true) {
             clearCreatingUser()
             console.log("show")
-            emit('showPopup',{text:"Create User Success !",type:"success"})
+            emit('showPopup',{text:"Create User Success !",type:"success",header:"Create"})
         } else {
             showWarning.value.create = true
-            emit('showPopup',{text:response,type:"error"})
+            emit('showPopup',{text:response,type:"error",header:"Create"})
         }
     }
 };

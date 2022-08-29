@@ -70,9 +70,9 @@ const loginUser = async (userLogin, e) => {
     let response = await userManager.login(userLogin)
     if(response === true){
       // showingPopup.value = 'login'
-      showPopup({text:"Login Success !",type:"success"})
+      showPopup({text:"Login Success !",type:"success",header:"Login"})
     }else{
-      showPopup({text:response,type:"error"})
+      showPopup({text:response,type:"error",header:"Login"})
     }
 
 
@@ -84,6 +84,8 @@ const showPopup = (newPopup) => {
   if(newPopup && newPopup.type === 'success') toggleModal('create')
   popup.value = newPopup
 }
+
+showPopup({text:"Login Success !",type:"success",header:"Login"})
 
 // const setNoEventMessage = (message) => {
 //   noEventMessage.value = message
@@ -112,7 +114,7 @@ const showPopup = (newPopup) => {
     <BaseUserList :userList="userList" :selectedUserId="selectedUserId" @selectUser="selectUser" @editUser="editUser"
       @deleteUser="toggleModal('delete')" class="pr-12" />
 
-    <BasePopup v-show="Object.keys(popup).length !== 0" :popupText="popup.text" :popupType="popup.type"
+    <BasePopup v-show="Object.keys(popup).length !== 0" :popupText="popup.text" :popupType="popup.type" :popupHeader="popup.header"
       @closePopup="popup = {}" />     
     
     <BasePopupCreateUser v-show="showingPopup === 'create'" @showPopup="showPopup" @closeCreateModal="toggleModal('create');"/> 
