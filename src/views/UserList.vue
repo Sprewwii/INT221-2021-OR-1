@@ -35,22 +35,26 @@ const createUser = () => {
 const editUser = async () => {
   showingPopup.value = "edit"
   editingUser.value = await userManager.getUserById(selectedUserId.value);
-  editingUser.value = { ...editingUser.value, currentName: editingUser.value.name, currentEmail: editingUser.value.email, currentRole: editingUser.value.role}
+  editingUser.value = { ...editingUser.value, currentName: editingUser.value.name, currentEmail: editingUser.value.email, currentRole: editingUser.value.role }
 };
 
-const updateEditingUser = (user, e) => {
+const updateEditingUser = async (user, e) => {
   e.preventDefault();
-  if(user){
-    userManager.editUser(user);
-    editingUser.value = {};
-    selectUser(0);
-    toggleModal("")
-    popup.value = "Edit User"
+  if (user) {
+    const response = await userManager.editUser(user);
+    if (response === true) {
+      editingUser.value = {};
+      selectUser(0);
+      toggleModal("")
+      popup.value = { text: "Edit User Success !", type: "success" }
+    }else {
+      popup.value = { text: response, type: "error" , header:"Edit"}
     }
+  }
 };
 
 const toggleModal = (modal) => {
-  if(showingPopup.value === "") showingPopup.value = modal
+  if (showingPopup.value === "") showingPopup.value = modal
   else showingPopup.value = ""
 };
 
@@ -66,22 +70,22 @@ const showLoginPopup = () => {
 }
 
 const loginUser = async (userLogin, e) => {
-    e.preventDefault();
-    let response = await userManager.login(userLogin)
-    if(response === true){
-      // showingPopup.value = 'login'
-      showPopup({text:"Login Success !",type:"success",header:"Login"})
-    }else{
-      showPopup({text:response,type:"error",header:"Login"})
-    }
+  e.preventDefault();
+  let response = await userManager.login(userLogin)
+  if (response === true) {
+    // showingPopup.value = 'login'
+    showPopup({ text: "Login Success !", type: "success", header: "Login" })
+  } else {
+    showPopup({ text: response, type: "error", header: "Login" })
+  }
 
 
-        
+
 }
 
 const showPopup = (newPopup) => {
-  console.log("pop "+newPopup) //มอสสึ แใ่
-  if(newPopup && newPopup.type === 'success') toggleModal('create')
+  console.log("pop " + newPopup) //มอสสึ แใ่
+  if (newPopup && newPopup.type === 'success') toggleModal('create')
   popup.value = newPopup
 }
 
@@ -98,10 +102,10 @@ const showPopup = (newPopup) => {
       <h1 class="text-gray-300 text-2xl mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none inline-block align-middle">
         User List
       </h1>
-            <button
+      <button
         class="w-48 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
         @click="showLoginPopup()">
-      
+
         <span>Login</span>
       </button>
       <button
@@ -114,18 +118,20 @@ const showPopup = (newPopup) => {
     <BaseUserList :userList="userList" :selectedUserId="selectedUserId" @selectUser="selectUser" @editUser="editUser"
       @deleteUser="toggleModal('delete')" class="pr-12" />
 
-    <BasePopup v-show="Object.keys(popup).length !== 0" :popupText="popup.text" :popupType="popup.type" :popupHeader="popup.header"
-      @closePopup="popup = {}" />     
-    
-    <BasePopupCreateUser v-show="showingPopup === 'create'" @showPopup="showPopup" @closeCreateModal="toggleModal('create');"/> 
+    <BasePopup v-show="Object.keys(popup).length !== 0" :popupText="popup.text" :popupType="popup.type"
+      :popupHeader="popup.header" @closePopup="popup = {}" />
+
+    <BasePopupCreateUser v-show="showingPopup === 'create'" @showPopup="showPopup"
+      @closeCreateModal="toggleModal('create');" />
 
     <BasePopupConfirm v-show="showingPopup === 'delete'" @closeConfirmModal="toggleModal('delete')"
-      @deleteBooking="deleteUser"/> 
+      @deleteBooking="deleteUser" />
 
     <BasePopupEditUser v-show="showingPopup === 'edit'" @closeEditModal="toggleModal('edit'); editingUser = {}"
-      :editingUser="editingUser" @editingUser="updateEditingUser" /> 
-    
-    <BaseLogin v-show="showingPopup === 'login'" @closeEditModal="toggleModal('login')" @loginUser="loginUser" @showPopup="showPopup"/>
+      :editingUser="editingUser" @editUser="updateEditingUser" />
+
+    <BaseLogin v-show="showingPopup === 'login'" @closeEditModal="toggleModal('login')" @loginUser="loginUser"
+      @showPopup="showPopup" />
   </div>
 
 </template>

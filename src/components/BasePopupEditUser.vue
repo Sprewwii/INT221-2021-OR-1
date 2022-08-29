@@ -13,7 +13,7 @@ const props = defineProps({
     }
 })
 
-defineEmits(['editingUser', 'closeEditModal'])
+defineEmits(['editUser', 'closeEditModal'])
 const showWarning = ref({ isName: false, isEmail: false, edit: false, email: false, isNameNotUnique: false, isEmailNotUnique: false })
 
 const editingUser = computed(() => props.editingUser)
@@ -58,31 +58,11 @@ for (let warning in showWarning.value) {
     }
 
     if (!showWarning.value.edit) {
-    if(editingUser.value.name !== editingUser.value.currentName && editingUser.value.email !== editingUser.value.currentEmail && editingUser.value.role !== editingUser.value.currentRole){
-        return {userId:editingUser.value.userId, name: editingUser.value.name, email: editingUser.value.email, role: editingUser.value.role}
-    }
-    if(editingUser.value.name !== editingUser.value.currentName && editingUser.value.email !== editingUser.value.currentEmail){
-        return {userId:editingUser.value.userId, name: editingUser.value.name, email: editingUser.value.email}
-    }
-    if(editingUser.value.email !== editingUser.value.currentEmail && editingUser.value.role !== editingUser.value.currentRole){
-        return {userId:editingUser.value.userId, email: editingUser.value.email, role: editingUser.value.role}
-    }
-    if(editingUser.value.name !== editingUser.value.currentName && editingUser.value.role !== editingUser.value.currentRole){
-        return {userId:editingUser.value.userId, name: editingUser.value.name, role: editingUser.value.role}
-    }
-    if(editingUser.value.name !== editingUser.value.currentName){
-        return {userId:editingUser.value.userId, name: editingUser.value.name} 
-    }
-    if(editingUser.value.email !== editingUser.value.currentEmail){
-        return {userId:editingUser.value.userId, email: editingUser.value.email} 
-    }
-    if(editingUser.value.role !== editingUser.value.currentRole){
-        return {userId:editingUser.value.userId, role: editingUser.value.role} 
-    }
-    return null
+        const user = {userId:editingUser.value.userId,...(editingUser.value.name !== editingUser.value.currentName&&{name: editingUser.value.name}),...(editingUser.value.email !== editingUser.value.currentEmail&&{email: editingUser.value.email}),...(editingUser.value.role !== editingUser.value.currentRole&&{role: editingUser.value.role})}
+        return Object.keys(user).length > 1 ? user : null
     }
 
-    return null
+    
 }
 
 </script>
@@ -177,7 +157,7 @@ for (let warning in showWarning.value) {
                         </div>
                         </div>
                         <!-- -->
-                        <button @click="$emit('editingUser', saveEditingUser(), $event)"
+                        <button @click="$emit('editUser', saveEditingUser(), $event)"
                             class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center :bg-violet-600">Update</button>
                     </form>
                 </div>

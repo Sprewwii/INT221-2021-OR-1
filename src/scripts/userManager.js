@@ -88,6 +88,7 @@ export const userManager = reactive({
     const info = await res.json()
     if (res.status === 200) {
       this.getUsers();
+      return true;
     } else {
       console.log("ไม่สามารถแก้ไขข้อมูลได้");
       let error=""
@@ -95,7 +96,7 @@ export const userManager = reactive({
         console.log(info.details[i].errorMessage)
         error += info.details[i].errorMessage + " \n"      }
         console.log(error)
-        // return false
+        return error
     }
   },
 
