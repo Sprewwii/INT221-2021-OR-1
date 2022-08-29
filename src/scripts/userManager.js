@@ -112,6 +112,7 @@ export const userManager = reactive({
       })
   })
   // const info = await res.json()
+  const info = await res.json();
     if(res.status === 200) {
       console.log("Password Matched")
       return true

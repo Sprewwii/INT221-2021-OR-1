@@ -61,7 +61,7 @@ const deleteUser = () => {
   selectUser(0)
 }
 
-const popupLogin = () => {
+const showLoginPopup = () => {
   showingPopup.value = "login"
 }
 
@@ -96,7 +96,12 @@ const showPopup = (newPopup) => {
       <h1 class="text-gray-300 text-2xl mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none inline-block align-middle">
         User List
       </h1>
-            <button @click="popupLogin">Login</button> 
+            <button
+        class="w-48 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
+        @click="showLoginPopup()">
+      
+        <span>Login</span>
+      </button>
       <button
         class="flex w-48 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
         @click="createUser()">
