@@ -85,7 +85,7 @@ const showPopup = (newPopup) => {
   popup.value = newPopup
 }
 
-showPopup({text:"Login Success !",type:"success",header:"Login"})
+// showPopup({text:"Login Success !",type:"success",header:"Login"})
 
 // const setNoEventMessage = (message) => {
 //   noEventMessage.value = message

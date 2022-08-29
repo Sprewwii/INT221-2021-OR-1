@@ -112,11 +112,12 @@ export const userManager = reactive({
       })
   })
   // const info = await res.json()
-  const info = await res.json();
+  
     if(res.status === 200) {
       console.log("Password Matched")
       return true
      }else{
+      const info = await res.json();
       console.log("Password not matched");
       // console.log("ไม่สามารถสร้าง User ได้")
       // return false
