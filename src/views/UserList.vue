@@ -65,16 +65,23 @@ const popupLogin = () => {
   showingPopup.value = "login"
 }
 
-const loginUser = (userLogin, e) => {
+const loginUser = async (userLogin, e) => {
     e.preventDefault();
-    if(userManager.login(userLogin)){
-      showingPopup.value = 'login'
+    let response = await userManager.login(userLogin)
+    if(response === true){
+      // showingPopup.value = 'login'
+      showPopup({text:"Login Success !",type:"success"})
+    }else{
+      showPopup({text:response,type:"error"})
     }
+
+
+        
 }
 
 const showPopup = (newPopup) => {
   console.log("pop "+newPopup) //มอสสึ แใ่
-  if(newPopup && newPopup.type !== 'error') toggleModal('create')
+  if(newPopup && newPopup.type === 'success') toggleModal('create')
   popup.value = newPopup
 }
 
@@ -111,7 +118,7 @@ const showPopup = (newPopup) => {
     <BasePopupEditUser v-show="showingPopup === 'edit'" @closeEditModal="toggleModal('edit'); editingUser = {}"
       :editingUser="editingUser" @editingUser="updateEditingUser" /> 
     
-    <BaseLogin v-show="showingPopup === 'login'" @closeEditModal="toggleModal('login')" @loginUser="loginUser" @showPopupSuccess="popup = {text:'Create User Success !',type:'success'}; toggleModal('login')"/>
+    <BaseLogin v-show="showingPopup === 'login'" @closeEditModal="toggleModal('login')" @loginUser="loginUser" @showPopup="showPopup"/>
   </div>
 
 </template>

@@ -73,7 +73,7 @@ const clearCreatingUser = () => {
  
 <template>
     <div
-        class="bg-black/70 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
+        class="bg-black/70 z-30 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
         <div
             class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto">
             <div class="relative rounded-lg shadow" id="popupCreate">
@@ -92,9 +92,9 @@ const clearCreatingUser = () => {
                                 class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="Example Prew Sud Narak"
                                 @blur="showWarning.isName = !creatingUser.name; validateUniqueName(); creatingUser ? creatingUser.name = creatingUser.name.trim():''" />
-                            <p v-show="showWarning.isName" class="text-[12px] text-red-400 absolute mt-1">* Enter your name.
+                            <p v-if="showWarning.isName" class="text-[12px] text-red-400 absolute mt-1">* Enter your name.
                             </p>
-                            <p v-show="showWarning.isNameNotUnique" class="text-[12px] text-red-400 absolute mt-1">* This name is already in use.
+                            <p v-else-if="showWarning.isNameNotUnique" class="text-[12px] text-red-400 absolute mt-1">* This name is already in use.
                             </p>
                             <div v-if="creatingUser.name" class="flex justify-end">
                                 <p :class="{ 'text-red-400': !validation.validateLength(creatingUser.name, 100) }"
@@ -125,13 +125,13 @@ const clearCreatingUser = () => {
                                 class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
                                 placeholder="Example narak1234"
                                 @blur="showWarning.isConfirmPassword = !validation.validateLengthAndNotNull(creatingUser.confirmPassword,8,14); showWarning.matchPassword = !validation.validateConfirmPassword(creatingUser.password,creatingUser.confirmPassword)"/>
-                            <p v-show="showWarning.isConfirmPassword" class="text-[12px] text-red-400 absolute mt-1">* Confirm password must have 8-14 characters.
+                            <p v-if="showWarning.isConfirmPassword" class="text-[12px] text-red-400 absolute mt-1">* Confirm password must have 8-14 characters.
                             </p>
-                            <p v-show="showWarning.matchPassword" class="text-[12px] text-red-400 absolute mt-1">* Confirm password doesn't match password.
+                            <p v-else-if="showWarning.matchPassword" class="text-[12px] text-red-400 absolute mt-1">* The password does not match.
                             </p>
              
                             <div v-if="creatingUser.confirmPassword" class="flex justify-end">
-                                <p :class="{ 'text-red-400': !validation.validateLength(creatingUser.confirmPassword, 14) }"
+                                <p :class="{ 'text-red-400': !validation.validateLength(creatingUser.confirmPassword, 14)}"
                                     class="text-[12px] text-gray-500 absolute mt-1">{{ creatingUser.confirmPassword.length }}/14</p>
                             </div>
                         </div>

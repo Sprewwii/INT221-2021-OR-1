@@ -24,18 +24,30 @@ defineEmits(['closePopup'])
                 <div class="relative w-96 rounded-lg shadow" id="popupConfirm">
                     <button type="button" @click="$emit('closePopup')"
                         class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-2 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
-                        <IconClose/>
+                        <IconClose />
                     </button>
                     <div class="py-6 px-6 lg:px-8 text-white text-center flex flex-col justify-center items-center">
-                        <IconSuccess v-if="popupType === 'success'"/>
-                        <h3 class="text-3xl font-bold text-white mt-5">{{ popupText }}</h3>
-                        <button @click="$emit('closePopup')"
-                            class="w-2/6 mt-6 bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Ok</button>
-                    </div>
+                        
+                        <div v-if="popupType === 'success'" class="gap-y-2 text-white text-center flex flex-col justify-center items-center">
+                          <IconSuccess />
+                            <h3 class="text-3xl font-bold text-white mt-5">{{popupText}}</h3>
+</div>
+                        <div v-else-if="popupType === 'error'" class="gap-y-2 text-white text-center flex flex-col justify-center items-center">
+                            <h3 class="text-3xl font-bold text-white mt-5">Create User Failed !</h3>
+                             <p class="text-3xl font-bold text-white mt-5">{{popupText}}</p>
+                        </div>    
+                          
+            
+                   
+    
+                    <button @click="$emit('closePopup')"
+                        class="w-2/6 mt-6 bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Ok</button>
+                </div>
                 </div>
             </div>
         </div>
     </div>
+
 </template>
  
 <style>
