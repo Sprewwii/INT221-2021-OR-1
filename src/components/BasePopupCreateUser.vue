@@ -146,7 +146,7 @@ const clearCreatingUser = () => {
                                 @blur="showWarning.isEmail = !creatingUser.email; validateEmail(); validateUniqueEmail(); creatingUser.email = creatingUser.email.trim()" />
                             <p v-if="showWarning.isEmail" class="text-[12px] text-red-400 absolute mt-1">* Enter your email.
                             </p>
-                            <p v-else-if="showWarning.email" class="text-sm text-red-400 absolute mt-1">* This Email is already in use.</p>
+                            <p v-else-if="showWarning.email" class="text-sm text-red-400 absolute mt-1">* Email must be a valid email address.</p>
                             <p v-else-if="showWarning.isEmailNotUnique" class="text-sm text-red-400 absolute mt-1">*
                                 Email must be
                                 unique.</p>
