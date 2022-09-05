@@ -4,13 +4,26 @@ import { roles } from "./roles.js";
 export const userManager = reactive({
   userList: [],
   getUsers: async function () {
-    const res = await fetch(`${import.meta.env.VITE_API}/api/users`);
+    const token = sessionStorage.getItem("token");
+    console.log(token)
+    if (!token) return;
+
+    const res = await fetch(`${import.meta.env.VITE_API}/api/users`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
     if (res.status === 200) {
       this.userList = await res.json();
       this.userList.forEach((user) => {
         user.role = roles[user.role];
       });
-    } else {
+    } 
+    else if (res.status === 401) {
+      console.log("กรุณาเข้าสู่ระบบ");
+    } 
+    else {
       console.log("ไม่พบข้อมูล");
     }
   },
@@ -33,13 +46,13 @@ export const userManager = reactive({
         name: user.name,
         email: user.email,
         role: user.role,
-        password:user.password,
+        password: user.password,
       }),
     });
     const info = await res.json();
     // const info2 = await res.text()
-    let a = res.status
-    console.log(a)
+    let a = res.status;
+    console.log(a);
     if (res.status === 200) {
       this.getUsers();
       console.log("create");
@@ -85,41 +98,42 @@ export const userManager = reactive({
         body: JSON.stringify(user),
       }
     );
-    const info = await res.json()
+    const info = await res.json();
     if (res.status === 200) {
       this.getUsers();
       return true;
     } else {
       console.log("ไม่สามารถแก้ไขข้อมูลได้");
-      let error=""
-      for(let i = 0; i < info.details.length; i++) {
-        console.log(info.details[i].errorMessage)
-        error += info.details[i].errorMessage + " \n"      }
-        console.log(error)
-        return error
+      let error = "";
+      for (let i = 0; i < info.details.length; i++) {
+        console.log(info.details[i].errorMessage);
+        error += info.details[i].errorMessage + " \n";
+      }
+      console.log(error);
+      return error;
     }
   },
 
   login: async function (userLogin) {
-    console.log(userLogin)
-    const res = await fetch(`${import.meta.env.VITE_API}/api/match`, {
+    console.log(userLogin);
+    const res = await fetch(`${import.meta.env.VITE_API}/api/login`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify({
         email: userLogin.email,
-        password: userLogin.password
-      })
-  })
-  // const info = await res.json()
-  
-    if(res.status === 200) {
-      console.log("Password Matched")
-      return true
-     }else{
-      const info = await res.json();
-      console.log("Password not matched");
+        password: userLogin.password,
+      }),
+    });
+    // const info = await res.json()
+    const info = await res.json();
+    if (res.status === 200) {
+      sessionStorage.setItem("token", info.token);
+      console.log(info);
+      return true;
+    } else {
+      // console.log("Password not matched");
       // console.log("ไม่สามารถสร้าง User ได้")
       // return false
       let error = "";
@@ -129,6 +143,6 @@ export const userManager = reactive({
       }
       console.log(error);
       return error;
-     }
+    }
   },
 });

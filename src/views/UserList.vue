@@ -74,7 +74,7 @@ const loginUser = async (userLogin, e) => {
   let response = await userManager.login(userLogin)
   if (response === true) {
     // showingPopup.value = 'login'
-    showPopup({ text: "Login Success !", type: "success", header: "Login" })
+    showPopup({ text: "Login Successful !", type: "success", header: "Login" })
   } else {
     showPopup({ text: response, type: "error", header: "Login" })
   }
@@ -85,7 +85,12 @@ const loginUser = async (userLogin, e) => {
 
 const showPopup = (newPopup) => {
   console.log("pop " + newPopup) //มอสสึ แใ่
-  if (newPopup && newPopup.type === 'success') toggleModal('create')
+  if (newPopup && newPopup.type === 'success'){ 
+    
+    if (showingPopup.value === 'create')toggleModal('create')
+    if (showingPopup.value === 'login')toggleModal('login')
+}
+  
   popup.value = newPopup
 }
 
