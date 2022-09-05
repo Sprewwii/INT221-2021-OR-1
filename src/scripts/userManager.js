@@ -11,6 +11,7 @@ export const userManager = reactive({
     const res = await fetch(`${import.meta.env.VITE_API}/api/users`, {
       method: "GET",
       headers: {
+        "Content-type": "application/json",
         "Authorization": `Bearer ${token}`,
       },
     });
@@ -22,6 +23,7 @@ export const userManager = reactive({
     } 
     else if (res.status === 401) {
       console.log("กรุณาเข้าสู่ระบบ");
+      console.log(await res.json());
     } 
     else {
       console.log("ไม่พบข้อมูล");
