@@ -13,12 +13,15 @@ import BaseLogin from "../components/BaseLogin.vue"
 const userList = computed(() => userManager.userList);
 const selectedUserId = ref(0);
 const editingUser = ref({});
-const showingPopup = ref("login");
+const showingPopup = ref("");
+
 
 
 // const noUsersMessage = ref("");
 const isShowDeleteBookingConfirm = ref(false);
 const popup = ref({})
+
+if(!sessionStorage.getItem("token")) showingPopup.value = "login"
 
 const selectUser = (id) => {
   if (selectedUserId.value === id) {
