@@ -5,7 +5,6 @@ export const userManager = reactive({
   userList: [],
   getUsers: async function () {
     const token = sessionStorage.getItem("token");
-    console.log(token)
     if (!token) return;
 
     const res = await fetch(`${import.meta.env.VITE_API}/api/users`, {
@@ -30,7 +29,16 @@ export const userManager = reactive({
     }
   },
   getUserById: async function (userId) {
-    const res = await fetch(`${import.meta.env.VITE_API}/api/users/${userId}`);
+    const token = sessionStorage.getItem("token");
+    if (!token) return;
+
+    const res = await fetch(`${import.meta.env.VITE_API}/api/users/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
     if (res.status === 200) {
       let user = await res.json();
       return { userId: userId, ...user };
@@ -39,10 +47,14 @@ export const userManager = reactive({
     }
   },
   createUser: async function (user) {
+    const token = sessionStorage.getItem("token");
+    if (!token) return;
+
     const res = await fetch(`${import.meta.env.VITE_API}/api/users`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({
         name: user.name,
@@ -75,8 +87,15 @@ export const userManager = reactive({
     // console.log(res.json)
   },
   deleteUser: async function (userId) {
+    const token = sessionStorage.getItem("token");
+    if (!token) return;
+
     const res = await fetch(`${import.meta.env.VITE_API}/api/users/${userId}`, {
       method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
     });
 
     const info = await res.text();
@@ -89,13 +108,16 @@ export const userManager = reactive({
   },
 
   editUser: async function (user) {
-    console.log(user);
+    const token = sessionStorage.getItem("token");
+    if (!token) return;
+
     const res = await fetch(
       `${import.meta.env.VITE_API}/api/users/${user.userId}`,
       {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify(user),
       }
