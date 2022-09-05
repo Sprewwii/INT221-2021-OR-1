@@ -4,7 +4,8 @@ import IconClose from "./icons/IconClose.vue"
 import { eventManager } from "../scripts/eventManager.js"
 import { validation } from "../scripts/validation.js"
 import { decorator } from "../scripts/decorator.js"
-
+import {useRouter} from "vue-router"
+const router = useRouter();
 // const props = defineProps({
 //     editingBooking: {
 //         type: Object,
@@ -28,30 +29,37 @@ const clearLogin = () => {
     userLogin.value.password = ""
 }
 
+const backToPrevious = () => {
+    router.go(-1)
+}
+
 </script>
 <template>
     <div
-        class="bg-black/30 z-30 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
+        class="bg-black/80 z-30 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
+  
+    
         <div
-            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto">
+            class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto">
+            
             <div class="relative rounded-lg shadow" id="popupEdit">
-                <button type="button" @click="$emit('closeEditModal'), clearLogin()"
+                <button type="button" @click="$emit('closeEditModal'); clearLogin(); backToPrevious()"
                     class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
                     <IconClose />
                 </button>
 
                 <div class="py-6 px-6 lg:px-8">
-                    <h3 class="mb-4 text-2xl font-medium text-white">Login</h3>
+                    <h3 class="mb-4 text-2xl font-medium text-white">Please login for users page</h3>
                     <form class="space-y-6">
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-300">Email</label>
-                            <input 
+                            <input @blur="userLogin.email = userLogin.email.trim()"
                                 class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-white"
                                 v-model="userLogin.email">
                         </div>
                         <div>
                             <label for="category" class="block mb-2 text-sm font-medium text-gray-300">Password</label>
-                            <input 
+                            <input
                                 type="password"
                                 class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-white"
                                 v-model="userLogin.password">

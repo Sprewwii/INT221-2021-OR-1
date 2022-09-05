@@ -23,7 +23,7 @@ export const userManager = reactive({
     } 
     else if (res.status === 401) {
       console.log("กรุณาเข้าสู่ระบบ");
-      console.log(await res.json());
+
     } 
     else {
       console.log("ไม่พบข้อมูล");
@@ -136,9 +136,6 @@ export const userManager = reactive({
       this.getUsers();
       return true;
     } else {
-      // console.log("Password not matched");
-      // console.log("ไม่สามารถสร้าง User ได้")
-      // return false
       let error = "";
       for (let i = 0; i < info.details.length; i++) {
         console.log(info.details[i].errorMessage);

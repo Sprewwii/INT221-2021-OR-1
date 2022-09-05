@@ -13,7 +13,7 @@ import BaseLogin from "../components/BaseLogin.vue"
 const userList = computed(() => userManager.userList);
 const selectedUserId = ref(0);
 const editingUser = ref({});
-const showingPopup = ref({});
+const showingPopup = ref("login");
 
 
 // const noUsersMessage = ref("");
