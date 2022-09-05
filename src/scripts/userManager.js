@@ -131,6 +131,7 @@ export const userManager = reactive({
     if (res.status === 200) {
       sessionStorage.setItem("token", info.token);
       console.log(info);
+      this.getUsers();
       return true;
     } else {
       // console.log("Password not matched");
