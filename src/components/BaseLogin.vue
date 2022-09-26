@@ -4,8 +4,7 @@ import IconClose from "./icons/IconClose.vue"
 import { eventManager } from "../scripts/eventManager.js"
 import { validation } from "../scripts/validation.js"
 import { decorator } from "../scripts/decorator.js"
-import {useRouter} from "vue-router"
-const router = useRouter();
+
 // const props = defineProps({
 //     editingBooking: {
 //         type: Object,
@@ -29,9 +28,7 @@ const clearLogin = () => {
     userLogin.value.password = ""
 }
 
-const backToPrevious = () => {
-    router.go(-1)
-}
+
 
 </script>
 <template>
@@ -43,7 +40,7 @@ const backToPrevious = () => {
             class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto">
             
             <div class="relative rounded-lg shadow" id="popupEdit">
-                <button type="button" @click="$emit('closeEditModal'); clearLogin(); backToPrevious()"
+                <button type="button" @click="$emit('closeEditModal'); clearLogin()"
                     class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
                     <IconClose />
                 </button>

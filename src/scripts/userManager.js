@@ -4,7 +4,7 @@ import { roles } from "./roles.js";
 export const userManager = reactive({
   userList: [],
   getUsers: async function () {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     if (!token) return;
 
     const res = await fetch(`${import.meta.env.VITE_API}/api/users`, {
@@ -21,7 +21,8 @@ export const userManager = reactive({
       });
     } 
     else if (res.status === 401) {
-      console.log("กรุณาเข้าสู่ระบบ");
+      this.refreshToken();
+      // console.log("กรุณาเข้าสู่ระบบ");
 
     } 
     else {
@@ -29,7 +30,7 @@ export const userManager = reactive({
     }
   },
   getUserById: async function (userId) {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     if (!token) return;
 
     const res = await fetch(`${import.meta.env.VITE_API}/api/users/${userId}`, {
@@ -42,12 +43,13 @@ export const userManager = reactive({
     if (res.status === 200) {
       let user = await res.json();
       return { userId: userId, ...user };
-    } else {
+    } else if (res.status === 401) this.refreshToken();
+     else {
       console.log(`ไม่พบข้อมูล event Id: ${userId}`);
     }
   },
   createUser: async function (user) {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     if (!token) return;
 
     const res = await fetch(`${import.meta.env.VITE_API}/api/users`, {
@@ -71,7 +73,8 @@ export const userManager = reactive({
       this.getUsers();
       console.log("create");
       return true;
-    } else {
+    } else if (res.status === 401) this.refreshToken();
+     else {
       console.log("create error");
       // console.log("ไม่สามารถสร้าง User ได้")
       // return false
@@ -87,7 +90,7 @@ export const userManager = reactive({
     // console.log(res.json)
   },
   deleteUser: async function (userId) {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     if (!token) return;
 
     const res = await fetch(`${import.meta.env.VITE_API}/api/users/${userId}`, {
@@ -102,13 +105,14 @@ export const userManager = reactive({
     if (res.status === 200) {
       this.getUsers();
       console.log(info);
-    } else {
+    } else if (res.status === 401) this.refreshToken();
+    else {
       console.log(`ไม่พบข้อมูล user Id: ${userId}`);
     }
   },
 
   editUser: async function (user) {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     if (!token) return;
 
     const res = await fetch(
@@ -126,7 +130,8 @@ export const userManager = reactive({
     if (res.status === 200) {
       this.getUsers();
       return true;
-    } else {
+    } else if (res.status === 401) this.refreshToken();
+    else {
       console.log("ไม่สามารถแก้ไขข้อมูลได้");
       let error = "";
       for (let i = 0; i < info.details.length; i++) {
@@ -153,7 +158,8 @@ export const userManager = reactive({
     // const info = await res.json()
     const info = await res.json();
     if (res.status === 200) {
-      sessionStorage.setItem("token", info.token);
+      localStorage.setItem("token", info.token);
+      localStorage.setItem("refreshToken", info.refreshToken);
       console.log(info);
       this.getUsers();
       return true;
@@ -167,4 +173,27 @@ export const userManager = reactive({
       return error;
     }
   },
+  logout: function(){
+    localStorage.removeItem("token");
+  },
+  refreshToken: async function(){
+    const token = localStorage.getItem("token");
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (!token) return;
+
+    const res = await fetch(`${import.meta.env.VITE_API}/api/refresh`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${refreshToken}`,
+      },
+    });
+    if (res.status === 200) {
+      let info = await res.json()
+      console.log("refresh"+info.token)
+    
+    } else {
+      console.log(`ไม่พบข้อมูล event Id: ${userId}`);
+    }
+  }
 });

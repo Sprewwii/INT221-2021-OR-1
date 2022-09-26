@@ -9,6 +9,8 @@ import BasePopup from "../components/BasePopup.vue";
 import BasePopupCreateUser from "../components/BasePopupCreateUser.vue";
 import IconPlus from "../components/icons/IconPlus.vue"
 import BaseLogin from "../components/BaseLogin.vue"
+import { useRouter } from "vue-router"
+const router = useRouter();
 
 const userList = computed(() => userManager.userList);
 const selectedUserId = ref(0);
@@ -20,8 +22,8 @@ const showingPopup = ref("");
 // const noUsersMessage = ref("");
 const isShowDeleteBookingConfirm = ref(false);
 const popup = ref({})
-
-if(!sessionStorage.getItem("token")) showingPopup.value = "login"
+// localStorage.removeItem("token")
+if(!localStorage.getItem("token")) showingPopup.value = "login"
 
 const selectUser = (id) => {
   if (selectedUserId.value === id) {
@@ -81,13 +83,17 @@ const loginUser = async (userLogin, e) => {
   } else {
     showPopup({ text: response, type: "error", header: "Login" })
   }
+}
 
-
-
+const logoutUser = () => {
+  userManager.userList = []
+  router.push({name: 'Home'})
+  console.log("home")
+  userManager.logout();
 }
 
 const showPopup = (newPopup) => {
-  console.log("pop " + newPopup) //มอสสึ แใ่
+  console.log("pop " + newPopup) 
   if (newPopup && newPopup.type === 'success'){ 
     
     if (showingPopup.value === 'create')toggleModal('create')
@@ -97,6 +103,9 @@ const showPopup = (newPopup) => {
   popup.value = newPopup
 }
 
+const backToPrevious = () => {
+    router.go(-1)
+}
 // showPopup({text:"Login Success !",type:"success",header:"Login"})
 
 // const setNoEventMessage = (message) => {
@@ -122,6 +131,16 @@ const showPopup = (newPopup) => {
         <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
         <span class="ml-3">Create User</span>
       </button>
+      <button
+        class="flex w-48 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
+        @click="logoutUser()">
+        <span class="ml-3">Logout</span>
+      </button>
+      <button
+        class="flex w-48 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
+        @click="userManager.refreshToken()">
+        <span class="ml-3">refresh</span>
+      </button>
     </div>
     <BaseUserList :userList="userList" :selectedUserId="selectedUserId" @selectUser="selectUser" @editUser="editUser"
       @deleteUser="toggleModal('delete')" class="pr-12" />
@@ -138,7 +157,7 @@ const showPopup = (newPopup) => {
     <BasePopupEditUser v-show="showingPopup === 'edit'" @closeEditModal="toggleModal('edit'); editingUser = {}"
       :editingUser="editingUser" @editUser="updateEditingUser" />
 
-    <BaseLogin v-show="showingPopup === 'login'" @closeEditModal="toggleModal('login')" @loginUser="loginUser"
+    <BaseLogin v-show="showingPopup === 'login'" @closeEditModal="toggleModal('login'); backToPrevious()" @loginUser="loginUser"
       @showPopup="showPopup" />
   </div>
 
