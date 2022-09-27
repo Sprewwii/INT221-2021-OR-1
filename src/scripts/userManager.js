@@ -43,7 +43,12 @@ export const userManager = reactive({
     if (res.status === 200) {
       let user = await res.json();
       return { userId: userId, ...user };
-    } else if (res.status === 401) this.refreshToken();
+    } else if (res.status === 401) {
+      if(this.refreshToken() == true){
+      this.getUserById(userId)
+      console.log("ส่งใหม่จ้า")
+      }
+    }
      else {
       console.log(`ไม่พบข้อมูล event Id: ${userId}`);
     }
@@ -191,9 +196,9 @@ export const userManager = reactive({
     if (res.status === 200) {
       let info = await res.json()
       console.log("refresh"+info.token)
-    
+      return true;
     } else {
-      console.log(`ไม่พบข้อมูล event Id: ${userId}`);
+      console.log(`ไม่สามารถ refresh token ได้`);
     }
   }
 });
