@@ -20,11 +20,10 @@ export const userManager = reactive({
         user.role = roles[user.role];
       });
     } 
-    else if (res.status === 401) {
-      this.refreshToken();
-      // console.log("กรุณาเข้าสู่ระบบ");
-
-    } 
+    else if (res.status === 401 && await this.refreshToken() == true) {
+      console.log("ส่งใหม่จ้า")
+    this.getUsers()
+  }
     else {
       console.log("ไม่พบข้อมูล");
     }
@@ -44,12 +43,9 @@ export const userManager = reactive({
     if (res.status === 200) {
       let user = await res.json();
       return { userId: userId, ...user };
-    } else if (res.status === 401) {
-      if(await this.refreshToken() == true){
+    } else if (res.status === 401 && await this.refreshToken() == true) {
         console.log("ส่งใหม่จ้า")
       this.getUserById(userId)
-     
-      }
     }
      else {
       console.log(`ไม่พบข้อมูล event Id: ${userId}`);
@@ -81,7 +77,10 @@ export const userManager = reactive({
       this.getUsers();
       console.log("create");
       return true;
-    } else if (res.status === 401) this.refreshToken();
+    } else if (res.status === 401 && await this.refreshToken() == true) {
+      console.log("ส่งใหม่จ้า")
+    this.createUser(user)
+  }
      else {
       console.log("create error");
       // console.log("ไม่สามารถสร้าง User ได้")
@@ -113,7 +112,10 @@ export const userManager = reactive({
     if (res.status === 200) {
       this.getUsers();
       console.log(info);
-    } else if (res.status === 401) this.refreshToken();
+    } else if (res.status === 401 && await this.refreshToken() == true) {
+      console.log("ส่งใหม่จ้า")
+    this.deleteUser(userId)
+  }
     else {
       console.log(`ไม่พบข้อมูล user Id: ${userId}`);
     }
@@ -138,7 +140,10 @@ export const userManager = reactive({
     if (res.status === 200) {
       this.getUsers();
       return true;
-    } else if (res.status === 401) this.refreshToken();
+    } else if (res.status === 401 && await this.refreshToken() == true) {
+      console.log("ส่งใหม่จ้า")
+    this.editUser(user)
+  }
     else {
       console.log("ไม่สามารถแก้ไขข้อมูลได้");
       let error = "";
@@ -201,7 +206,12 @@ export const userManager = reactive({
       console.log("refresh"+info.token)
       localStorage.setItem("token",info.token);
       return true;
-    } else {
+      
+    } 
+    else if (res.status === 500){
+      console.log(`ไม่สามารถ refresh token ได้ กรุณา Logout`);
+    }
+    else {
       console.log(`ไม่สามารถ refresh token ได้`);
     }
   }
