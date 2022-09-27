@@ -199,6 +199,7 @@ export const userManager = reactive({
     if (res.status === 200) {
       let info = await res.json()
       console.log("refresh"+info.token)
+      localStorage.setItem("token",info.token);
       return true;
     } else {
       console.log(`ไม่สามารถ refresh token ได้`);
