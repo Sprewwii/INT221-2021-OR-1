@@ -30,6 +30,7 @@ export const userManager = reactive({
     }
   },
   getUserById: async function (userId) {
+    console.log("gett")
     const token = localStorage.getItem("token");
     if (!token) return;
 
@@ -44,14 +45,16 @@ export const userManager = reactive({
       let user = await res.json();
       return { userId: userId, ...user };
     } else if (res.status === 401) {
-      if(this.refreshToken() == true){
+      if(await this.refreshToken() == true){
+        console.log("ส่งใหม่จ้า")
       this.getUserById(userId)
-      console.log("ส่งใหม่จ้า")
+     
       }
     }
      else {
       console.log(`ไม่พบข้อมูล event Id: ${userId}`);
     }
+    console.log("จบแล้ว : " + userId)
   },
   createUser: async function (user) {
     const token = localStorage.getItem("token");
