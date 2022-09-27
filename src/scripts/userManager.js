@@ -191,6 +191,8 @@ export const userManager = reactive({
     localStorage.removeItem("token");
   },
   refreshToken: async function(){
+
+    console.log("home")
     const token = localStorage.getItem("token");
     const refreshToken = localStorage.getItem("refreshToken");
     if (!token) return;
@@ -211,6 +213,8 @@ export const userManager = reactive({
     } 
     else if (res.status === 500){
       console.log(`ไม่สามารถ refresh token ได้ กรุณา Logout`);
+      localStorage.removeItem("token");
+      location.reload();
     }
     else {
       console.log(`ไม่สามารถ refresh token ได้`);
