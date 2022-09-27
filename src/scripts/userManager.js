@@ -3,6 +3,7 @@ import { roles } from "./roles.js";
 
 export const userManager = reactive({
   userList: [],
+  selectedUser: {},
   getUsers: async function () {
     const token = localStorage.getItem("token");
     if (!token) return;

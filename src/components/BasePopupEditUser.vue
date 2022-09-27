@@ -2,6 +2,7 @@
 import { ref, computed } from "vue"
 import IconClose from "./icons/IconClose.vue"
 import { eventManager } from "../scripts/eventManager.js"
+import { userManager } from "../scripts/userManager.js"
 import { validation } from "../scripts/validation.js"
 import { decorator } from "../scripts/decorator.js"
 import {roles} from "../scripts/roles.js"
@@ -15,30 +16,22 @@ const props = defineProps({
 
 defineEmits(['editUser', 'closeEditModal'])
 const showWarning = ref({ isName: false, isEmail: false, edit: false, email: false, isNameNotUnique: false, isEmailNotUnique: false })
+const editingUser = computed(() => userManager.selectedUser)
+// const editingUser = computed(() => props.editingUser)
 
-const editingUser = computed(() => props.editingUser)
-// const showWarning = ref({dateTimePast:false,dateTimeOverlap:false})
 const userName = editingUser.value.name
-// const validateDateTime = () => { 
-// showWarning.value.dateTimePast = validation.isPast(editingUser.value.startTime) 
-// showWarning.value.dateTimeOverlap = validation.isOverlap(editingUser.value)
-// }
-// const username = ref("")
-// const clearEditingUser = () => { 
-// showWarning.value.dateTimePast = false 
-// showWarning.value.dateTimeOverlap = false 
-// }
+
 
 const validateEmail = () => {
     showWarning.value.email = !validation.isEmail(editingUser.value.email)
 }
 
 const validateUniqueName = () => {
-    showWarning.value.isNameNotUnique = !validation.validateUniqueName(editingUser.value)
+    showWarning.value.isNameNotUnique = !validation.validateUniqueName(editingUser.value) && editingUser.value.name != editingUser.value.currentName
 }
 
 const validateUniqueEmail = () => {
-    showWarning.value.isEmailNotUnique = !validation.validateUniqueEmail(editingUser.value)
+    showWarning.value.isEmailNotUnique = !validation.validateUniqueEmail(editingUser.value) && editingUser.value.email != editingUser.value.currentEmail
 }
 
 const saveEditingUser = () => {

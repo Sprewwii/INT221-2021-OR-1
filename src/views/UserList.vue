@@ -39,8 +39,10 @@ const createUser = () => {
 
 const editUser = async () => {
   showingPopup.value = "edit"
-  editingUser.value = await userManager.getUserById(selectedUserId.value);
-  editingUser.value = { ...editingUser.value, currentName: editingUser.value.name, currentEmail: editingUser.value.email, currentRole: editingUser.value.role }
+  // editingUser.value = await userManager.getUserById(selectedUserId.value);
+  // editingUser.value = { ...editingUser.value, currentName: editingUser.value.name, currentEmail: editingUser.value.email, currentRole: editingUser.value.role }
+  userManager.selectedUser = await userManager.getUserById(selectedUserId.value);
+  userManager.selectedUser = { ...userManager.selectedUser, currentName: userManager.selectedUser.name, currentEmail: userManager.selectedUser.email, currentRole: userManager.selectedUser.role }
 };
 
 const updateEditingUser = async (user, e) => {
@@ -154,7 +156,7 @@ const backToPrevious = () => {
     <BasePopupConfirm v-show="showingPopup === 'delete'" @closeConfirmModal="toggleModal('delete')"
       @deleteBooking="deleteUser" />
 
-    <BasePopupEditUser v-show="showingPopup === 'edit'" @closeEditModal="toggleModal('edit'); editingUser = {}"
+    <BasePopupEditUser v-show="showingPopup === 'edit'" @closeEditModal="toggleModal('edit'); userManager.selectedUser = {}"
       :editingUser="editingUser" @editUser="updateEditingUser" />
 
     <BaseLogin v-show="showingPopup === 'login'" @closeEditModal="toggleModal('login'); backToPrevious()" @loginUser="loginUser"
