@@ -43,6 +43,7 @@ export const userManager = reactive({
     });
     if (res.status === 200) {
       let user = await res.json();
+      userManager.selectedUser = user
       return { userId: userId, ...user };
     } else if (res.status === 401 && await this.refreshToken() == true) {
         console.log("ส่งใหม่จ้า")
@@ -72,8 +73,7 @@ export const userManager = reactive({
     });
     const info = await res.json();
     // const info2 = await res.text()
-    let a = res.status;
-    console.log(a);
+    console.log("info " + info + " " + res);
     if (res.status === 200) {
       this.getUsers();
       console.log("create");
@@ -94,7 +94,7 @@ export const userManager = reactive({
       console.log(error);
       return error;
     }
-
+    console.log("create ไม่ได้เลย");
     // console.log(res.json)
   },
   deleteUser: async function (userId) {
