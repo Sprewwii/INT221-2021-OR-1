@@ -8,6 +8,7 @@ export const userManager = reactive({
     const token = localStorage.getItem("token");
     if (!token) return;
 
+    console.log("get : "+token)
     const res = await fetch(`${import.meta.env.VITE_API}/api/users`, {
       method: "GET",
       headers: {
@@ -20,13 +21,16 @@ export const userManager = reactive({
       this.userList.forEach((user) => {
         user.role = roles[user.role];
       });
+      return true
     } 
     else if (res.status === 401 && await this.refreshToken() == true) {
       console.log("ส่งใหม่จ้า")
     this.getUsers()
+    return false
   }
     else {
       console.log("ไม่พบข้อมูล");
+      return false
     }
   },
   getUserById: async function (userId) {
@@ -156,7 +160,6 @@ export const userManager = reactive({
       return error;
     }
   },
-
   login: async function (userLogin) {
     console.log(userLogin);
     const res = await fetch(`${import.meta.env.VITE_API}/api/login`, {
@@ -174,7 +177,9 @@ export const userManager = reactive({
     if (res.status === 200) {
       localStorage.setItem("token", info.token);
       localStorage.setItem("refreshToken", info.refreshToken);
-      console.log(info);
+      localStorage.setItem("role", info.role[0]);
+
+      console.log(info.role[0]);
       this.getUsers();
       return true;
     } else {
@@ -215,9 +220,11 @@ export const userManager = reactive({
       console.log(`ไม่สามารถ refresh token ได้ กรุณา Logout`);
       localStorage.removeItem("token");
       location.reload();
+      return false;
     }
     else {
       console.log(`ไม่สามารถ refresh token ได้`);
+      return false;
     }
   }
 });

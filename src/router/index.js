@@ -5,6 +5,28 @@ import CategoryList from '../views/CategoryList.vue'
 import AboutUs from '../views/AboutUs.vue'
 import UserList from '../views/UserList.vue'
 import UserDetails from '../views/UserDetails.vue'
+import {userManager} from '../scripts/userManager.js'
+
+async function guardMyroute(to, from, next)
+{
+    console.log("guard")
+    const role = localStorage.getItem("role");
+
+    let a = await userManager.getUsers()
+    console.log(a)
+    if (a === true && role === "admin")
+    
+ {
+    console.log("guard true" )
+  next(); // allow to enter route
+ } 
+ else
+ {
+    localStorage.clearItem("role")
+    localStorage.clearItem("token")
+  next('/'); // go to '/login';
+ }
+}
 
 const history = createWebHistory('/or1/');
 const routes = [
@@ -36,6 +58,7 @@ const routes = [
     {
         path: '/users',
         name: 'UserList',
+        beforeEnter : guardMyroute,
         component: UserList
     },
 ]

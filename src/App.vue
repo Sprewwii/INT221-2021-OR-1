@@ -10,7 +10,7 @@ import BasePopup from "./components/BasePopup.vue";
 onBeforeMount(async () => {
   await eventManager.getEvents();
   await eventManager.getEventCategories();
-  await userManager.getUsers();
+  // await userManager.getUsers();
 });
 
 const popupText = ref(null)
