@@ -24,6 +24,14 @@ const toggleCreateModal = () => {
  
 <template>
   <div class="h-screen w-screen overflow-x-hidden">
+    <router-link :to="{ name: 'UserList' }" class="mr-8">
+    <button
+                  class="flex fixed bottom-16 right-10 w-36 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
+                  >
+                  <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
+                  <span class="ml-3">Login</span>
+               </button></router-link>
+
     <Navbar @toggleCreateModal="toggleCreateModal" />
     <BasePopupCreate v-show="isShowCreateModal" @closeCreateModal="toggleCreateModal()" @showPopupSuccess="toggleCreateModal();popupText = 'Add Booking Success !'" />
    <BasePopup v-show="popupText" :popupText="popupText" :popupType="'success'"

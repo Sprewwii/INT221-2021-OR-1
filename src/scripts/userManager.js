@@ -2,6 +2,7 @@ import { reactive } from "vue";
 import { roles } from "./roles.js";
 
 export const userManager = reactive({
+  userInfo: {role: "student"},
   userList: [],
   selectedUser: {},
   getUsers: async function () {
@@ -178,7 +179,7 @@ export const userManager = reactive({
       localStorage.setItem("token", info.token);
       localStorage.setItem("refreshToken", info.refreshToken);
       localStorage.setItem("role", info.role[0]);
-
+      this.userInfo.role = info.role[0]
       console.log(info.role[0]);
       this.getUsers();
       return true;
