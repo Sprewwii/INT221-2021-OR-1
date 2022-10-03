@@ -49,7 +49,7 @@ const selectedPage = ref(1)
                   <router-link v-if="userManager.userInfo.role === 'admin'" :to="{ name: 'UserList' }" class="mr-8">
                      <div class="flex w-full items-center p-4 text-lg font-normal rounded-lg text-white">
                         <IconUsername width="1.5em" height="1.5em" fill="#ffffff" class="opacity-50 ml-8" />
-                        <span class="ml-3">Users {{userManager.userInfo.role}}</span>
+                        <span class="ml-3">Users</span>
                      </div>
                   </router-link>
                   <router-link :to="{ name: 'AboutUs' }" class="mr-8">
