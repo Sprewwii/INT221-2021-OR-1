@@ -2,7 +2,7 @@ import { reactive } from "vue";
 import { roles } from "./roles.js";
 
 export const userManager = reactive({
-  userInfo: {role: "guest"},
+  userInfo: {role: localStorage.getItem("role") || "guest"},
   userList: [],
   selectedUser: {},
   getUsers: async function () {
