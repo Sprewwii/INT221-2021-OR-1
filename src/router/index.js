@@ -9,12 +9,11 @@ import {userManager} from '../scripts/userManager.js'
 
 async function guardMyroute(to, from, next)
 {
-    console.log("guard")
+    // console.log("guard")
     const role = localStorage.getItem("role");
-
-    let a = await userManager.getUsers()
-    console.log(a)
-    if (a === true && role === "admin")
+    const token = localStorage.getItem("token");
+    // let a = await userManager.getUsers()
+    if (token && role === "admin")
     
  {
     console.log("guard true" )
@@ -22,8 +21,8 @@ async function guardMyroute(to, from, next)
  } 
  else
  {
-    localStorage.clearItem("role")
-    localStorage.clearItem("token")
+    // localStorage.clearItem("role")
+    // localStorage.clearItem("token")
   next('/'); // go to '/login';
  }
 }
