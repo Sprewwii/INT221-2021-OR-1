@@ -228,5 +228,23 @@ export const userManager = reactive({
       console.log(`ไม่สามารถ refresh token ได้`);
       return false;
     }
-  }
+  },matchingPassword: async function (user) {
+    const res = await fetch(`${import.meta.env.VITE_API}/api/match`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email: user.email,
+        password: user.password
+      })
+  })
+    if(res.status === 200) {
+      console.log("Password Matched")
+      return true
+     }else{
+      console.log("Password NOT Matched")
+        return false
+     }
+  },
 });
