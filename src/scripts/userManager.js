@@ -195,6 +195,7 @@ export const userManager = reactive({
   },
   logout: function(){
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
     this.userInfo.role = "guest"
   },
   refreshToken: async function(){
@@ -229,13 +230,10 @@ export const userManager = reactive({
       return false;
     }
   },matchingPassword: async function (user) {
-    const token = localStorage.getItem("token");
-    if (!token) return;
     const res = await fetch(`${import.meta.env.VITE_API}/api/login`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({
         email: user.email,
@@ -245,10 +243,7 @@ export const userManager = reactive({
     if(res.status === 200) {
       console.log("Password Matched")
       return true
-     }else if (res.status === 401 && await this.refreshToken() == true) {
-      console.log("ส่งใหม่จ้า")
-      this.matchingPassword(user)
-  }
+     }
      else{
       console.log("Password NOT Matched")
         return false

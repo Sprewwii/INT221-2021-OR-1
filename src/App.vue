@@ -23,6 +23,7 @@ const isShowLoginModal = ref(false);
 const isLogin = ref(!!localStorage.getItem("token"))
 
 
+
 const toggleCreateModal = () => {
   isShowCreateModal.value = !isShowCreateModal.value;
 }
@@ -65,7 +66,7 @@ const showPopup = (newPopup) => {
 }
 popup.value = newPopup
 }
-
+console.log('isLogin ' + isLogin.value);
 </script>
  
 <template>
