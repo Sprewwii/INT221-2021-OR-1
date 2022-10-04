@@ -7,6 +7,7 @@ import BasePopupEditUser from "../components/BasePopupEditUser.vue";
 import BasePopupConfirm from "../components/BasePopupConfirm.vue";
 import BasePopup from "../components/BasePopup.vue";
 import BasePopupCreateUser from "../components/BasePopupCreateUser.vue";
+import BaseMatchPassword from "../components/BaseMatchPassword.vue";
 import IconPlus from "../components/icons/IconPlus.vue"
 import BaseLogin from "../components/BaseLogin.vue"
 import { useRouter } from "vue-router"
