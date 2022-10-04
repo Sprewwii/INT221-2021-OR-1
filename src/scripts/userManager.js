@@ -233,6 +233,7 @@ export const userManager = reactive({
       method: "POST",
       headers: {
         "content-type": "application/json",
+        "Authorization": `Bearer ${refreshToken}`,
       },
       body: JSON.stringify({
         email: user.email,
@@ -242,7 +243,11 @@ export const userManager = reactive({
     if(res.status === 200) {
       console.log("Password Matched")
       return true
-     }else{
+     }else if (res.status === 401 && await this.refreshToken() == true) {
+      console.log("ส่งใหม่จ้า")
+      this.matchingPassword(user)
+  }
+     else{
       console.log("Password NOT Matched")
         return false
      }
