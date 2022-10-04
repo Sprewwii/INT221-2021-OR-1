@@ -229,11 +229,13 @@ export const userManager = reactive({
       return false;
     }
   },matchingPassword: async function (user) {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     const res = await fetch(`${import.meta.env.VITE_API}/api/match`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "Authorization": `Bearer ${refreshToken}`,
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({
         email: user.email,
