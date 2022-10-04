@@ -124,7 +124,7 @@ const matching = (user, e) => {
   <div class="ml-64 mt-14 w-full pr-80 mb-24">
     <div class="flex justify-between items-center">
       <h1 class="text-gray-300 text-2xl mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none inline-block align-middle">
-        User List {{showingPopup}}
+        User List
       </h1>
       <!-- <button
         class="w-48 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
@@ -167,7 +167,7 @@ const matching = (user, e) => {
     <BaseLogin v-show="showingPopup === 'login'" @closeEditModal="toggleModal('login'); backToPrevious()" @loginUser="loginUser"
       @showPopup="showPopup" />
 
-    <BaseMatchPassword v-show="showingPopup === 'matchPassword'" @closeEditModal="toggleModal('matchPassword')" @matching="matching"/>
+    <BaseMatchPassword v-show="showingPopup === 'match'" @closeEditModal="toggleModal('match')" @matching="matching"/>
   </div>
 
 </template>
