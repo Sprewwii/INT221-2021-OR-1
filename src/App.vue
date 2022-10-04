@@ -80,7 +80,7 @@ popup.value = newPopup
                   <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
                   <span class="ml-3">Logout {{isLogin}}</span>
                </button>
-    <Navbar @toggleCreateModal="toggleCreateModal" />
+    <Navbar @toggleCreateModal="toggleCreateModal" :isLogin="isLogin" />
     <BaseLogin v-show="isShowLoginModal" @closeEditModal="showLoginModal()" @loginUser="loginUser"
       @showPopup="showPopup" />
     <BasePopupCreate v-show="isShowCreateModal" @closeCreateModal="toggleCreateModal()" @showPopupSuccess="toggleCreateModal();popupText = 'Add Booking Success !'" />

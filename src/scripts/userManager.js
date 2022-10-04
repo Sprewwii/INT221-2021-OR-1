@@ -2,7 +2,7 @@ import { reactive } from "vue";
 import { roles } from "./roles.js";
 
 export const userManager = reactive({
-  userInfo: {role: "student"},
+  userInfo: {role: "guest"},
   userList: [],
   selectedUser: {},
   getUsers: async function () {
@@ -195,6 +195,7 @@ export const userManager = reactive({
   },
   logout: function(){
     localStorage.removeItem("token");
+    this.userInfo.role = "guest"
   },
   refreshToken: async function(){
 
