@@ -16,7 +16,7 @@ onBeforeMount(async () => {
   await eventManager.getEventCategories();
   // await userManager.getUsers();
 });
-
+const popup = ref({})
 const popupText = ref(null)
 const isShowCreateModal = ref(false);
 const isShowLoginModal = ref(false);
@@ -53,7 +53,14 @@ const logoutUser = () => {
   userManager.logout();
   isLogin.value = false;
 }
-
+const showPopup = (newPopup) => {
+  console.log("pop " + newPopup) 
+  if (newPopup && newPopup.type === 'success'){ 
+    
+    if (isShowLoginModal.value)showLoginModal()
+}
+popup.value = newPopup
+}
 </script>
  
 <template>
@@ -75,9 +82,10 @@ const logoutUser = () => {
     <BaseLogin v-show="isShowLoginModal" @closeEditModal="showLoginModal()" @loginUser="loginUser"
       @showPopup="showPopup" />
     <BasePopupCreate v-show="isShowCreateModal" @closeCreateModal="toggleCreateModal()" @showPopupSuccess="toggleCreateModal();popupText = 'Add Booking Success !'" />
-   <BasePopup v-show="popupText" :popupText="popupText" :popupType="'success'"
-      @closePopup="popupText = null" />
-    <router-view></router-view>
+   <!-- <BasePopup v-show="popupText" :popupText="popupText" :popupType="'success'"
+      @closePopup="popupText = null" /> -->
+          <BasePopup v-show="Object.keys(popup).length !== 0" :popupText="popup.text" :popupType="popup.type"
+      :popupHeader="popup.header" @closePopup="popup = {}" />
   </div>
 </template>
  
