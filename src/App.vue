@@ -36,7 +36,9 @@ const showLoginModal = () => {
 
 const loginUser = async (userLogin, e) => {
   e.preventDefault();
+
   let response = await userManager.login(userLogin)
+
   if (response === true) {
     // showingPopup.value = 'login'
     showPopup({ text: "Login Successful !", type: "success", header: "Login" })
@@ -86,6 +88,7 @@ popup.value = newPopup
       @closePopup="popupText = null" /> -->
           <BasePopup v-show="Object.keys(popup).length !== 0" :popupText="popup.text" :popupType="popup.type"
       :popupHeader="popup.header" @closePopup="popup = {}" />
+    <router-view></router-view>
   </div>
 </template>
  
