@@ -23,7 +23,7 @@ const showingPopup = ref("");
 const isShowDeleteBookingConfirm = ref(false);
 const popup = ref({})
 // localStorage.removeItem("token")
-if(!localStorage.getItem("token")) showingPopup.value = "login"
+// if(!localStorage.getItem("token")) showingPopup.value = "login"
 
 const selectUser = (id) => {
   if (selectedUserId.value === id) {
