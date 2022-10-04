@@ -22,6 +22,7 @@ const isShowCreateModal = ref(false);
 const isShowLoginModal = ref(false);
 const isLogin = ref(!!localStorage.getItem("token"))
 
+
 const toggleCreateModal = () => {
   isShowCreateModal.value = !isShowCreateModal.value;
 }
@@ -54,6 +55,7 @@ const logoutUser = () => {
   console.log("home")
   userManager.logout();
   isLogin.value = false;
+  console.log('isLogin ' + isLogin.value);
 }
 const showPopup = (newPopup) => {
   console.log("pop " + newPopup) 
@@ -63,6 +65,7 @@ const showPopup = (newPopup) => {
 }
 popup.value = newPopup
 }
+
 </script>
  
 <template>
@@ -80,7 +83,7 @@ popup.value = newPopup
                   <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
                   <span class="ml-3">Logout</span>
                </button>
-    <Navbar @toggleCreateModal="toggleCreateModal" :isLogin="isLogin" />
+    <Navbar @toggleCreateModal="toggleCreateModal" :isLogin="isLogin"/>
     <BaseLogin v-show="isShowLoginModal" @closeEditModal="showLoginModal()" @loginUser="loginUser"
       @showPopup="showPopup" />
     <BasePopupCreate v-show="isShowCreateModal" @closeCreateModal="toggleCreateModal()" @showPopupSuccess="toggleCreateModal();popupText = 'Add Booking Success !'" />

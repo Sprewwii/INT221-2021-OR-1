@@ -110,9 +110,13 @@ const backToPrevious = () => {
     router.go(-1)
 }
 
-const matching = (user, e) => {
+const matching = async (user, e) => {
     e.preventDefault();
-    userManager.matchingPassword(user)
+    if(await userManager.matchingPassword(user)){
+      showPopup({ text: "Password Match !", type: "success", header: "Match" })
+    }else{
+      showPopup({ text: "Password Not Match !", type: "error", header: "Match" })
+    }
 }
 // showPopup({text:"Login Success !",type:"success",header:"Login"})
 

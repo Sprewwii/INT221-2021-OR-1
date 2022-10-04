@@ -231,7 +231,7 @@ export const userManager = reactive({
   },matchingPassword: async function (user) {
     const token = localStorage.getItem("token");
     if (!token) return;
-    const res = await fetch(`${import.meta.env.VITE_API}/api/match`, {
+    const res = await fetch(`${import.meta.env.VITE_API}/api/login`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
