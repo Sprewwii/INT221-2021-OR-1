@@ -17,7 +17,9 @@ async function guardMyroute(to, from, next)
     
  {
     console.log("guard true" )
-  next(); // allow to enter route
+    let a = await userManager.getUsers()
+    if(a) next(); // allow to enter route
+    else next('/');
  } 
  else
  {
