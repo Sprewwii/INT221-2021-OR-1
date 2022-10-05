@@ -1,6 +1,6 @@
 <script setup>
 import { onBeforeMount } from "vue"
-import { ref,computed } from "vue";
+import { ref, computed } from "vue";
 import { eventManager } from "./scripts/eventManager.js"
 import { userManager } from "./scripts/userManager.js"
 import Navbar from "./components/BaseNavBar.vue"
@@ -15,6 +15,9 @@ onBeforeMount(async () => {
   await eventManager.getEvents();
   await eventManager.getEventCategories();
   // await userManager.getUsers();
+  if (!isLogin.value) {
+    localStorage.setItem("role", "guest");
+  }
 });
 const popup = ref({})
 const popupText = ref(null)
@@ -29,11 +32,11 @@ const toggleCreateModal = () => {
 }
 
 const showLoginModal = () => {
-  if(isShowLoginModal.value === false && !localStorage.getItem("token")) isShowLoginModal.value = true
+  if (isShowLoginModal.value === false && !localStorage.getItem("token")) isShowLoginModal.value = true
   else {
     isShowLoginModal.value = false
   }
-  console.log(isShowLoginModal.value + " " +localStorage.getItem('token'))
+  console.log(isShowLoginModal.value + " " + localStorage.getItem('token'))
 }
 
 const loginUser = async (userLogin, e) => {
@@ -52,45 +55,43 @@ const loginUser = async (userLogin, e) => {
 
 const logoutUser = () => {
   userManager.userList = []
-  router.push({name: 'Home'})
+  router.push({ name: 'Home' })
   console.log("home")
   userManager.logout();
   isLogin.value = false;
-  console.log('isLogin ' + isLogin.value);
 }
 const showPopup = (newPopup) => {
-  console.log("pop " + newPopup) 
-  if (newPopup && newPopup.type === 'success'){ 
-    
-    if (isShowLoginModal.value)showLoginModal()
+  console.log("pop " + newPopup)
+  if (newPopup && newPopup.type === 'success') {
+
+    if (isShowLoginModal.value) showLoginModal()
+  }
+  popup.value = newPopup
 }
-popup.value = newPopup
-}
-console.log('isLogin ' + isLogin.value);
+
 </script>
  
 <template>
   <div class="h-screen w-screen overflow-x-hidden">
-  
+
     <button v-if="!isLogin" @click="showLoginModal()"
-                  class="flex fixed bottom-16 right-10 w-36 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
-                  >
-                  <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
-                  <span class="ml-3">Login</span>
-               </button>
-               <button v-else @click="logoutUser()"
-                  class="flex fixed bottom-16 right-10 w-36 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
-                  >
-                  <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
-                  <span class="ml-3">Logout</span>
-               </button>
-    <Navbar @toggleCreateModal="toggleCreateModal" :isLogin="isLogin"/>
+      class="flex fixed bottom-16 right-10 w-36 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300">
+      <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
+      <span class="ml-3">Login</span>
+    </button>
+    <button v-else @click="logoutUser()"
+      class="flex fixed bottom-16 right-10 w-36 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300">
+      <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
+      <span class="ml-3">Logout</span>
+    </button>
+    <Navbar @toggleCreateModal="toggleCreateModal" :isLogin="isLogin" />
     <BaseLogin v-show="isShowLoginModal" @closeEditModal="showLoginModal()" @loginUser="loginUser"
       @showPopup="showPopup" />
-    <BasePopupCreate v-show="isShowCreateModal" @closeCreateModal="toggleCreateModal()" @showPopupSuccess="toggleCreateModal();popupText = 'Add Booking Success !'" />
-   <!-- <BasePopup v-show="popupText" :popupText="popupText" :popupType="'success'"
+    <BasePopupCreate v-show="isShowCreateModal" @closeCreateModal="toggleCreateModal()"
+      @showPopupSuccess="toggleCreateModal();popupText = 'Add Booking Success !'" />
+    <!-- <BasePopup v-show="popupText" :popupText="popupText" :popupType="'success'"
       @closePopup="popupText = null" /> -->
-          <BasePopup v-show="Object.keys(popup).length !== 0" :popupText="popup.text" :popupType="popup.type"
+    <BasePopup v-show="Object.keys(popup).length !== 0" :popupText="popup.text" :popupType="popup.type"
       :popupHeader="popup.header" @closePopup="popup = {}" />
     <router-view></router-view>
   </div>
@@ -110,8 +111,11 @@ table {
   border-radius: 1rem;
 }
 
-#cards, #popupCreate, #cardMember, .background-gray, #popupEdit{
-    background-color: #292B2E;
+#cards,
+#popupCreate,
+#cardMember,
+.background-gray,
+#popupEdit {
+  background-color: #292B2E;
 }
-
 </style>

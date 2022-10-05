@@ -195,7 +195,7 @@ export const userManager = reactive({
   },
   logout: function(){
     localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    localStorage.setItem("role", "guest");
     this.userInfo.role = "guest"
   },
   refreshToken: async function(){
