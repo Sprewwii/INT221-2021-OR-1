@@ -40,7 +40,7 @@ const clearLogin = () => {
             class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto">
             
             <div class="relative rounded-lg shadow" id="popupEdit">
-                <button type="button" @click="$emit('closeEditModal'); clearLogin()"
+                <button type="button" @click="$emit('closeLoginModal'); clearLogin()"
                     class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
                     <IconClose />
                 </button>

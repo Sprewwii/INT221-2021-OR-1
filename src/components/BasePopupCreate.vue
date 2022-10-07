@@ -2,6 +2,7 @@
 import { ref, computed } from "vue"
 import IconClose from "./icons/IconClose.vue"
 import { eventManager } from "../scripts/eventManager.js"
+import { userManager } from "../scripts/userManager.js"
 import { validation } from "../scripts/validation.js"
 import { decorator } from "../scripts/decorator.js"
 
@@ -79,7 +80,7 @@ const clearCreatingBooking = () => {
                                     class="text-sm text-gray-500 absolute mt-1">{{ creatingBooking.name.length }}/100</p>
                             </div>
                         </div>
-                        <div>
+                        <div v-if="userManager.userInfo.role === 'guest'">
                             <label for="email" class="block mb-3 text-sm font-medium text-neutral-300">Email</label>
                             <input v-model="creatingBooking.email" name="email" id="email" type="text"
                                 :class="[validation.validateLength(creatingBooking.email, 100) && !showWarning.isEmail && !showWarning.email ? decorator.normalFormBorder : decorator.redFormBorder]"
@@ -93,6 +94,13 @@ const clearCreatingBooking = () => {
                             <div v-if="creatingBooking.email" class="flex justify-end">
                                 <p :class="{ 'text-red-400': !validation.validateLength(creatingBooking.email, 100) }"
                                     class="text-sm text-gray-500 absolute mt-1">{{ creatingBooking.email.length }}/100</p>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <label for="email" class="block mb-3 text-sm font-medium text-neutral-300">Email</label>
+                            <div
+                                class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-gray-400">
+                                {{userManager.userInfo.email}}
                             </div>
                         </div>
                         <div>

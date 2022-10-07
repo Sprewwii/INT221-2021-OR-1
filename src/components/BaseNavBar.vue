@@ -31,7 +31,10 @@ const selectedPage = ref(1)
                   <img src="../images/profile.jpg" class="rounded-full h-32 mt-16 shadow-xl opacity-90"
                      draggable="false">
                </div>
-               <p class="self-center text-base font-medium whitespace-nowrap text-gray-500 mt-3 mb-8 select-none">ADMIN 01</p>
+               <div class="flex flex-col mt-4 h-16">
+               <p v-if="userManager.userInfo.email" class="self-center text-base font-medium whitespace-nowrap text-gray-500 select-none">{{userManager.userInfo.email}}</p>
+               <p class="self-center text-base font-medium whitespace-nowrap text-gray-500 select-none">{{userManager.userInfo.role}}</p>
+            </div>
                <div class="flex flex-col space-y-0">
                   <router-link :to="{ name: 'Home' }" class="mr-8">
                      <div class="flex items-center p-4 text-lg font-normal rounded-lg text-white w-full">

@@ -2,7 +2,7 @@ import { reactive } from "vue";
 import { roles } from "./roles.js";
 
 export const userManager = reactive({
-  userInfo: {role: localStorage.getItem("role") || "guest"},
+  userInfo: {role: localStorage.getItem("role") || "guest",email: localStorage.getItem("email") || null},
   userList: [],
   selectedUser: {},
   getUsers: async function () {
@@ -35,10 +35,11 @@ export const userManager = reactive({
     }
   },
   getUserById: async function (userId) {
-    console.log("get "+userId)
+   
     const token = localStorage.getItem("token");
+    
     if (!token) return;
-
+    console.log("get "+userId + " " + token)
     const res = await fetch(`${import.meta.env.VITE_API}/api/users/${userId}`, {
       method: "GET",
       headers: {
@@ -179,7 +180,9 @@ export const userManager = reactive({
       localStorage.setItem("token", info.token);
       localStorage.setItem("refreshToken", info.refreshToken);
       localStorage.setItem("role", info.role[0]);
+      localStorage.setItem("email", userLogin.email);
       this.userInfo.role = info.role[0]
+      this.userInfo.email = userLogin.email;
       console.log(info.role[0]);
       this.getUsers();
       return true;
@@ -195,34 +198,38 @@ export const userManager = reactive({
   },
   logout: function(){
     localStorage.removeItem("token");
+    localStorage.removeItem("email");
     localStorage.setItem("role", "guest");
-    this.userInfo.role = "guest"
+    this.userInfo = {role:"guest"}
   },
   refreshToken: async function(){
     console.log("refresh token")
-    const token = localStorage.getItem("token");
-    const refreshToken = localStorage.getItem("refreshToken");
-    if (!token) return;
+    const currentToken = localStorage.getItem("token");
+    const currentRefreshToken = localStorage.getItem("refreshToken");
+    if (!currentToken) return;
 
     const res = await fetch(`${import.meta.env.VITE_API}/api/refresh`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${refreshToken}`,
+        // "Authorization": `Bearer ${refreshToken}`,
+      body: JSON.stringify({
+        refreshToken: currentRefreshToken
+      }),
       },
     });
-    console.log("refresh "+refreshToken )
+    console.log("refresh "+currentRefreshToken )
     if (res.status === 200) {
       let info = await res.json()
-      
+      console.log("token "+info.token )
       localStorage.setItem("token",info.token);
-      return true;
+      return true; 
       
     } 
     else if (res.status === 500){
       console.log(`ไม่สามารถ refresh token ได้ กรุณา Logout`);
       localStorage.removeItem("token");
-      // location.reload();
+      location.reload();
       return false;
     }
     else {
