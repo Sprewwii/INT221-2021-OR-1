@@ -15,7 +15,7 @@ const editingBooking = ref({});
 
 const noEventMessage = ref("");
 const isShowDeleteBookingConfirm = ref(false);
-const popupText = ref(null)
+const popupMessage = ref(null)
 
 const selectBooking = (id) => {
   if (selectedBookingId.value === id) {
@@ -37,7 +37,7 @@ const updateEditingBooking = (booking, e) => {
   eventManager.editEvent(booking);
   editingBooking.value = {};
   selectBooking(0);
-  popupText.value = "Edit Booking"
+  popupMessage.value = "Edit Booking"
 };
 
 const toggleDeleteConfirm = () => {
@@ -53,6 +53,7 @@ const deleteBooking = () => {
 const setNoEventMessage = (message) => {
   noEventMessage.value = message
 }
+
 </script>
 
 <template>
@@ -66,8 +67,8 @@ const setNoEventMessage = (message) => {
     <BaseScheduleList :bookingList="bookingList" :selectedBookingId="selectedBookingId"
       :noEventsWarning="noEventMessage" @selectBooking="selectBooking" @editBooking="editBooking"
       @deleteBooking="toggleDeleteConfirm" class="pr-12" />
-        <BasePopup v-show="popupText" :popupText="popupText" :popupType="'success'"
-      @closePopup="popupText = null" />
+        <BasePopup v-show="popupMessage" :popupText="popupMessage" :popupType="'success'"
+      @closePopup="popupMessage = null" />
     <BasePopupConfirm v-show="isShowDeleteBookingConfirm" @closeConfirmModal="toggleDeleteConfirm"
       @deleteBooking="deleteBooking" />
     <BasePopupEdit v-show="Object.keys(editingBooking).length > 0" @closeEditModal="editingBooking = {}"

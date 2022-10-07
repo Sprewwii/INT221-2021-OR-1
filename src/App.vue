@@ -19,10 +19,11 @@ onBeforeMount(async () => {
     localStorage.setItem("role", "guest");
   }
 });
-const popup = ref({})
+const popupMessage = ref({})
 const popupText = ref(null)
 const isShowCreateModal = ref(false);
 const isShowLoginModal = ref(false);
+const showingModal = ref("");
 const isLogin = ref(!!localStorage.getItem("token"))
 
 
@@ -46,6 +47,7 @@ const loginUser = async (userLogin, e) => {
 
   if (response === true) {
     // showingPopup.value = 'login'
+    toggleModal('login')
     showPopup({ text: "Login Successful !", type: "success", header: "Login" })
     isLogin.value = true
   } else {
@@ -66,15 +68,20 @@ const showPopup = (newPopup) => {
 
     if (isShowLoginModal.value) showLoginModal()
   }
-  popup.value = newPopup
+  popupMessage.value = newPopup
 }
+
+const toggleModal = (modal) => {
+  if (showingModal.value === "") showingModal.value = modal
+  else showingModal.value = ""
+};
 
 </script>
  
 <template>
   <div class="h-screen w-screen overflow-x-hidden">
 
-    <button v-if="!isLogin" @click="showLoginModal()"
+    <button v-if="!isLogin" @click="toggleModal('login')"
       class="flex fixed bottom-16 right-10 w-36 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300">
       <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
       <span class="ml-3">Login</span>
@@ -84,15 +91,14 @@ const showPopup = (newPopup) => {
       <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
       <span class="ml-3">Logout</span>
     </button>
-    <Navbar @toggleCreateModal="toggleCreateModal" :isLogin="isLogin" />
-    <BaseLogin v-show="isShowLoginModal" @closeEditModal="showLoginModal()" @loginUser="loginUser"
-      @showPopup="showPopup" />
-    <BasePopupCreate v-show="isShowCreateModal" @closeCreateModal="toggleCreateModal()"
-      @showPopupSuccess="toggleCreateModal();popupText = 'Add Booking Success !'" />
+    <Navbar @toggleCreateModal="toggleModal('create')" :isLogin="isLogin" />
+    <BaseLogin  v-show="showingModal==='login'" @closeLoginModal="toggleModal('login')" @loginUser="loginUser" />
+    <BasePopupCreate v-show="showingModal==='create'" @closeCreateModal="toggleModal('create')"
+      @showPopupSuccess="toggleModal('create');showPopup({text: 'Create Event Successful !', type: 'success', header: 'Create' })" />
     <!-- <BasePopup v-show="popupText" :popupText="popupText" :popupType="'success'"
       @closePopup="popupText = null" /> -->
-    <BasePopup v-show="Object.keys(popup).length !== 0" :popupText="popup.text" :popupType="popup.type"
-      :popupHeader="popup.header" @closePopup="popup = {}" />
+    <BasePopup v-show="Object.keys(popupMessage).length !== 0" :popupText="popupMessage.text" :popupType="popupMessage.type"
+      :popupHeader="popupMessage.header" @closePopup="popupMessage = {}" />
     <router-view></router-view>
   </div>
 </template>

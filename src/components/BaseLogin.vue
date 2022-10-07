@@ -12,7 +12,7 @@ import { decorator } from "../scripts/decorator.js"
 //     }
 // })
 
-defineEmits(['editBooking', 'closeEditModal'])
+defineEmits(['loginUser', 'closeLoginModal'])
 
 const userLogin = ref({email: "", password: ""})
 // const editingBooking = computed(() => props.editingBooking)

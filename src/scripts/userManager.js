@@ -35,7 +35,7 @@ export const userManager = reactive({
     }
   },
   getUserById: async function (userId) {
-    console.log("gett")
+    console.log("get "+userId)
     const token = localStorage.getItem("token");
     if (!token) return;
 
@@ -199,8 +199,7 @@ export const userManager = reactive({
     this.userInfo.role = "guest"
   },
   refreshToken: async function(){
-
-    console.log("home")
+    console.log("refresh token")
     const token = localStorage.getItem("token");
     const refreshToken = localStorage.getItem("refreshToken");
     if (!token) return;
