@@ -211,9 +211,10 @@ export const userManager = reactive({
         "Authorization": `Bearer ${refreshToken}`,
       },
     });
+    console.log("refresh "+refreshToken )
     if (res.status === 200) {
       let info = await res.json()
-      console.log("refresh"+info.token)
+      
       localStorage.setItem("token",info.token);
       return true;
       
@@ -221,7 +222,7 @@ export const userManager = reactive({
     else if (res.status === 500){
       console.log(`ไม่สามารถ refresh token ได้ กรุณา Logout`);
       localStorage.removeItem("token");
-      location.reload();
+      // location.reload();
       return false;
     }
     else {
