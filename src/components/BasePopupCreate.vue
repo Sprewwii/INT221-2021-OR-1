@@ -23,6 +23,7 @@ const validateDateTime = () => {
 }
 
 const createBooking = (e) => {
+    if(userManager.userInfo.email) creatingBooking.value.email = userManager.userInfo.email
     validateDateTime();
     e.preventDefault();
     showWarning.value.create = false
@@ -45,6 +46,7 @@ const createBooking = (e) => {
         eventManager.createEvent(creatingBooking.value);
         clearCreatingBooking()
     }
+    console.log("create")
 };
 
 const clearCreatingBooking = () => {

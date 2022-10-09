@@ -3,7 +3,16 @@ export const eventManager = reactive({
   eventList: [],
   eventCategories: [],
   getEvents: async function () {
-    const res = await fetch(`${import.meta.env.VITE_API}/api/events`);
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
     if (res.status === 200) {
       this.eventList = await res.json();
     } else {
@@ -11,7 +20,15 @@ export const eventManager = reactive({
     }
   },
   getEventById: async function (eventId) {
-    const res = await fetch(`${import.meta.env.VITE_API}/api/events/${eventId}`);
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events/${eventId}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
     if (res.status === 200) {
       return await res.json();
     } else {
@@ -19,7 +36,15 @@ export const eventManager = reactive({
     }
   },
   getEventsPast: async function () {
-    const res = await fetch(`${import.meta.env.VITE_API}/api/events/past`);
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events/past`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
     if (res.status === 200) {
       this.eventList = await res.json();
     } else {
@@ -27,7 +52,15 @@ export const eventManager = reactive({
     }
   },
   getEventsFuture: async function () {
-    const res = await fetch(`${import.meta.env.VITE_API}/api/events/future`);
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events/future`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
     if (res.status === 200) {
       this.eventList = await res.json();
     } else {
@@ -35,7 +68,15 @@ export const eventManager = reactive({
     }
   },
   getEventsByDate: async function (date) {
-    const res = await fetch(`${import.meta.env.VITE_API}/api/events/date/${date}`);
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events/date/${date}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
     if (res.status === 200) {
       this.eventList = await res.json();
     } else {
@@ -43,9 +84,17 @@ export const eventManager = reactive({
     }
   },
   getEventsByCategory: async function (categoryId) {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     const res = await fetch(
       `${import.meta.env.VITE_API}/api/events/${categoryId}/categories`
-    );
+      , {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      });
     if (res.status === 200) {
       this.eventList = await res.json();
     } else {
@@ -53,6 +102,8 @@ export const eventManager = reactive({
     }
   },
   getEventCategories: async function () {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     const res = await fetch(`${import.meta.env.VITE_API}/api/eventCategories`);
     if (res.status === 200) {
       this.eventCategories = await res.json();
@@ -61,15 +112,20 @@ export const eventManager = reactive({
     }
   },
   getEventCategoryById: function (id) {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     return this.eventCategories.find(
       (eventCategory) => eventCategory.categoryId === id
     );
   },
   createEvent: async function (booking) {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     const res = await fetch(`${import.meta.env.VITE_API}/api/events`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({
         name: booking.name,
@@ -88,8 +144,13 @@ export const eventManager = reactive({
     }
   },
   deleteEvent: async function (eventId) {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     const res = await fetch(`${import.meta.env.VITE_API}/api/events/${eventId}`, {
-      method: "DELETE",
+      method: "DELETE",      headers: {
+        "content-type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
     });
 
     if (res.status === 200) {
@@ -99,6 +160,8 @@ export const eventManager = reactive({
     }
   },
   editEvent: async function (booking) {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     console.log(booking);
     const res = await fetch(
       `${import.meta.env.VITE_API}/api/events/${booking.id}`,
@@ -106,6 +169,7 @@ export const eventManager = reactive({
         method: "PATCH",
         headers: {
           "content-type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify({
           startTime: booking.startTime,
@@ -121,6 +185,7 @@ export const eventManager = reactive({
     }
   },
   editEventCategory: async function (category) {
+    
     const res = await fetch(
       `${import.meta.env.VITE_API}/api/eventCategories/${category.categoryId}`,
       {
