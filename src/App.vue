@@ -15,6 +15,7 @@ onBeforeMount(async () => {
   await eventManager.getEvents();
   await eventManager.getEventCategories();
   // await userManager.getUsers();
+  console.log("get")
   if (!isLogin.value) {
     localStorage.setItem("role", "guest");
   }

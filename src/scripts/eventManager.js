@@ -116,13 +116,10 @@ export const eventManager = reactive({
     );
   },
   createEvent: async function (booking) {
-    const token = localStorage.getItem("token");
-    if (!token) return;
     const res = await fetch(`${import.meta.env.VITE_API}/api/events`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({
         name: booking.name,
