@@ -102,18 +102,15 @@ export const eventManager = reactive({
     }
   },
   getEventCategories: async function () {
-    const token = localStorage.getItem("token");
-    if (!token) return;
     const res = await fetch(`${import.meta.env.VITE_API}/api/eventCategories`);
     if (res.status === 200) {
       this.eventCategories = await res.json();
     } else {
       console.log("ไม่พบข้อมูล Event Category");
     }
+    
   },
   getEventCategoryById: function (id) {
-    const token = localStorage.getItem("token");
-    if (!token) return;
     return this.eventCategories.find(
       (eventCategory) => eventCategory.categoryId === id
     );
