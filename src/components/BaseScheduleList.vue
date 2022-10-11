@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from "vue"
-
+import { userManager } from "../scripts/userManager.js"
 import { eventManager } from "../scripts/eventManager.js"
 import IconMenuKebabVue from "./icons/IconMenuKebab.vue";
 import IconDelete from "./icons/IconDelete.vue";
@@ -52,9 +52,10 @@ const noEventsWarning = computed(() => props.noEventsWarning)
         <tbody v-else v-for="booking in bookingList" :key="booking.id">
           <tr class="border-t border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal">
             <th scope="row" class="pl-6 font-normal text-white text-left break-words">
-              <router-link :to="{ name: 'BookingDetails', params: { id: booking.id } }" class="hover:underline">
+              <router-link v-if="userManager.userInfo.role !== 'lecturer'" :to="{ name: 'BookingDetails', params: { id: booking.id } }" class="hover:underline">
                 {{ booking.name }}
               </router-link>
+              <div v-else> {{ booking.name }}</div>
             </th>
             <td>
               {{ booking.categoryName }}
@@ -80,7 +81,7 @@ const noEventsWarning = computed(() => props.noEventsWarning)
               {{ booking.duration }}
             </td>
             <td class="pr-3">
-              <div class="inline-block relative">
+              <div v-if="userManager.userInfo.role !== 'lecturer'" class="inline-block relative">
                 <button @click="$emit('selectBooking', booking.id)" class="p-3">
                   <IconMenuKebabVue />
                 </button>

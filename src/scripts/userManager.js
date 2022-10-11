@@ -215,10 +215,10 @@ export const userManager = reactive({
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        // "Authorization": `Bearer ${refreshToken}`,
-      body: JSON.stringify({
-        refreshToken: currentRefreshToken
-      }),
+        "Authorization": `Bearer ${currentRefreshToken}`,
+      // body: JSON.stringify({
+      //   refreshToken: currentRefreshToken
+      // }),
       },
     });
     console.log("refresh "+currentRefreshToken )

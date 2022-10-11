@@ -63,7 +63,7 @@ const selectedPage = ref(1)
                   </router-link>
                 
                </div>
-               <button
+               <button v-if="userManager.userInfo.role !== 'lecturer'"
                   class="flex absolute bottom-16 w-2/3 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
                   @click="$emit('toggleCreateModal')">
                   <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
