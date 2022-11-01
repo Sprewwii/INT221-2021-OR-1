@@ -116,14 +116,30 @@ export const eventManager = reactive({
     );
   },
   createEvent: async function (booking) {
-
-    const formData = new FormData();
-
-    for (const [key, value] of Object.entries(booking)) {
-       formData.append(key, value);
+    function omit(obj, omitKey) {
+      return Object.keys(obj).reduce((result, key) => {
+        if(key !== omitKey) {
+          console.log(key + " " + obj[key])  
+           result[key] = obj[key];
+        }
+        return result;
+      }, {});
     }
 
-    console.log(formData)
+    console.log(booking)
+    const formData = new FormData();
+
+    formData.append("file", booking.file);
+    formData.append("data", omit(booking,"file"));
+    console.log(formData.get("data"))
+    // for (const [key, value] of Object.entries(booking)) {
+    //    formData.append(key, value);
+    // }
+  //   for (var pair of formData.entries()) {
+  //     console.log(pair[0]+ ' - ' + pair[1]); 
+  // }
+
+    console.log(Array.from(formData.entries()))
 
     const res = await fetch(`${import.meta.env.VITE_API}/api/events`, {
       method: "POST",
