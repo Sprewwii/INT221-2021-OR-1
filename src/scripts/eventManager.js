@@ -116,20 +116,35 @@ export const eventManager = reactive({
     );
   },
   createEvent: async function (booking) {
+
+    const formData = new FormData();
+
+    for (const [key, value] of Object.entries(booking)) {
+       formData.append(key, value);
+    }
+
+    console.log(formData)
+
     const res = await fetch(`${import.meta.env.VITE_API}/api/events`, {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        name: booking.name,
-        email: booking.email,
-        startTime: new Date(booking.startTime).toISOString(),
-        categoryId: booking.category.categoryId,
-        duration: booking.category.categoryDuration,
-        note: booking.note,
-      }),
+      body: formData
     });
+
+    // const res = await fetch(`${import.meta.env.VITE_API}/api/events`, {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     name: booking.name,
+    //     email: booking.email,
+    //     startTime: new Date(booking.startTime).toISOString(),
+    //     categoryId: booking.category.categoryId,
+    //     duration: booking.category.categoryDuration,
+    //     note: booking.note,
+    //     file: booking.file,
+    //   }),
+    // });
 
     if (res.status === 200) {
       this.getEvents();

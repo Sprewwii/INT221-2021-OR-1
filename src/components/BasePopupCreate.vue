@@ -8,7 +8,7 @@ import { decorator } from "../scripts/decorator.js"
 
 defineEmits(['closeCreateModal', 'showPopupSuccess'])
 
-const eventCategories = computed(() => eventManager.eventCategories);
+const eventCategories = computed(() => eventManager.eventCategories)
 const creatingBooking = ref({})
 const showWarning = ref({ isName: false, isEmail: false, isCategory: false, isStartTime: false, create: false, email: false, dateTimePast: false, dateTimeOverlap: false })
 
@@ -17,15 +17,20 @@ const validateEmail = () => {
 }
 
 const validateDateTime = () => {
-    if (!creatingBooking.value.startTime) return;
+    if (!creatingBooking.value.startTime) return
     showWarning.value.dateTimePast = validation.isPast(creatingBooking.value.startTime)
     showWarning.value.dateTimeOverlap = validation.isOverlap(creatingBooking.value)
 }
 
+const previewFile = (e) => {
+    console.log(e.target.files[0])
+    creatingBooking.value.file = URL.createObjectURL(e.target.files[0])
+}
+
 const createBooking = (e) => {
-    if(userManager.userInfo.email) creatingBooking.value.email = userManager.userInfo.email
-    validateDateTime();
-    e.preventDefault();
+    if (userManager.userInfo.email) creatingBooking.value.email = userManager.userInfo.email
+    validateDateTime()
+    e.preventDefault()
     showWarning.value.create = false
     if (!creatingBooking.value.name) showWarning.value.isName = true
     if (!creatingBooking.value.email) showWarning.value.isEmail = true
@@ -43,11 +48,11 @@ const createBooking = (e) => {
     }
 
     if (!showWarning.value.create) {
-        eventManager.createEvent(creatingBooking.value);
+        eventManager.createEvent(creatingBooking.value)
         clearCreatingBooking()
     }
     console.log("create")
-};
+}
 
 const clearCreatingBooking = () => {
     showWarning.value = { isName: false, isEmail: false, isCategory: false, isStartTime: false, create: false, email: false, dateTimePast: false, dateTimeOverlap: false }
@@ -57,10 +62,10 @@ const clearCreatingBooking = () => {
  
 <template>
     <div
-        class="bg-black/70 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
+        class="bg-black/70 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center">
         <div
-            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto">
-            <div class="relative rounded-lg shadow" id="popupCreate">
+            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md sm:max-w-none sm:w-[760px] h-full md:h-auto">
+            <div class="relative rounded-lg shadow w-full" id="popupCreate">
                 <button type="button" @click="$emit('closeCreateModal'); clearCreatingBooking()"
                     class="absolute top-3 right-2.5 text-neutral-400 mt-2 mr-4 bg-transparent hover:bg-neutral-200 hover:text-neutral-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
                     <IconClose />
@@ -68,7 +73,9 @@ const clearCreatingBooking = () => {
 
                 <div class="py-6 px-6 lg:px-8 ">
                     <h3 class="mb-4 text-2xl font-medium text-white">Create Schedule Event</h3>
-                    <form class="space-y-8">
+                    <form class="space-y-8 flex flex-col items-center">
+                        <div class="flex flex-row space-x-8">
+                        <div class="space-y-8">
                         <div>
                             <label for="name" class="block mb-3 text-sm font-medium text-neutral-300">Name</label>
                             <input v-model="creatingBooking.name" type="text" name="name" id="name"
@@ -79,7 +86,8 @@ const clearCreatingBooking = () => {
                             </p>
                             <div v-if="creatingBooking.name" class="flex justify-end">
                                 <p :class="{ 'text-red-400': !validation.validateLength(creatingBooking.name, 100) }"
-                                    class="text-sm text-gray-500 absolute mt-1">{{ creatingBooking.name.length }}/100</p>
+                                    class="text-sm text-gray-500 absolute mt-1">{{ creatingBooking.name.length }}/100
+                                </p>
                             </div>
                         </div>
                         <div v-if="userManager.userInfo.role === 'guest'">
@@ -95,7 +103,8 @@ const clearCreatingBooking = () => {
                                 a valid email address.</p>
                             <div v-if="creatingBooking.email" class="flex justify-end">
                                 <p :class="{ 'text-red-400': !validation.validateLength(creatingBooking.email, 100) }"
-                                    class="text-sm text-gray-500 absolute mt-1">{{ creatingBooking.email.length }}/100</p>
+                                    class="text-sm text-gray-500 absolute mt-1">{{ creatingBooking.email.length }}/100
+                                </p>
                             </div>
                         </div>
                         <div v-else>
@@ -140,7 +149,8 @@ const clearCreatingBooking = () => {
                                 choose future dates.</p>
                             <p v-else-if="showWarning.dateTimeOverlap" class="text-sm text-red-400 absolute mt-1">* This
                                 DateTime has been booked by someone.</p>
-                        </div>
+                        </div></div>
+                        <div class="space-y-8">
                         <div>
                             <label for="note" class="block mb-3 text-sm font-medium text-neutral-300">Note</label>
                             <textarea v-model="creatingBooking.note" name="text" id="text"
@@ -149,13 +159,20 @@ const clearCreatingBooking = () => {
                                 placeholder="detail..."> </textarea>
                             <div v-if="creatingBooking.note" class="flex justify-end">
                                 <p :class="{ 'text-red-400': !validation.validateLength(creatingBooking.note, 500) }"
-                                    class="text-sm text-gray-500 absolute mt-1">{{ creatingBooking.note.length }}/500</p>
+                                    class="text-sm text-gray-500 absolute mt-1">{{ creatingBooking.note.length }}/500
+                                </p>
                             </div>
                         </div>
-                        <button type="button"
-                            class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                        <div>
+                            <label for="file" class="block mb-3 text-sm font-medium text-neutral-300">File</label>
+                            <input type="file" @change="previewFile( $event )" class="text-sm text-neutral-400 rounded-lg border border-gray-300 cursor-pointer"/>
+                            <img v-show="creatingBooking.file" :src="creatingBooking.file" alt="file" class="w-[150px] max-h-[170px] mt-4 object-cover mx-auto"/>
+                        </div></div>
+                       
+                        </div> <button type="button"
+                            class="w-[150px] text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                             @click="createBooking($event); !showWarning.create ? $emit('showPopupSuccess') : ''">Create</button>
-                    </form>
+                        </form>
                 </div>
             </div>
         </div>
