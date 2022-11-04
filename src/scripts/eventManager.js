@@ -150,10 +150,10 @@ export const eventManager = reactive({
 
     const res = await fetch(`${import.meta.env.VITE_API}/api/events`, {
       method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        "Content-type": "multipart/form-data",
-      },
+      // headers: {
+      //   'Accept': 'application/json',
+      //   "Content-type": "multipart/form-data",
+      // },
       body: formData
     });
 
