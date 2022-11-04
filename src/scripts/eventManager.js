@@ -129,10 +129,15 @@ export const eventManager = reactive({
     console.log(booking)
     const formData = new FormData();
 
+    const json = JSON.stringify(omit(booking,"file"));
+    const blob = new Blob([json], {
+      type: 'application/json'
+    });
+
     formData.append("file", booking.file);
-    formData.append("data", JSON.stringify(omit(booking,"file")));
+    formData.append("data", blob);
     // console.log(omit(booking,"file"))
-    console.log(formData.get("data").email)
+    console.log(formData.get("data"))
     console.log(formData.get("file"))
     // for (const [key, value] of Object.entries(booking)) {
     //    formData.append(key, value);
