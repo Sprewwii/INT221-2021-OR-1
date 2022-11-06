@@ -136,7 +136,7 @@ export const eventManager = reactive({
     );
   },
   createEvent: async function (booking) {
-    console.log(booking )
+    console.log(booking.category.categoryId)
     const bookingJson = JSON.stringify({
       name:booking.name,
       email: booking.email,
@@ -155,7 +155,7 @@ export const eventManager = reactive({
     //   type: 'application/json'
     // });
     console.log(dataBlob)
-    formData.append("file", booking.file);
+    formData.append("file", "");
     formData.append("data", dataBlob);
     // console.log(omit(booking,"file"))
     // console.log(formData.get("data"))
