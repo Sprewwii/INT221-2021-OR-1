@@ -116,29 +116,30 @@ export const eventManager = reactive({
     );
   },
   createEvent: async function (booking) {
-    function omit(obj, omitKey) {
-      return Object.keys(obj).reduce((result, key) => {
-        if(key !== omitKey) {
-          console.log(key + " " + obj[key])  
-           result[key] = obj[key];
-        }
-        return result;
-      }, {});
-    }
-
+    console.log(booking )
+    const bookingJson = JSON.stringify({
+      name:booking.name,
+      email: booking.email,
+      category: booking.category,
+      startTime: booking.startTime,
+      note: booking.note
+    });
     console.log(booking)
+
+    const dataBlob = new Blob([bookingJson], {type:'application/json'});
+
     const formData = new FormData();
 
-    const json = JSON.stringify(omit(booking,"file"));
+    // const json = JSON.stringify(omit(booking,"file"));
     // const blob = new Blob([json], {
     //   type: 'application/json'
     // });
-
+    console.log(booking.file)
     formData.append("file", booking.file);
-    formData.append("data", json);
+    formData.append("data", dataBlob);
     // console.log(omit(booking,"file"))
-    console.log(formData.get("data"))
-    console.log(formData.get("file"))
+    // console.log(formData.get("data"))
+    // console.log(formData.get("file"))
     // for (const [key, value] of Object.entries(booking)) {
     //    formData.append(key, value);
     // }
