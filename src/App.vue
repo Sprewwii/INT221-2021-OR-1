@@ -12,13 +12,15 @@ const router = useRouter();
 
 
 onBeforeMount(async () => {
-  await eventManager.getEvents();
-  await eventManager.getEventCategories();
-  // await userManager.getUsers();
   console.log("get")
+  isLogin.value = ref(!!localStorage.getItem("token"))
   if (!isLogin.value) {
     localStorage.setItem("role", "guest");
   }
+
+  await eventManager.getEvents();
+  await eventManager.getEventCategories();
+  // await userManager.getUsers();
 });
 const popupMessage = ref({})
 const popupText = ref(null)

@@ -1,4 +1,6 @@
 import { reactive } from "vue";
+import { userManager } from "./userManager.js";
+
 export const eventManager = reactive({
   eventList: [],
   eventCategories: [],
@@ -15,7 +17,10 @@ export const eventManager = reactive({
     });
     if (res.status === 200) {
       this.eventList = await res.json();
-    } else {
+    } else if (res.status === 401 && await userManager.refreshToken() == true) {
+      console.log("ส่งใหม่จ้า")
+    this.getEvents()
+  }else {
       console.log("ไม่พบข้อมูล");
     }
   },
@@ -31,7 +36,10 @@ export const eventManager = reactive({
     });
     if (res.status === 200) {
       return await res.json();
-    } else {
+    }else if (res.status === 401 && await userManager.refreshToken() == true) {
+      console.log("ส่งใหม่จ้า")
+    this.getEventById(eventId)
+  } else {
       console.log(`ไม่พบข้อมูล event Id: ${eventId}`);
     }
   },
@@ -47,7 +55,10 @@ export const eventManager = reactive({
     });
     if (res.status === 200) {
       this.eventList = await res.json();
-    } else {
+    }else if (res.status === 401 && await userManager.refreshToken() == true) {
+      console.log("ส่งใหม่จ้า")
+    this.getEventsPast()
+  }  else {
       console.log("ไม่พบข้อมูล");
     }
   },
@@ -63,7 +74,10 @@ export const eventManager = reactive({
     });
     if (res.status === 200) {
       this.eventList = await res.json();
-    } else {
+    }else if (res.status === 401 && await userManager.refreshToken() == true) {
+      console.log("ส่งใหม่จ้า")
+    this.getEventsFuture()
+  }  else {
       console.log("ไม่พบข้อมูล");
     }
   },
@@ -79,7 +93,10 @@ export const eventManager = reactive({
     });
     if (res.status === 200) {
       this.eventList = await res.json();
-    } else {
+    }else if (res.status === 401 && await userManager.refreshToken() == true) {
+      console.log("ส่งใหม่จ้า")
+    this.getEventsByDate(date)
+  }  else {
       console.log("ไม่พบข้อมูล");
     }
   },
@@ -97,7 +114,10 @@ export const eventManager = reactive({
       });
     if (res.status === 200) {
       this.eventList = await res.json();
-    } else {
+    } else if (res.status === 401 && await userManager.refreshToken() == true) {
+      console.log("ส่งใหม่จ้า")
+    this.getEventsByCategory(categoryId)
+  } else {
       console.log("ไม่พบข้อมูล");
     }
   },
@@ -120,21 +140,21 @@ export const eventManager = reactive({
     const bookingJson = JSON.stringify({
       name:booking.name,
       email: booking.email,
-      category: booking.category,
+      categoryId: booking.category.categoryId,
       startTime: booking.startTime,
       note: booking.note
     });
-    console.log(booking)
+
+    //ข้อมูลอาจจะผิด
 
     const dataBlob = new Blob([bookingJson], {type:'application/json'});
-
     const formData = new FormData();
 
     // const json = JSON.stringify(omit(booking,"file"));
     // const blob = new Blob([json], {
     //   type: 'application/json'
     // });
-    console.log(booking.file)
+    console.log(dataBlob)
     formData.append("file", booking.file);
     formData.append("data", dataBlob);
     // console.log(omit(booking,"file"))
@@ -217,7 +237,10 @@ export const eventManager = reactive({
 
     if (res.status === 200) {
       this.getEvents();
-    } else {
+    }else if (res.status === 401 && await userManager.refreshToken() == true) {
+      console.log("ส่งใหม่จ้า")
+    this.editEvent(booking)
+  }  else {
       console.log("ไม่สามารถแก้ไขข้อมูลได้");
     }
   },
@@ -243,7 +266,10 @@ export const eventManager = reactive({
       foundCategory.categoryDuration = editedCategory.categoryDuration;
       foundCategory.categoryDescription = editedCategory.categoryDescription;
       this.getEvents();
-    } else {
+    }else if (res.status === 401 && await userManager.refreshToken() == true) {
+      console.log("ส่งใหม่จ้า")
+    this.editEventCategory(category)
+  }  else {
       console.log("ไม่สามารถแก้ไขข้อมูลได้");
     }
   },
