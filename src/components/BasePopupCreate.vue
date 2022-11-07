@@ -24,7 +24,8 @@ const validateDateTime = () => {
 
 const previewFile = (e) => {
     console.log(e.target.files[0])
-    creatingBooking.value.file = URL.createObjectURL(e.target.files[0])
+    // creatingBooking.value.file = URL.createObjectURL(e.target.files[0])
+    creatingBooking.value.file = e.target.files[0]
 }
 
 const createBooking = (e) => {
