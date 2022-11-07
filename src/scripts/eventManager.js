@@ -155,6 +155,7 @@ export const eventManager = reactive({
     //   type: 'application/json'
     // });
     console.log(dataBlob)
+    
     formData.append("file", "");
     formData.append("data", dataBlob);
     // console.log(omit(booking,"file"))
@@ -167,7 +168,9 @@ export const eventManager = reactive({
   //     console.log(pair[0]+ ' - ' + pair[1]); 
   // }
 
-    console.log(Array.from(formData.entries()))
+  console.log(formData)
+  console.dir(formData)
+    // console.log(Array.from(formData.entries()))
 
     const res = await fetch(`${import.meta.env.VITE_API}/api/events`, {
       method: "POST",
