@@ -23,18 +23,19 @@ const validateDateTime = () => {
 }
 
 const previewFile = (e) => {
-    // const currentFile = creatingBooking.value.file
+    const currentFile = creatingBooking.value.file
     // console.log(creatingBooking.value.file)
-    console.log(e.target.files[0])
-    if(e.target.files[0].size <= 10485760){
+    console.log(e.target.files)
+    if(e.target.files[0] && e.target.files[0].size <= 10485760){
     creatingBooking.value.previewFile = URL.createObjectURL(e.target.files[0])
     creatingBooking.value.file = e.target.files[0]
     showWarning.value.fileSize = false;
     }else{
         showWarning.value.fileSize = true;
         creatingBooking.value.previewFile = "";
-        creatingBooking.value.file = null;
-        this.$refs.inputFile.reset();
+        creatingBooking.value.file = "";
+        // this.$refs.inputFile.reset();
+        e.target.value = '';
         // document.querySelector('#file').value = "creatingBooking.value.file.name"
     }
 }
@@ -44,11 +45,12 @@ const createBooking = (e) => {
     validateDateTime()
     e.preventDefault()
     showWarning.value.create = false
+    showWarning.value.fileSize = false
     if (!creatingBooking.value.name) showWarning.value.isName = true
     if (!creatingBooking.value.email) showWarning.value.isEmail = true
     if (!creatingBooking.value.category) showWarning.value.isCategory = true
     if (!creatingBooking.value.startTime) showWarning.value.isStartTime = true
-    if (!creatingBooking.value.file) creatingBooking.value.file = ""
+    // if (!creatingBooking.value.file) creatingBooking.value.file = ""
 
     
     for (let warning in showWarning.value) {
@@ -71,6 +73,7 @@ const createBooking = (e) => {
 const clearCreatingBooking = () => {
     showWarning.value = { isName: false, isEmail: false, isCategory: false, isStartTime: false, create: false, email: false, dateTimePast: false, dateTimeOverlap: false, fileSize: false }
     creatingBooking.value = {}
+
 }
 </script>
  
@@ -179,7 +182,7 @@ const clearCreatingBooking = () => {
                         </div>
                         <div>
                             <label for="file" class="block mb-3 text-sm font-medium text-neutral-300">File</label>
-                            <input id="file" type="file" @change="previewFile( $event )" ref="inputFile" class="text-sm text-neutral-400 rounded-lg border border-gray-300 cursor-pointer"/>
+                            <input id="file" type="file" @change="previewFile( $event )" class="text-sm text-neutral-400 rounded-lg border border-gray-300 cursor-pointer"/>
                             <p v-if="showWarning.fileSize" class="text-sm text-red-400 absolute mt-1">* The file size cannot be larger than 10 MB.</p>
                             <img v-show="creatingBooking.file && creatingBooking.file.type.match('image.*')" :src="creatingBooking.previewFile" alt="file" class="w-[200px] max-h-[100px] object-scale-down mt-8 object-cover mx-auto"/>
                             
