@@ -49,7 +49,7 @@ const previewFile = (e) => {
   } else {
     showWarning.value.fileSize = true;
     creatingBooking.value.previewFile = "";
-    creatingBooking.value.file = "";
+    creatingBooking.value.file = null;
     // this.$refs.inputFile.reset();
     // e.target.value = '';
     imgInput.value.target.value = "";
@@ -68,7 +68,7 @@ const createBooking = (e) => {
   if (!creatingBooking.value.email) showWarning.value.isEmail = true;
   if (!creatingBooking.value.category) showWarning.value.isCategory = true;
   if (!creatingBooking.value.startTime) showWarning.value.isStartTime = true;
-  if (!creatingBooking.value.file) creatingBooking.value.file = "";
+  if (!creatingBooking.value.file) creatingBooking.value.file = null;
 
   for (let warning in showWarning.value) {
     if (warning != "create" && showWarning.value[warning] === true) {
