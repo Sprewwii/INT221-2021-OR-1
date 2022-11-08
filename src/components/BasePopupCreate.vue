@@ -7,7 +7,7 @@ import { validation } from "../scripts/validation.js";
 import { decorator } from "../scripts/decorator.js";
 
 defineEmits(["closeCreateModal", "showPopupSuccess"]);
-const imgInput = ref(null);
+// const imgInput = ref(null);
 const eventCategories = computed(() => eventManager.eventCategories);
 const creatingBooking = ref({});
 const showWarning = ref({
@@ -37,27 +37,21 @@ const validateDateTime = () => {
 };
 
 const previewFile = (e) => {
-  const currentFile = creatingBooking.value;
-
-  imgInput.value = e;
-  // console.log(creatingBooking.value.file)
-  console.log(e.target.files);
-  if (e.target.files[0] && e.target.files[0].size <= 10485760) {
+  if(!e.target.files[0]) { //ถ้าไม่มีไฟล์
+    showWarning.value.fileSize = false;
+    creatingBooking.value.previewFile = "";
+    creatingBooking.value.file = null;
+  }else if (e.target.files[0] && e.target.files[0].size <= 10485760) {//ถ้ามีไฟล์ และขนาดไม่เกิน
     creatingBooking.value.previewFile = URL.createObjectURL(e.target.files[0]);
     creatingBooking.value.file = e.target.files[0];
     showWarning.value.fileSize = false;
-  } else {
+  } else {//ถ้าขนาดเกิน
     showWarning.value.fileSize = true;
-    creatingBooking.value.previewFile = "";
-    creatingBooking.value.file = null;
-    // this.$refs.inputFile.reset();
-    // e.target.value = '';
-    imgInput.value.target.value = "";
-    // document.querySelector('#file').value = "creatingBooking.value.file.name"
   }
 };
 
 const createBooking = (e) => {
+    console.log(creatingBooking.value.file)
   if (userManager.userInfo.email)
     creatingBooking.value.email = userManager.userInfo.email;
   validateDateTime();
@@ -105,7 +99,7 @@ const clearCreatingBooking = () => {
     fileSize: false,
   };
   creatingBooking.value = {};
-  imgInput.value.target.value = null;
+//   imgInput.value.target.value = null;
 };
 </script>
 
@@ -132,8 +126,8 @@ const clearCreatingBooking = () => {
           <h3 class="mb-4 text-2xl font-medium text-white">
             Create Schedule Event
           </h3>
-          <form class="space-y-8 flex flex-col items-center">
-            <div class="flex flex-row space-x-8">
+          <form class="space-y-8 grid items-center">
+            <div class="flex flex-row w-full space-x-8">
               <div class="space-y-8">
                 <div>
                   <label
@@ -322,7 +316,7 @@ const clearCreatingBooking = () => {
                   </p>
                 </div>
               </div>
-              <div class="space-y-8">
+              <div class="space-y-8 w-full">
                 <div>
                   <label
                     for="note"
@@ -362,12 +356,16 @@ const clearCreatingBooking = () => {
                     class="block mb-3 text-sm font-medium text-neutral-300"
                     >File</label
                   >
-                  <input
-                    id="file"
-                    type="file"
-                    @change="previewFile($event)"
-                    class="text-sm text-neutral-400 rounded-lg border border-gray-300 cursor-pointer"
-                  />
+                  <div className="h-[40px] flex items-center text-sm">
+                    <input 
+                      id="file"
+                      type="file"
+                      @change="previewFile($event)" @click="event => event.target.value = null"
+                      class="opacity-0 absolute text-sm text-neutral-400 rounded-lg border border-gray-300 cursor-pointer"
+                    />
+                    <span className="text-white bg-violet-600 hover:bg-violet-800 p-2 rounded-lg">Choose File</span>
+                    <span v-if="creatingBooking.file" className="text-white p-2 rounded-lg">{{creatingBooking.file.name}}</span>
+                  </div>
                   <p
                     v-if="showWarning.fileSize"
                     class="text-sm text-red-400 absolute mt-1"

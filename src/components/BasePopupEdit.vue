@@ -32,7 +32,7 @@ showWarning.value.dateTimeOverlap = false
     <div
         class="bg-black/30 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
         <div
-            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto">
+            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md sm:max-w-none sm:w-[760px] h-full md:h-auto">
             <div class="relative rounded-lg shadow" id="popupEdit">
                 <button type="button" @click="$emit('closeEditModal')"
                     class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
@@ -41,7 +41,9 @@ showWarning.value.dateTimeOverlap = false
 
                 <div class="py-6 px-6 lg:px-8">
                     <h3 class="mb-4 text-2xl font-medium text-white">Edit Schedule Event</h3>
-                    <form class="space-y-6">
+                    <div class="flex flex-col items-center">
+                    <form class="w-full px-8 space-x-8 grid grid-cols-2 items-center">
+                        <div class="flex flex-col w-full space-y-8">
                         <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-300">Name</label>
                             <div
@@ -79,6 +81,8 @@ showWarning.value.dateTimeOverlap = false
                             <p v-else-if="showWarning.dateTimeOverlap" class="text-sm text-red-400 absolute mt-1">* Please choose another time.</p>
             
                         </div>
+                    </div>
+                    <div class="flex flex-col w-full space-y-8">
                         <div>
                             <label for="note" class="block mb-2 text-sm font-medium text-gray-300">Note</label>
                             <textarea v-model="editingBooking.note" name="text" id="text"
@@ -89,10 +93,12 @@ showWarning.value.dateTimeOverlap = false
                                 <p :class="{'text-red-400': !validation.validateLength(editingBooking.note,500)}" class="text-sm text-gray-500 absolute mt-1">{{editingBooking.note.length}}/500</p>    
                             </div>
                         </div>
-                        <button @click="$emit('editBooking', {id:editingBooking.id,startTime: editingBooking.currentStartTime == editingBooking.startTime ? null :  new Date(editingBooking.startTime).toISOString() ,note: editingBooking.note}, $event)"
-                            class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center :bg-violet-600">Update</button>
+                        </div>
+                       
                     </form>
-                </div>
+                    <button @click="$emit('editBooking', {id:editingBooking.id,startTime: editingBooking.currentStartTime == editingBooking.startTime ? null :  new Date(editingBooking.startTime).toISOString() ,note: editingBooking.note}, $event)"
+                            class="w-[150px] text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center :bg-violet-600">Update</button>
+                </div></div>
             </div>
         </div>
     </div>

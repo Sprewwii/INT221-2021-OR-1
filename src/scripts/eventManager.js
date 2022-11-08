@@ -230,6 +230,22 @@ export const eventManager = reactive({
     const token = localStorage.getItem("token");
     if (!token) return;
     console.log(booking);
+
+    const bookingJson = JSON.stringify({
+      startTime: booking.startTime,
+          note: booking.note,
+    });
+
+    const dataBlob = new Blob([bookingJson], { type: "application/json" });
+    const formData = new FormData();
+
+    formData.append("file", booking.file);
+    formData.append("data", dataBlob);
+
+    for (const value of formData.values()) {
+      console.log(value);
+    }
+
     const res = await fetch(
       `${import.meta.env.VITE_API}/api/events/${booking.id}`,
       {
@@ -238,10 +254,7 @@ export const eventManager = reactive({
           "content-type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          startTime: booking.startTime,
-          note: booking.note,
-        }),
+        body: bookingJson
       }
     );
 

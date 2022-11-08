@@ -8,6 +8,8 @@ let { params } = useRoute()
 
 const bookingDetails = ref({})
 
+const getFileNameFromPath = (path)=>path.replace(/^.*[\\\/]/, '')
+
 onBeforeMount(async () => {
   bookingDetails.value = await eventManager.getEventById(params.id);
 })
@@ -51,12 +53,19 @@ onBeforeMount(async () => {
                 ({{ bookingDetails.duration }} minutes)</span>
             </div>
           </div>
-          <div class="text-white mt-10 my-7 text-center w-4/6">
+          <div class="text-white mt-10 text-center w-4/6">
             <div v-if="bookingDetails.note">
               <p class="text-gray-500">note</p>
               <p>{{ bookingDetails.note }}</p>
             </div>
             <p v-else class="text-gray-500">No message</p>
+          </div>
+          <div class="text-white mt-10 my-7 text-center w-4/6">
+            <div v-if="bookingDetails.pathFile">
+              <p class="text-gray-500">File</p>
+              <button class="bg-violet-600 text-white rounded-3xl p-2">{{ getFileNameFromPath(bookingDetails.pathFile) }}</button>
+            </div>
+            <p v-else class="text-gray-500">No File</p>
           </div>
         </div>
         <div class="w-36">
