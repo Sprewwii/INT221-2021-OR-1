@@ -12,34 +12,43 @@ export const eventManager = reactive({
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     if (res.status === 200) {
       this.eventList = await res.json();
-    } else if (res.status === 401 && await userManager.refreshToken() == true) {
-      console.log("ส่งใหม่จ้า")
-    this.getEvents()
-  }else {
+    } else if (
+      res.status === 401 &&
+      (await userManager.refreshToken()) == true
+    ) {
+      console.log("ส่งใหม่จ้า");
+      this.getEvents();
+    } else {
       console.log("ไม่พบข้อมูล");
     }
   },
   getEventById: async function (eventId) {
     const token = localStorage.getItem("token");
     if (!token) return;
-    const res = await fetch(`${import.meta.env.VITE_API}/api/events/${eventId}`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `${import.meta.env.VITE_API}/api/events/${eventId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     if (res.status === 200) {
       return await res.json();
-    }else if (res.status === 401 && await userManager.refreshToken() == true) {
-      console.log("ส่งใหม่จ้า")
-    this.getEventById(eventId)
-  } else {
+    } else if (
+      res.status === 401 &&
+      (await userManager.refreshToken()) == true
+    ) {
+      console.log("ส่งใหม่จ้า");
+      this.getEventById(eventId);
+    } else {
       console.log(`ไม่พบข้อมูล event Id: ${eventId}`);
     }
   },
@@ -50,15 +59,18 @@ export const eventManager = reactive({
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     if (res.status === 200) {
       this.eventList = await res.json();
-    }else if (res.status === 401 && await userManager.refreshToken() == true) {
-      console.log("ส่งใหม่จ้า")
-    this.getEventsPast()
-  }  else {
+    } else if (
+      res.status === 401 &&
+      (await userManager.refreshToken()) == true
+    ) {
+      console.log("ส่งใหม่จ้า");
+      this.getEventsPast();
+    } else {
       console.log("ไม่พบข้อมูล");
     }
   },
@@ -69,34 +81,43 @@ export const eventManager = reactive({
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     if (res.status === 200) {
       this.eventList = await res.json();
-    }else if (res.status === 401 && await userManager.refreshToken() == true) {
-      console.log("ส่งใหม่จ้า")
-    this.getEventsFuture()
-  }  else {
+    } else if (
+      res.status === 401 &&
+      (await userManager.refreshToken()) == true
+    ) {
+      console.log("ส่งใหม่จ้า");
+      this.getEventsFuture();
+    } else {
       console.log("ไม่พบข้อมูล");
     }
   },
   getEventsByDate: async function (date) {
     const token = localStorage.getItem("token");
     if (!token) return;
-    const res = await fetch(`${import.meta.env.VITE_API}/api/events/date/${date}`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `${import.meta.env.VITE_API}/api/events/date/${date}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     if (res.status === 200) {
       this.eventList = await res.json();
-    }else if (res.status === 401 && await userManager.refreshToken() == true) {
-      console.log("ส่งใหม่จ้า")
-    this.getEventsByDate(date)
-  }  else {
+    } else if (
+      res.status === 401 &&
+      (await userManager.refreshToken()) == true
+    ) {
+      console.log("ส่งใหม่จ้า");
+      this.getEventsByDate(date);
+    } else {
       console.log("ไม่พบข้อมูล");
     }
   },
@@ -104,20 +125,24 @@ export const eventManager = reactive({
     const token = localStorage.getItem("token");
     if (!token) return;
     const res = await fetch(
-      `${import.meta.env.VITE_API}/api/events/${categoryId}/categories`
-      , {
+      `${import.meta.env.VITE_API}/api/events/${categoryId}/categories`,
+      {
         method: "GET",
         headers: {
           "Content-type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
-      });
+      }
+    );
     if (res.status === 200) {
       this.eventList = await res.json();
-    } else if (res.status === 401 && await userManager.refreshToken() == true) {
-      console.log("ส่งใหม่จ้า")
-    this.getEventsByCategory(categoryId)
-  } else {
+    } else if (
+      res.status === 401 &&
+      (await userManager.refreshToken()) == true
+    ) {
+      console.log("ส่งใหม่จ้า");
+      this.getEventsByCategory(categoryId);
+    } else {
       console.log("ไม่พบข้อมูล");
     }
   },
@@ -128,7 +153,6 @@ export const eventManager = reactive({
     } else {
       console.log("ไม่พบข้อมูล Event Category");
     }
-    
   },
   getEventCategoryById: function (id) {
     return this.eventCategories.find(
@@ -136,50 +160,28 @@ export const eventManager = reactive({
     );
   },
   createEvent: async function (booking) {
-    console.log(booking.category.categoryId)
+    console.log(booking.category.categoryId);
     const bookingJson = JSON.stringify({
-      name:booking.name,
+      name: booking.name,
       email: booking.email,
       categoryId: booking.category.categoryId,
       startTime: booking.startTime,
-      note: booking.note
+      note: booking.note,
     });
 
-    //ข้อมูลอาจจะผิด
-
-    const dataBlob = new Blob([bookingJson], {type:'application/json'});
+    const dataBlob = new Blob([bookingJson], { type: "application/json" });
     const formData = new FormData();
 
-    // const json = JSON.stringify(omit(booking,"file"));
-    // const blob = new Blob([json], {
-    //   type: 'application/json'
-    // });
-    console.log(dataBlob)
-    
     formData.append("file", booking.file);
     formData.append("data", dataBlob);
-    // console.log(omit(booking,"file"))
-    // console.log(formData.get("data"))
-    // console.log(formData.get("file"))
-    // for (const [key, value] of Object.entries(booking)) {
-    //    formData.append(key, value);
-    // }
-  //   for (var pair of formData.entries()) {
-  //     console.log(pair[0]+ ' - ' + pair[1]); 
-  // }
 
-  for (const value of formData.values()) {
-    console.log(value);
-  }
-    // console.log(Array.from(formData.entries()))
+    for (const value of formData.values()) {
+      console.log(value);
+    }
 
     const res = await fetch(`${import.meta.env.VITE_API}/api/events`, {
       method: "POST",
-      // headers: {
-      //   'Accept': 'application/json',
-      //   "Content-type": "multipart/form-data",
-      // },
-      body: formData
+      body: formData,
     });
 
     // const res = await fetch(`${import.meta.env.VITE_API}/api/events`, {
@@ -207,12 +209,16 @@ export const eventManager = reactive({
   deleteEvent: async function (eventId) {
     const token = localStorage.getItem("token");
     if (!token) return;
-    const res = await fetch(`${import.meta.env.VITE_API}/api/events/${eventId}`, {
-      method: "DELETE",      headers: {
-        "content-type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `${import.meta.env.VITE_API}/api/events/${eventId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (res.status === 200) {
       this.getEvents();
@@ -230,7 +236,7 @@ export const eventManager = reactive({
         method: "PATCH",
         headers: {
           "content-type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           startTime: booking.startTime,
@@ -241,15 +247,17 @@ export const eventManager = reactive({
 
     if (res.status === 200) {
       this.getEvents();
-    }else if (res.status === 401 && await userManager.refreshToken() == true) {
-      console.log("ส่งใหม่จ้า")
-    this.editEvent(booking)
-  }  else {
+    } else if (
+      res.status === 401 &&
+      (await userManager.refreshToken()) == true
+    ) {
+      console.log("ส่งใหม่จ้า");
+      this.editEvent(booking);
+    } else {
       console.log("ไม่สามารถแก้ไขข้อมูลได้");
     }
   },
   editEventCategory: async function (category) {
-    
     const res = await fetch(
       `${import.meta.env.VITE_API}/api/eventCategories/${category.categoryId}`,
       {
@@ -270,10 +278,13 @@ export const eventManager = reactive({
       foundCategory.categoryDuration = editedCategory.categoryDuration;
       foundCategory.categoryDescription = editedCategory.categoryDescription;
       this.getEvents();
-    }else if (res.status === 401 && await userManager.refreshToken() == true) {
-      console.log("ส่งใหม่จ้า")
-    this.editEventCategory(category)
-  }  else {
+    } else if (
+      res.status === 401 &&
+      (await userManager.refreshToken()) == true
+    ) {
+      console.log("ส่งใหม่จ้า");
+      this.editEventCategory(category);
+    } else {
       console.log("ไม่สามารถแก้ไขข้อมูลได้");
     }
   },
