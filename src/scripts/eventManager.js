@@ -239,8 +239,8 @@ export const eventManager = reactive({
     const dataBlob = new Blob([bookingJson], { type: "application/json" });
     const formData = new FormData();
 
-    formData.append("file", booking.file);
-    formData.append("data", dataBlob);
+    formData.append("file", null);
+    formData.append("changeData", dataBlob);
 
     for (const value of formData.values()) {
       console.log(value);
@@ -251,10 +251,9 @@ export const eventManager = reactive({
       {
         method: "PATCH",
         headers: {
-          "content-type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: bookingJson
+        body: formData
       }
     );
 
