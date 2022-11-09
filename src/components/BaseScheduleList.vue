@@ -52,10 +52,10 @@ const noEventsWarning = computed(() => props.noEventsWarning)
         <tbody v-else v-for="booking in bookingList" :key="booking.id">
           <tr class="border-t border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal">
             <th scope="row" class="pl-6 font-normal text-white text-left break-words">
-              <router-link v-if="userManager.userInfo.role !== 'lecturer'" :to="{ name: 'BookingDetails', params: { id: booking.id } }" class="hover:underline">
+              <router-link :to="{ name: 'BookingDetails', params: { id: booking.id } }" class="hover:underline">
                 {{ booking.name }}
               </router-link>
-              <div v-else> {{ booking.name }}</div>
+              <!-- <div v-else> {{ booking.name }}</div> -->
             </th>
             <td>
               {{ booking.categoryName }}

@@ -38,7 +38,7 @@ const routes = [
   {
     path: "/details/:id",
     name: "BookingDetails",
-    beforeEnter: guardLecturer,
+    // beforeEnter: guardLecturer,
     component: BookingDetails,
   },
   {

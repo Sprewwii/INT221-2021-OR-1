@@ -4,6 +4,7 @@ import { eventManager } from "../scripts/eventManager.js"
 import { useRoute, useRouter } from "vue-router"
 import IconArrowLeft from "../components/icons/IconArrowLeft.vue"
 
+const router = useRouter();
 let { params } = useRoute()
 
 const bookingDetails = ref({})
@@ -12,6 +13,8 @@ const getFileNameFromPath = (path)=>path.replace(/^.*[\\\/]/, '')
 
 onBeforeMount(async () => {
   bookingDetails.value = await eventManager.getEventById(params.id);
+  console.log("booking detail "+bookingDetails.value)
+  if(bookingDetails.value === false) router.push("/")
 })
 
 const downloadFile = async() => {

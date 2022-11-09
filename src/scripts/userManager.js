@@ -58,6 +58,7 @@ export const userManager = reactive({
     }
      else {
       console.log(`ไม่พบข้อมูล event Id: ${userId}`);
+      return false;
     }
     console.log("จบแล้ว : " + userId)
   },
