@@ -71,8 +71,10 @@ export const eventManager = reactive({
     ) {
       console.log("ส่งใหม่จ้า");
       this.getEventById(eventId);
+      return true;
     } else {
       console.log(`ไม่พบข้อมูล event Id: ${eventId}`);
+      return false;
     }
   },
   getEventsPast: async function () {
