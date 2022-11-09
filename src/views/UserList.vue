@@ -99,7 +99,7 @@ const matching = async (user, e) => {
 </script>
 
 <template>
-  <div class="ml-64 mt-14 w-full pr-80 mb-24">
+  <div class="ml-64 mt-14 w-full pr-80 mb-64">
     <div class="flex justify-between items-center">
       <h1 class="text-gray-300 text-2xl mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none inline-block align-middle">
         User List
