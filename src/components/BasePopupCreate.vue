@@ -38,9 +38,7 @@ const validateDateTime = () => {
 
 const previewFile = (e) => {
   if(!e.target.files[0]) { //ถ้าไม่มีไฟล์
-    showWarning.value.fileSize = false;
-    creatingBooking.value.previewFile = "";
-    creatingBooking.value.file = null;
+    deleteFile()
   }else if (e.target.files[0] && e.target.files[0].size <= 10485760) {//ถ้ามีไฟล์ และขนาดไม่เกิน
     creatingBooking.value.previewFile = URL.createObjectURL(e.target.files[0]);
     creatingBooking.value.file = e.target.files[0];
@@ -101,6 +99,13 @@ const clearCreatingBooking = () => {
   creatingBooking.value = {};
 //   imgInput.value.target.value = null;
 };
+
+const deleteFile = () => {
+  showWarning.value.fileSize = false;
+    creatingBooking.value.previewFile = null;
+    creatingBooking.value.file = null;
+  console.log("delete file")
+}
 </script>
 
 <template>
@@ -126,8 +131,8 @@ const clearCreatingBooking = () => {
           <h3 class="mb-4 text-2xl font-medium text-white">
             Create Schedule Event
           </h3>
-          <form class="space-y-8 grid items-center">
-            <div class="flex flex-row w-full space-x-8">
+
+            <form class="grid grid-cols-2 w-full space-x-8 justify-center ">
               <div class="space-y-8">
                 <div>
                   <label
@@ -356,15 +361,16 @@ const clearCreatingBooking = () => {
                     class="block mb-3 text-sm font-medium text-neutral-300"
                     >File</label
                   >
-                  <div className="h-[40px] flex items-center text-sm">
+                  <div className="h-[40px] flex items-start text-sm">
                     <input 
                       id="file"
                       type="file"
                       @change="previewFile($event)" @click="event => event.target.value = null"
-                      class="opacity-0 absolute text-sm text-neutral-400 rounded-lg border border-gray-300 cursor-pointer"
+                      class="z-0 opacity-0 absolute text-sm text-neutral-400 rounded-lg border border-gray-300 cursor-pointer"
                     />
-                    <span className="text-white bg-violet-600 hover:bg-violet-800 p-2 rounded-lg">Choose File</span>
-                    <span v-if="creatingBooking.file" className="text-white p-2 rounded-lg">{{creatingBooking.file.name}}</span>
+                    <button className="text-white bg-violet-600 hover:bg-violet-800 p-2 rounded-lg">Choose File</button>
+                   <span v-if="creatingBooking.file" className="text-white p-2 rounded-lg">{{creatingBooking.file.name}}</span>
+    
                   </div>
                   <p
                     v-if="showWarning.fileSize"
@@ -373,17 +379,17 @@ const clearCreatingBooking = () => {
                     * The file size cannot be larger than 10 MB.
                   </p>
                   <img
-                    v-show="
+                    v-if="
                       creatingBooking.file &&
                       creatingBooking.file.type.match('image.*')
                     "
                     :src="creatingBooking.previewFile"
                     alt="file"
                     class="w-[200px] max-h-[100px] object-scale-down mt-8 object-cover mx-auto"
-                  />
+                  /><div v-if="creatingBooking.file" @click="deleteFile" className="cursor-pointer text-xs w-20 z-40 text-white bg-red-500 hover:bg-violet-800 p-2 rounded-lg">Delete File</div>
                 </div>
               </div>
-            </div>
+            </form>
             <button
               type="button"
               class="w-[150px] text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
@@ -394,7 +400,7 @@ const clearCreatingBooking = () => {
             >
               Create
             </button>
-          </form>
+          
         </div>
       </div>
     </div>

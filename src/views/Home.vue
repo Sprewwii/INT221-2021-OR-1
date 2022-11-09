@@ -30,6 +30,9 @@ const editBooking = async () => {
     selectedBookingId.value
   );
   editingBooking.value.currentStartTime = editingBooking.value.startTime;
+  if(editingBooking.value.pathFile) editingBooking.value.file = {name:getFileNameFromPath(editingBooking.value.pathFile)}
+  editingBooking.value.isChangeFile = false;
+
 };
 
 const updateEditingBooking = (booking, e) => {
@@ -54,13 +57,15 @@ const setNoEventMessage = (message) => {
   noEventMessage.value = message
 }
 
+const getFileNameFromPath = (path) => {if(path) return path.replace(/^.*[\\\/]/, "")}
+
 </script>
 
 <template>
   <div class="ml-64 mt-14 w-full pr-80 mb-24">
     <div class="flex justify-between items-center">
       <h1 class="text-gray-300 text-2xl mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none inline-block align-middle">
-        Scheduled Events
+        Scheduled Events 
       </h1>
       <BaseButtonFilter :eventCategories="eventCategories" @noEventMessage="setNoEventMessage" />
     </div>

@@ -29,7 +29,7 @@ const isShowLoginModal = ref(false);
 const showingModal = ref("");
 const isLogin = ref(!!localStorage.getItem("token"))
 
-
+console.log("login " + isLogin.value + "  " + localStorage.getItem("token") )
 
 const toggleCreateModal = () => {
   isShowCreateModal.value = !isShowCreateModal.value;
@@ -84,16 +84,16 @@ const toggleModal = (modal) => {
 <template>
   <div class="h-screen w-screen overflow-x-hidden">
 
-    <button v-if="!isLogin" @click="toggleModal('login')"
+    <button v-if="isLogin" @click="toggleModal('login')"
       class="flex fixed bottom-16 z-20 right-10 w-36 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300">
       <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
-      <span class="ml-3">Login</span>
+      <span class="ml-3">Login {{isLogin}}</span>
     </button>
-    <button v-else @click="logoutUser()"
+    <!-- <button v-if="isLogin" @click="logoutUser()"
       class="flex fixed bottom-16 z-20 right-10 w-36 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300">
       <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
       <span class="ml-3">Logout</span>
-    </button>
+    </button> -->
     <Navbar @toggleCreateModal="toggleModal('create')" :isLogin="isLogin" />
     <BaseLogin  v-show="showingModal==='login'" @closeLoginModal="toggleModal('login')" @loginUser="loginUser" />
     <BasePopupCreate v-show="showingModal==='create'" @closeCreateModal="toggleModal('create')"

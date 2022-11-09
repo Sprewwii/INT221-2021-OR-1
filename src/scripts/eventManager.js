@@ -27,6 +27,29 @@ export const eventManager = reactive({
       console.log("ไม่พบข้อมูล");
     }
   },
+  getEventFileById: async function (eventId) {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events/file/${eventId}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (res.status === 200) {
+      return res.blob()
+    } else if (
+      res.status === 401 &&
+      (await userManager.refreshToken()) == true
+    ) {
+      console.log("ส่งใหม่จ้า");
+      this.getEventFileById();
+    } else {
+      console.log("ไม่พบข้อมูล");
+    }
+  },
   getEventById: async function (eventId) {
     const token = localStorage.getItem("token");
     if (!token) return;
@@ -230,16 +253,18 @@ export const eventManager = reactive({
     const token = localStorage.getItem("token");
     if (!token) return;
     console.log(booking);
-
+  
+    const file = booking.file && booking.file.type ? booking.file : null
     const bookingJson = JSON.stringify({
       startTime: booking.startTime,
           note: booking.note,
+          isChangeFile: booking.isChangeFile
     });
 
     const dataBlob = new Blob([bookingJson], { type: "application/json" });
     const formData = new FormData();
 
-    formData.append("file", null);
+    formData.append("file", file);
     formData.append("changeData", dataBlob);
 
     for (const value of formData.values()) {

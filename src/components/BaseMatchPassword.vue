@@ -22,8 +22,10 @@
     // }
     </script>
     <template>
+        <div
+        class="bg-black/80 z-30 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
             <div
-                class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto">
+                class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 relative p-4 w-full max-w-md h-full md:h-auto">
                 <div class="relative rounded-lg shadow" id="popupEdit">
                     <button type="button" @click="$emit('closeEditModal')"
                         class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
@@ -40,16 +42,17 @@
                                     v-model="user.email">
                             </div>
                             <div>
-                                <label for="category" class="block mb-2 text-sm font-medium text-gray-300">Password</label>
-                                <input class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-white"
+                                <label for="password" class="block mb-2 text-sm font-medium text-gray-300">Password</label>
+                                <input type="password" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-white"
                                     v-model="user.password">
                             </div>
                             <button
                                 @click="$emit('matching', user, $event)"
-                                class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center :bg-violet-600">Matching!</button>
+                                class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center :bg-violet-600">Match</button>
                         </form>
                     </div>
                 </div>
+            </div>
             </div>
 
     </template>

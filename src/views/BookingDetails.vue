@@ -13,6 +13,22 @@ const getFileNameFromPath = (path)=>path.replace(/^.*[\\\/]/, '')
 onBeforeMount(async () => {
   bookingDetails.value = await eventManager.getEventById(params.id);
 })
+
+const downloadFile = async() => {
+  const file = await eventManager.getEventFileById(params.id)
+
+  const url = window.URL.createObjectURL(file);
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+
+  // dowmload file
+  a.download = getFileNameFromPath(bookingDetails.value.pathFile);
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  window.URL.revokeObjectURL(url);
+}
 </script>
 
 <template>
@@ -63,7 +79,7 @@ onBeforeMount(async () => {
           <div class="text-white mt-10 my-7 text-center w-4/6">
             <div v-if="bookingDetails.pathFile">
               <p class="text-gray-500">File</p>
-              <button class="bg-violet-600 text-white rounded-3xl p-2">{{ getFileNameFromPath(bookingDetails.pathFile) }}</button>
+              <button @click="downloadFile" class="bg-violet-600 text-white rounded-3xl p-2">{{ getFileNameFromPath(bookingDetails.pathFile) }}</button>
             </div>
             <p v-else class="text-gray-500">No File</p>
           </div>
