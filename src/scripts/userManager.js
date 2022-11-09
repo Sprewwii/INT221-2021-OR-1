@@ -186,7 +186,7 @@ export const userManager = reactive({
       this.userInfo.role = info.role[0]
       this.userInfo.email = userLogin.email;
       console.log(info.role[0]);
-      this.getUsers();
+      if(info.role[0] === "admin")this.getUsers();
       eventManager.getEvents();
       return true;
     } else {
