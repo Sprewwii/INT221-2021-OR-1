@@ -50,7 +50,7 @@ const previewFile = (e) => {
 
 const createBooking = (e) => {
     console.log(creatingBooking.value.file)
-  if (userManager.userInfo.email)
+  if (userManager.userInfo.email && userManager.userInfo.role != "admin")
     creatingBooking.value.email = userManager.userInfo.email;
   validateDateTime();
   e.preventDefault();
@@ -175,7 +175,7 @@ const deleteFile = () => {
                     </p>
                   </div>
                 </div>
-                <div v-if="userManager.userInfo.role === 'guest'">
+                <div v-if="userManager.userInfo.role === 'guest' || userManager.userInfo.role === 'admin'">
                   <label
                     for="email"
                     class="block mb-3 text-sm font-medium text-neutral-300"
@@ -392,7 +392,7 @@ const deleteFile = () => {
             </form>
             <button
               type="button"
-              class="w-[150px] text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              class="mt-12 w-[150px] text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               @click="
                 createBooking($event);
                 !showWarning.create ? $emit('showPopupSuccess') : '';

@@ -31,7 +31,7 @@ export const eventManager = reactive({
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    const res = await fetch(`${import.meta.env.VITE_API}/api/events/file/${eventId}`, {
+    const res = await fetch(`${import.meta.env.VITE_API}/api/events/files/${eventId}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
