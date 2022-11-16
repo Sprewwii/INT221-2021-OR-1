@@ -5,23 +5,9 @@ import { eventManager } from "../scripts/eventManager.js"
 import { validation } from "../scripts/validation.js"
 import { decorator } from "../scripts/decorator.js"
 
-// const props = defineProps({
-//     editingBooking: {
-//         type: Object,
-//         default: {}
-//     }
-// })
-
 defineEmits(['loginUser', 'closeLoginModal'])
 
 const userLogin = ref({email: "", password: ""})
-// const editingBooking = computed(() => props.editingBooking)
-// const showWarning = ref({ dateTimePast: false, dateTimeOverlap: false })
-
-// const validateDateTime = () => {
-//     showWarning.value.dateTimePast = validation.isPast(editingBooking.value.startTime)
-//     showWarning.value.dateTimeOverlap = validation.isOverlap(editingBooking.value)
-// }
 
 const clearLogin = () => {
     userLogin.value.email = ""

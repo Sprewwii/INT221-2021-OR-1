@@ -201,6 +201,7 @@ export const userManager = reactive({
   },
   logout: function(){
     localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
     localStorage.removeItem("email");
     localStorage.setItem("role", "guest");
     this.userInfo = {role:"guest"}
@@ -251,13 +252,18 @@ export const userManager = reactive({
         password: user.password
       })
   })
+  const info = await res.json();
     if(res.status === 200) {
       console.log("Password Matched")
-      return true
-     }
-     else{
-      console.log("Password NOT Matched")
-        return false
-     }
+      return true;
+    } else {
+      let error = "";
+      for (let i = 0; i < info.details.length; i++) {
+        console.log(info.details[i].errorMessage);
+        error += info.details[i].errorMessage + " \n";
+      }
+      console.log(error);
+      return error;
+    }
   },
 });
