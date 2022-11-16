@@ -88,7 +88,7 @@ const matching = async (user, e) => {
     const response = await userManager.matchingPassword(user)
     if (response === true) {
     // showingPopup.value = 'login'
-    showPopup({ text: "Login Successful !", type: "success", header: "Match" });
+    showPopup({ text: "Password Match !", type: "success", header: "Match" });
   } else {
     showPopup({ text: response, type: "error", header: "Match" });
   }
