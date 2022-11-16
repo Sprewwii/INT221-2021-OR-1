@@ -85,11 +85,13 @@ const backToPrevious = () => {
 
 const matching = async (user, e) => {
     e.preventDefault();
-    if(await userManager.matchingPassword(user)){
-      showPopup({ text: "Password Match !", type: "success", header: "Match" })
-    }else{
-      showPopup({ text: "Password Not Match !", type: "error", header: "Match" })
-    }
+    const response = await userManager.matchingPassword(user)
+    if (response === true) {
+    // showingPopup.value = 'login'
+    showPopup({ text: "Login Successful !", type: "success", header: "Match" });
+  } else {
+    showPopup({ text: response, type: "error", header: "Match" });
+  }
 }
 // showPopup({text:"Login Success !",type:"success",header:"Login"})
 
