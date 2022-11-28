@@ -1,14 +1,13 @@
 <script setup>
 import { ref, computed } from "vue"
-import IconCalendar from './icons/IconCalendar.vue'
-import IconCategory from './icons/IconCategory.vue'
-import IconPlus from './icons/IconPlus.vue'
-import IconAboutUs from './icons/IconAboutUs.vue'
-import IconUsername from './icons/IconUsername.vue'
-import IconMenu from './icons/IconMenu.vue'
-import { userManager } from '../scripts/userManager.js'
+import IconCalendar from '../icons/IconCalendar.vue'
+import IconCategory from '../icons/IconCategory.vue'
+import IconPlus from '../icons/IconPlus.vue'
+import IconAboutUs from '../icons/IconAboutUs.vue'
+import IconUsername from '../icons/IconUsername.vue'
+import { userManager } from '../../scripts/userManager.js'
 
-defineEmits(['toggleCreateModal', 'logout', 'goLogin'])
+defineEmits(['hideNavbar', 'logout', 'goLogin'])
 
 </script>
  
@@ -16,15 +15,15 @@ defineEmits(['toggleCreateModal', 'logout', 'goLogin'])
 
 
    <div
-      class="right-0 sm:left-0 z-10 h-screen fixed top-0 w-72 bg-managray-300/20 sm:bg-managray-300/10 backdrop-blur-xl overflow-hidden flex flex-col items-center justify-between pb-12 border-r border-managray-300/40">
-      <d<IconMenu class="text-2xl text-white fixed"/>
+      class="right-0 lg:left-0 z-40 h-screen fixed top-0 w-72 bg-managray-300/20 sm:bg-managray-300/10 backdrop-blur-xl overflow-hidden flex flex-col items-center justify-between pb-12 border-r border-managray-300/40">
+
       <div class="flex flex-col items-center overflow-hidden py-4 mt-3">
 
          <div class="relative">
             <div class="z-40 absolute top-0 right-0 mr-1 mt-16 w-7 h-7 rounded-full bg-manapurple-100 animate-ping">
             </div>
             <div class="z-40 absolute top-0 right-0 mr-1 mt-16 w-7 h-7 rounded-full bg-manapurple-100"></div>
-            <img src="../images/profile.jpg" class="rounded-full h-32 mt-16 shadow-xl opacity-90" draggable="false">
+            <img src="../../images/profile.jpg" class="rounded-full h-32 mt-16 shadow-xl opacity-90" draggable="false">
          </div>
          <div class="flex flex-col mt-4 h-16">
             <p v-if="userManager.userInfo.email"
@@ -36,7 +35,7 @@ defineEmits(['toggleCreateModal', 'logout', 'goLogin'])
             </p>
          </div>
 
-         <div class="flex flex-col space-y-3 w-full px-6 font-[400] text-lg mt-6">
+         <div @click="$emit('hideNavbar')" class="flex flex-col space-y-3 w-full px-6 font-[400] text-lg mt-6">
             <router-link :to="{ name: 'EventList' }">
                <div class="flex items-center p-3 px-6 rounded-xl w-full">
                   <IconCalendar width="1.5em" height="1.5em" />
@@ -68,7 +67,7 @@ defineEmits(['toggleCreateModal', 'logout', 'goLogin'])
 
       </div>
       <div class="px-8 w-full">
-         <button v-if="userManager.userInfo.role !== 'guest'" @click="$emit('logout')"
+         <button v-if="userManager.userInfo.role !== 'guest'" @click="$emit('logout');$emit('hideNavbar')"
             class="w-full h-[50px] text-manapink-100 group relative inline-block overflow-hidden border border-manapink-100 rounded-xl focus:outline-none">
             <span
                class="absolute inset-y-0 left-0 w-[0px] bg-manapink-100 transition-all group-hover:w-full group-active:bg-manapink-500"></span>
@@ -78,7 +77,7 @@ defineEmits(['toggleCreateModal', 'logout', 'goLogin'])
                <IconGuest class="text-xl" />Logout
             </span>
          </button>
-         <button v-else @click="$emit('goLogin')"
+         <button v-else @click="$emit('goLogin');$emit('hideNavbar')"
             class="w-full h-[50px] text-manapink-100 group relative inline-block overflow-hidden border border-manapink-100 rounded-xl focus:outline-none">
             <span
                class="absolute inset-y-0 left-0 w-[0px] bg-manapink-100 transition-all group-hover:w-full group-active:bg-manapink-500"></span>

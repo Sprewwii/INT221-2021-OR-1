@@ -1,9 +1,9 @@
 <script setup>
 import { ref, computed } from "vue";
-import IconClose from "./icons/IconClose.vue";
-import { eventManager } from "../scripts/eventManager.js";
-import { validation } from "../scripts/validation.js";
-import { decorator } from "../scripts/decorator.js";
+import IconClose from "../icons/IconClose.vue";
+import { eventManager } from "../../scripts/eventManager.js";
+import { validation } from "../../scripts/validation.js";
+import { decorator } from "../../scripts/decorator.js";
 
 const props = defineProps({
   editingBooking: {
@@ -12,7 +12,7 @@ const props = defineProps({
   },
 });
 
-defineEmits(["editBooking", "closeEditModal"]);
+defineEmits(["editBooking", "closeEditEventPopup"]);
 
 const editingBooking = computed(() => props.editingBooking);
 // editingBooking.value.file = {name:editingBooking.value.pathFile}
@@ -60,8 +60,9 @@ const previewFile = (e) => {
 
 const deleteFile = () => {
   showWarning.value.fileSize = false;
-  editingBooking.value.previewFile = null;
-  editingBooking.value.file = null;
+    editingBooking.value.previewFile = null;
+    editingBooking.value.file = null;
+  console.log("delete file")
   editingBooking.value.isChangeFile = true;
 }
 
@@ -72,12 +73,12 @@ const getFileNameFromPath = (path) => path.replace(/^.*[\\\/]/, "");
     class="bg-black/30 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center"
   >
     <div
-      class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 relative p-4 w-full max-w-md sm:max-w-none sm:w-[760px] h-full md:h-auto"
+      class="fixed bg-managray-300/20 backdrop-blur-md z-50 rounded-2xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 relative p-4 w-full max-w-md sm:max-w-none sm:w-[760px] h-full md:h-auto"
     >
       <div class="relative rounded-lg shadow" id="popupEdit">
         <button
           type="button"
-          @click="$emit('closeEditModal'); clearEditingBooking()"
+          @click="$emit('closeEditEventPopup'); clearEditingBooking()"
           class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
         >
           <IconClose />
@@ -85,7 +86,7 @@ const getFileNameFromPath = (path) => path.replace(/^.*[\\\/]/, "");
 
         <div class="py-6 px-6 lg:px-8">
           <h3 class="mb-4 text-2xl font-medium text-white">
-            Edit Schedule Event
+            Edit Schedule Eventsas
           </h3>
           <div class="flex flex-col items-center">
             <form class="w-full px-8 space-x-8 grid grid-cols-2">

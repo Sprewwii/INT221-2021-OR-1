@@ -1,10 +1,10 @@
 <script setup>
 import { computed } from "vue"
-import { userManager } from "../scripts/userManager.js"
-import { roles } from "../scripts/roles.js"
-import IconMenuKebabVue from "./icons/IconMenuKebab.vue";
-import IconDelete from "./icons/IconDelete.vue";
-import IconEdit from "./icons/IconEdit.vue";
+import { userManager } from "../../scripts/userManager.js"
+import { roles } from "../../scripts/roles.js"
+import IconMenuKebabVue from "../icons/IconMenuKebab.vue";
+import IconDelete from "../icons/IconDelete.vue";
+import IconEdit from "../icons/IconEdit.vue";
 
 const props = defineProps({
   userList: {
@@ -24,8 +24,8 @@ const noUsersWarning = computed(() => props.noUsersWarning)
 </script>
 
 <template>
-  <div class="mt-6 mr-20">
-    <div class="relative bg-managray-300/20 rounded-2xl shadow-2xl ml-32 w-full">
+  <div class="mt-6 lg:mr-20">
+    <div class="relative bg-managray-300/20 rounded-2xl shadow-2xl w-full">
       <table class="w-full text-center text-gray-200 select-none">
         <thead class="text-xs uppercase text-gray-300 sm:text-sm">
           <tr>

@@ -1,83 +1,84 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed,onBeforeMount } from "vue";
+import { useRouter } from "vue-router"
 import { eventManager } from "../scripts/eventManager.js";
+import { userManager } from "../scripts/userManager.js";
 import { validation } from "../scripts/validation.js";
-import BaseScheduleList from "../components/BaseScheduleList.vue";
-import BasePopupEdit from "../components/BasePopupEdit.vue";
-import BasePopupConfirm from "../components/BasePopupConfirm.vue";
+import BaseLogin from "../components/homePage/BaseLogin.vue";
 import BasePopup from "../components/BasePopup.vue";
-import BaseButtonFilter from "../components/BaseButtonFilter.vue";
+import aad from "../services/aad.js";
 
-const bookingList = computed(() => eventManager.eventList);
-const eventCategories = computed(() => eventManager.eventCategories);
-const selectedBookingId = ref(0);
-const editingBooking = ref({});
+const router = useRouter();
 
-const noEventMessage = ref("");
-const isShowDeleteBookingConfirm = ref(false);
-const popupMessage = ref(null)
+// popup message in form { text: "", type: "", header: "" }
+const popupMessage = ref({});
 
-const selectBooking = (id) => {
-  if (selectedBookingId.value === id) {
-    selectedBookingId.value = 0;
+const isLogin = ref(localStorage.getItem("token") ? true : false);
+if (!isLogin.value) {
+  localStorage.setItem("role", "guest");
+}
+console.log("login " + isLogin.value + "  " + localStorage.getItem("token"));
+
+
+async function login(user){
+  console.log(user)
+  let response = await userManager.login(user);
+
+  if (response === true) {
+    showPopup({ text: "Login Successful !", type: "success", header: "Login" });
+    // isLogin.value = true;
+
+    // close success popup in 2 seconds 
+    setTimeout(()=>{
+      showPopup({})
+    }, 2000)
+    router.push({ path: '/events' })
   } else {
-    selectedBookingId.value = id;
+    showPopup({ text: response, type: "error", header: "Login" });
   }
 };
 
-const editBooking = async () => {
-  editingBooking.value = await eventManager.getEventById(
-    selectedBookingId.value
-  );
-  editingBooking.value.currentStartTime = editingBooking.value.startTime;
-  if(editingBooking.value.pathFile) editingBooking.value.file = {name:getFileNameFromPath(editingBooking.value.pathFile)}
-  editingBooking.value.isChangeFile = false;
-
-};
-
-const updateEditingBooking = (booking, e) => {
-  e.preventDefault();
-  eventManager.editEvent(booking);
-  editingBooking.value = {};
-  selectBooking(0);
-  popupMessage.value = "Edit Booking"
-};
-
-const toggleDeleteConfirm = () => {
-  isShowDeleteBookingConfirm.value = !isShowDeleteBookingConfirm.value;
-};
-
-const deleteBooking = () => {
-  eventManager.deleteEvent(selectedBookingId.value);
-  toggleDeleteConfirm();
-  selectBooking(0);
-};
-
-const setNoEventMessage = (message) => {
-  noEventMessage.value = message
+function loginAsGuest(){
+  router.push({ path: '/events' })
 }
 
-const getFileNameFromPath = (path) => {if(path) return path.replace(/^.*[\\\/]/, "")}
+function loginAsMS(){
+  console.log("ms login")
+  aad.login().then((account)=>{
+    console.log(account)
+    router.push({ path: '/events' })
+    // localStorage.setItem("token",)    
+  })
+}
+
+
+const logout = () => {
+  userManager.userList = [];
+  router.push({ name: "Home" });
+  console.log("home");
+  userManager.logout();
+  isLogin.value = false;
+};
+
+function showPopup(popup){
+  // if (newPopup && newPopup.type === "success") {
+  //   if (isShowLoginModal.value) showLoginModal();
+  // }
+  console.log(popup)
+  popupMessage.value = popup;
+};
+
 
 </script>
 
 <template>
-  <div class="ml-64 mt-14 w-full pr-80 mb-64">
-    <div class="flex justify-between items-center">
-      <h1 class="text-gray-300 text-2xl mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none inline-block align-middle">
-        Scheduled Events 
-      </h1>
-      <BaseButtonFilter :eventCategories="eventCategories" @noEventMessage="setNoEventMessage" />
-    </div>
-    <BaseScheduleList :bookingList="bookingList" :selectedBookingId="selectedBookingId"
-      :noEventsWarning="noEventMessage" @selectBooking="selectBooking" @editBooking="editBooking"
-      @deleteBooking="toggleDeleteConfirm" class="pr-12" />
-        <BasePopup v-show="popupMessage" :popupText="popupMessage" :popupType="'success'"
-      @closePopup="popupMessage = null" />
-    <BasePopupConfirm v-show="isShowDeleteBookingConfirm" @closeConfirmModal="toggleDeleteConfirm"
-      @deleteBooking="deleteBooking" />
-    <BasePopupEdit v-show="Object.keys(editingBooking).length > 0" @closeEditModal="editingBooking = {}"
-      :editingBooking="editingBooking" @editBooking="updateEditingBooking" />
+  <div class="ml-64 mt-14 w-full pr-80 mb-64 bg-red-500">
+    <BaseLogin @login="login" @loginAsGuest="loginAsGuest" @loginAsMS="loginAsMS"/>
+    <BasePopup
+      v-show="Object.keys(popupMessage).length !== 0"
+      :popupMessage="popupMessage"
+      @closePopup="showPopup({})"
+    />
   </div>
 
 </template>

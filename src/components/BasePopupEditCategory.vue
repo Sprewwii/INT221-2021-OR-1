@@ -28,8 +28,8 @@ const isCategoryNameUnique = ref(true)
     <div
         class="bg-black/30 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
         <div
-            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto">
-            <div class="relative rounded-lg shadow" id="popupEdit">
+            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 relative p-4 w-full max-w-md h-full md:h-auto">
+            <div class="relative rounded-lg shadow bg-managray-100/10 backdrop-blur-xl" id="popupEdit">
                 <button type="button" @click="$emit('closeEditModal'); isCategoryNameUnique = true"
                     class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white">
                     <IconClose />
@@ -85,11 +85,13 @@ const isCategoryNameUnique = ref(true)
                                     {{ editingCategory.categoryDescription.length }}/500</p>
                             </div>
                         </div>
+                        <!--ทำแบบ hover ปุ่มเเล้วสีเลื่อนแบบ login ให้หน่อย vvv-->
                         <button
                             @click="$event.preventDefault(); isCategoryNameUnique = validation.validateUniqueCategoryName(editingCategory); validation.validateEditCategory(editingCategory) && isCategoryNameUnique ? $emit('editCategory', editingCategory.categoryName !== editingCategory.currentCategoryName ? editingCategory : { categoryId: editingCategory.categoryId, categoryDuration: editingCategory.categoryDuration, categoryDescription: editingCategory.categoryDescription }, $event) : ''"
-                            class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-800">Update</button>
+                            class="w-full text-white bg-manapurple-100 tracking-wider transition-colors group-hover:text-white focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-800">Update</button>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

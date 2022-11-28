@@ -1,10 +1,10 @@
 <script setup>
 import { computed } from "vue"
-import { userManager } from "../scripts/userManager.js"
-import { eventManager } from "../scripts/eventManager.js"
-import IconMenuKebabVue from "./icons/IconMenuKebab.vue";
-import IconDelete from "./icons/IconDelete.vue";
-import IconEdit from "./icons/IconEdit.vue";
+import { userManager } from "../../scripts/userManager.js"
+import { eventManager } from "../../scripts/eventManager.js"
+import IconMenuKebabVue from "../icons/IconMenuKebab.vue"
+import IconDelete from "../icons/IconDelete.vue"
+import IconEdit from "../icons/IconEdit.vue"
 
 const props = defineProps({
   bookingList: {
@@ -28,18 +28,18 @@ const noEventsWarning = computed(() => props.noEventsWarning)
 </script>
 
 <template>
-  <div class="mt-6 mr-20">
-    <div class="relative shadow-2xl ml-32 w-full">
+  <div class="mt-6 pb-64 ml-0 lg:ml-20 lg:pr-20 w-full ">
+    <div class="relative bg-managray-300/20 rounded-2xl shadow-2xl w-full">
       <table class="w-full text-center text-gray-200 select-none">
-        <thead class="text-xs uppercase text-gray-300 sm:text-sm">
+        <thead class="text-white tracking-wider">
           <tr>
-            <th scope="col" class="px-6 py-3 w-4/12">Name</th>
-            <th scope="col" class="px-6 py-3 w-3/12">Category</th>
-            <th scope="col" class="px-6 py-3 w-2/12">Date Time</th>
-            <th scope="col" class="px-6 py-3 w-1/12">Time</th>
-            <th scope="col" class="px-6 py-3 w-1/12">
+            <th scope="col" class="px-6 py-3 w-4/12 truncate font-[500]">Name</th>
+            <th scope="col" class="px-6 py-3 w-3/12 font-[500]">Category</th>
+            <th scope="col" class="hidden sm:table-cell px-6 py-3 w-2/12 font-[500]">Date Time</th>
+            <th scope="col" class="hidden sm:table-cell px-6 py-3 w-1/12 font-[500]">Time</th>
+            <th scope="col" class="hidden lg:table-cell px-6 py-3 w-1/12 font-[500]">
               Duration <br />
-              <p class="text-xs">(minutes)</p>
+              <p class="text-xs font-[200]">(minutes)</p>
             </th>
             <th colspan="2" class="px-6 py-3">
               <span class="sr-only">Details</span>
@@ -50,17 +50,17 @@ const noEventsWarning = computed(() => props.noEventsWarning)
           <td colspan="7" class="py-64 text-xl">{{ noEventsWarning }}</td>
         </tbody>
         <tbody v-else v-for="booking in bookingList" :key="booking.id">
-          <tr class="border-t border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal">
-            <th scope="row" class="pl-6 font-normal text-white text-left break-words">
-              <router-link :to="{ name: 'BookingDetails', params: { id: booking.id } }" class="hover:underline">
-                {{ booking.name }}
+          <tr class="border-t border-managray-100/20 pl-6 text-white hover:bg-managray-300/30 text-center font-[200]">
+            <td scope="row" class="pl-6 font-[200] text-white text-left">
+              <router-link :to="{ name: 'EventDetail', params: { id: booking.id } }" class="hover:underline">
+                <p class="text-lg w-[200px] md:w-[400px] lg:w-[200px] xl:w-[400px] truncate">{{ booking.name }}</p>
               </router-link>
               <!-- <div v-else> {{ booking.name }}</div> -->
-            </th>
-            <td>
+            </td>
+            <td class="text-md">
               {{ booking.categoryName }}
             </td>
-            <td class="px-6 py-4">
+            <td class="hidden sm:table-cell px-6 py-4">
               {{
                   new Date(booking.startTime).toLocaleString("en-US", {
                     year: "numeric",
@@ -69,7 +69,7 @@ const noEventsWarning = computed(() => props.noEventsWarning)
                   })
               }}
             </td>
-            <td class="px-6 py-4">
+            <td class="hidden sm:table-cell px-6 py-4">
               {{
                   new Date(booking.startTime).toLocaleTimeString("it-IT", {
                     hour: "2-digit",
@@ -77,7 +77,7 @@ const noEventsWarning = computed(() => props.noEventsWarning)
                   })
               }}
             </td>
-            <td class="px-6 py-4">
+            <td class="hidden lg:table-cell px-6 py-4">
               {{ booking.duration }}
             </td>
             <td class="pr-3">
@@ -111,4 +111,5 @@ const noEventsWarning = computed(() => props.noEventsWarning)
 </template>
 
 <style>
+
 </style>

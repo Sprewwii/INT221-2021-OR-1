@@ -40,11 +40,11 @@ const aboutUsList = [
 </script>
  
 <template>
-  <div class="ml-64 mr-12 mt-16 overflow-hidden pr-8">
-    <h1 class="text-gray-300 text-2xl mb-3 ml-32 font-medium select-none">
+  <div class="ml-64 mr-12 mt-12 pt-24 overflow-hidden pr-8">
+    <h1 class="text-gray-300 font-medium text-2xl mr-8 ml-28 font-[400] select-none inline-block align-middle">
       About Us (OR-1)
     </h1>
-    <div class="flex flex-row ml-32 mr- justify-evenly space-x-6">
+    <div class="flex flex-row ml-32 mt-6 justify-evenly space-x-6">
       <div class="w-full transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-300 " v-for="aboutUs in aboutUsList" :key="aboutUs.id">
         <div class="container mx-auto max-w-sm rounded-lg overflow-hidden shadow-lg my-2" id="cardMember">
           <div class="a relative z-10" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 5vw));">

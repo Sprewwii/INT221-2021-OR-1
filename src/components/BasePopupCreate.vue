@@ -110,7 +110,7 @@ const deleteFile = () => {
 
 <template>
   <div
-    class="bg-black/70 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center"
+    class="bg-black/70 h-screen w-full overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center"
   >
     <div
       class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 relative p-4 w-full max-w-md sm:max-w-none sm:w-[760px] h-full md:h-auto"
@@ -129,7 +129,7 @@ const deleteFile = () => {
 
         <div class="py-6 px-6 lg:px-8">
           <h3 class="mb-4 text-2xl font-medium text-white">
-            Create Schedule Event
+            Create Schedule Events
           </h3>
 
             <form class="grid grid-cols-2 w-full space-x-8 justify-center ">

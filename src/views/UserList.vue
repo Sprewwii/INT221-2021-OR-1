@@ -2,14 +2,16 @@
 import { ref, computed } from "vue";
 import { userManager } from "../scripts/userManager.js";
 import { validation } from "../scripts/validation.js";
-import BaseUserList from "../components/BaseUserList.vue";
-import BasePopupEditUser from "../components/BasePopupEditUser.vue";
+import { deviceManager } from "../scripts/deviceManager.js";
+import BaseUserList from "../components/usersPage/BaseUserList.vue";
+import BaseUserListSmall from "../components/usersPage/BaseUserListSmall.vue";
+import BasePopupEditUser from "../components/usersPage/BasePopupEditUser.vue";
 import BasePopupConfirm from "../components/BasePopupConfirm.vue";
 import BasePopup from "../components/BasePopup.vue";
-import BasePopupCreateUser from "../components/BasePopupCreateUser.vue";
+import BasePopupCreateUser from "../components/usersPage/BasePopupCreateUser.vue";
 import BaseMatchPassword from "../components/BaseMatchPassword.vue";
 import IconPlus from "../components/icons/IconPlus.vue"
-import BaseLogin from "../components/BaseLogin.vue"
+// import BaseLogin from "../components/HomePage/BaseLogin.vue"
 import { useRouter } from "vue-router"
 const router = useRouter();
 
@@ -101,9 +103,9 @@ const matching = async (user, e) => {
 </script>
 
 <template>
-  <div class="ml-64 mt-14 w-full pr-80 mb-64">
-    <div class="flex justify-between items-center">
-      <h1 class="text-gray-300 text-2xl mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none inline-block align-middle">
+  <div class="lg:ml-64 w-full lg:pr-80 mb-64 pt-32">
+    <div class="flex justify-between items-center mt-2">
+      <h1 class="w-full text-gray-300 font-medium text-2xl mr-8 ml-4 lg:ml-28 font-[400] select-none inline-block align-middle tracking-normal">
         User List
       </h1>
       <button
@@ -123,7 +125,9 @@ const matching = async (user, e) => {
         <span class="ml-3">refresh</span>
       </button>
     </div>
-    <BaseUserList :userList="userList" :selectedUserId="selectedUserId" @selectUser="selectUser" @editUser="editUser"
+    <BaseUserList v-if="deviceManager.deviceWidth >= 1024" :userList="userList" :selectedUserId="selectedUserId" @selectUser="selectUser" @editUser="editUser"
+      @deleteUser="toggleModal('delete')" class="pr-12" />
+      <BaseUserListSmall v-else :userList="userList" :selectedUserId="selectedUserId" @selectUser="selectUser" @editUser="editUser"
       @deleteUser="toggleModal('delete')" class="pr-12" />
 
     <BasePopup v-show="Object.keys(popupMessage).length !== 0" :popupText="popupMessage.text" :popupType="popupMessage.type"

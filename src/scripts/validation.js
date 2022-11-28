@@ -50,7 +50,6 @@ validateUniqueCategoryName: function(editingCategory){
 },
 validateUniqueName: function(currentUser){
     for(let user of userManager.userList){
-        console.log(user.name + " " + currentUser.name+ " " +user.userId+ " " +currentUser.userId)
         if(user.name === currentUser.name) {
             return false
         }

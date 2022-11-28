@@ -1,8 +1,8 @@
 <script setup>
 import { computed } from "vue"
-import IconMenuKebabVue from "./icons/IconMenuKebab.vue";
-import IconDelete from "./icons/IconDelete.vue";
-import IconEdit from "./icons/IconEdit.vue";
+import IconMenuKebabVue from "../icons/IconMenuKebab.vue"
+import IconDelete from "../icons/IconDelete.vue"
+import IconEdit from "../icons/IconEdit.vue"
 
 const props = defineProps({
   categoryList: {
@@ -19,16 +19,16 @@ defineEmits(['selectCategory', 'editBooking'])
 
 const selectedCategoryId = computed(() => props.selectedCategoryId)
 </script>
- 
+
 <template>
-  <div class="grid gap-10 grid-cols-3 ml-32 mr-24 mt-6">
+  <div class="grid gap-10 grid-col content-center w-4/5 lg:grid-cols-3 sm:ml-32 sm:mr-24 sm:mt-6 sm:mb-32 mx-auto justify-center justify-self-center">
     <div
       class="block p-6 bg-managray-100/10 rounded-lg shadow-xl text-managray-100 text-center w-full transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
       id="cards" v-for="eventCategory in categoryList" :key="eventCategory.categoryId">
       <div class="flex flex-col items-center">
         <div class="grid grid-cols-7 gap-4">
           <h5
-            class="text-xl font-semibold break-words w-full tracking-tight text-white text-center tracking-wider col-span-6 pl-10">
+            class="text-xl font-[500] break-words w-full tracking-tight text-white text-center tracking-wider col-span-6 pl-10">
             {{
                 eventCategory.categoryName
             }}</h5>
@@ -51,11 +51,13 @@ const selectedCategoryId = computed(() => props.selectedCategoryId)
             </div>
           </div>
         </div>
-        <p class="bg-violet-600 rounded-lg text-white text-center w-1/2 my-5 pt-1">{{ eventCategory.categoryDuration }}
-          minutes</p>
+        <p class="bg-manapurple-100 rounded-lg text-white text-center w-[120px] my-5 py-0.5">{{
+            eventCategory.categoryDuration
+        }}
+          minutess</p>
         <div class="flex flex-col items-center justify-center w-full h-full">
-          <p v-if="!eventCategory.categoryDescription" class="font-normal text-gray-500">No Description</p>
-          <p v-else class="font-normal text-gray-300 break-words w-full">{{ eventCategory.categoryDescription }}</p>
+          <p v-if="!eventCategory.categoryDescription" class="font-normal text-managray-200">No Description</p>
+          <p v-else class="font-normal text-managray-100 break-words w-full">{{ eventCategory.categoryDescription }}</p>
         </div>
       </div>
     </div>
@@ -63,4 +65,5 @@ const selectedCategoryId = computed(() => props.selectedCategoryId)
 </template>
  
 <style>
+
 </style>

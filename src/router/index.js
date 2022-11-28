@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-import BookingDetails from "../views/BookingDetails.vue";
+import EventList from "../views/EventList.vue";
+import EventDetail from "../views/EventDetail.vue";
 import CategoryList from "../views/CategoryList.vue";
 import AboutUs from "../views/AboutUs.vue";
 import UserList from "../views/UserList.vue";
@@ -11,10 +12,10 @@ async function guardUsers(to, from, next) {
   const role = localStorage.getItem("role");
   const token = localStorage.getItem("token");
   if (token && role === "admin") {
-    console.log("guard true");
-    let a = await userManager.getUsers();
-    if (a) next();
-  }
+    let response = await userManager.getUsers();
+    if (response) next();
+    return;
+  }userManager.userInfo.role = "guest"
   next("/");
 }
 
@@ -34,12 +35,18 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },{
+    path: "/events",
+    name: "EventList",
+    component: EventList,
   },
+
   {
-    path: "/details/:id",
-    name: "BookingDetails",
+    path: "/events/:id",
+    name: "EventDetail",
     // beforeEnter: guardLecturer,
-    component: BookingDetails,
+    component: EventDetail,
+    // meta: { transition: 'slide-left' },
   },
   {
     path: "/category-list",

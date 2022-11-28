@@ -2,6 +2,7 @@ import { reactive } from "vue";
 import { roles } from "./roles.js";
 import { eventManager } from "./eventManager.js";
 
+
 export const userManager = reactive({
   userInfo: {role: localStorage.getItem("role") || "guest",email: localStorage.getItem("email") || null},
   userList: [],
@@ -183,10 +184,15 @@ export const userManager = reactive({
       localStorage.setItem("refreshToken", info.refreshToken);
       localStorage.setItem("role", info.role[0]);
       localStorage.setItem("email", userLogin.email);
+
       this.userInfo.role = info.role[0]
       this.userInfo.email = userLogin.email;
-      console.log(info.role[0]);
+
       if(info.role[0] === "admin")this.getUsers();
+      if(userLogin.rememberMe){localStorage.setItem("user", JSON.stringify({email:userLogin.email,password:userLogin.password}));}
+      else{
+        localStorage.removeItem("user")
+    }
       eventManager.getEvents();
       return true;
     } else {
@@ -205,7 +211,9 @@ export const userManager = reactive({
     localStorage.removeItem("email");
     localStorage.setItem("role", "guest");
     this.userInfo = {role:"guest"}
+    userManager.userList = [];
     eventManager.eventList = [];
+  
   },
   refreshToken: async function(){
     console.log("refresh token")

@@ -7,7 +7,24 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'abc': '#1b1c1e58',
+        transparent: 'transparent',
+        current: 'currentColor',
+        'white': '#ffffff',
+        'manapink': {
+          100: '#FFAEAE',
+        },
+        'manapurple': {
+          100: '#A5ADF0',
+        },
+        'manablack': {
+          100: '#323438',
+        },
+        'managray': {
+          100: '#A9AAAE',
+          200: '#909094',
+          300: '#747578',
+          400: '#404142',
+        },
       },
     },
   },

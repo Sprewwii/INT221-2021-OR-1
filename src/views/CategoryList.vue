@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import BaseCategoryList from "../components/BaseCategoryList.vue"
+import BaseEventCategoryList from "../components/eventCategoriesPage/BaseEventCategoryList.vue"
 import BasePopupEditCategory from "../components/BasePopupEditCategory.vue";
 import BasePopup from "../components/BasePopup.vue";
 import IconPlus from "../components/icons/IconPlus.vue";
@@ -39,12 +39,12 @@ const cleanEditingCategory = () => {
 </script>
 
 <template>
-  <div class="ml-64">
-    <div class="flex flex-col">
-      <h1 class="text-gray-300 text-2xl pt-16 mb-3 mr-8 ml-32 md:mx-16 lg:mx-32 font-medium select-none">
+  <div class="sm:ml-64 pt-24">
+    <div class="flex flex-col mt-4 lg:mt-12 gap-y-8 lg:gap-y-0">
+      <h1 class="text-gray-300 font-medium text-2xl mr-8 ml-28 font-[400] select-none inline-block ">
         Event Categories
       </h1>
-      <BaseCategoryList :categoryList="eventCategories" :selectedCategoryId="selectedCategoryId"
+      <BaseEventCategoryList :categoryList="eventCategories" :selectedCategoryId="selectedCategoryId"
         @selectCategory="selectCategory" @editCategory="editCategory" />
     </div>
     <BasePopupEditCategory v-show="Object.keys(editingCategory).length > 0" :editingCategory="editingCategory"
