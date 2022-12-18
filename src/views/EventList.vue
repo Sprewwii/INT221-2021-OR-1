@@ -97,7 +97,7 @@ const getFileNameFromPath = (path) => { if (path) return path.replace(/^.*[\\\/]
       </button>
     </div> -->
 
-    <div class="lg:ml-64 mt-4 lg:mt-10 mr-10 mb-64">
+    <div class="lg:ml-64 mt-4 lg:mt-10 mr-1 lg:mr-12 mb-64">
       
       <div class="flex flex-col gap-y-4 sm:gap-y-0 sm:flex-row sm:justify-between sm:items-center">
         <h1 class="w-full font-medium text-gray-300 text-2xl mr-8 lg:ml-28 font-[400] select-none inline-block align-middle tracking-normal">

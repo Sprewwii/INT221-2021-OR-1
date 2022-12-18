@@ -13,7 +13,7 @@ defineEmits(['showCreateEventPopup'])
 </script>
 
 <template>
-  <div class="visible pl-4 lg:pl-12 pr-4 lg:pr-[350px] mt-12 lg:mt-0 lg:ml-72 z-10 bg-managray-300/10 backdrop-blur-md py-8 flex space-x-2 justify-between items-center lg:fixed w-full">
+  <div class="visible pl-4 lg:pl-12 pr-8 lg:pr-[350px] mt-12 lg:mt-0 lg:ml-72 z-10 bg-managray-300/10 backdrop-blur-md py-8 flex space-x-2 justify-between items-center lg:fixed w-full">
 
     <div class="flex gap-2 justify-center items-center">
       <IconCalendar class="w-5 h-5" />

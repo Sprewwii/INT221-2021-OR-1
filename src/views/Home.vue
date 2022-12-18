@@ -46,6 +46,9 @@ async function loginAsMS(){
   console.log("ms login")
   aad.login().then(async (account)=>{
     console.log(account)
+    userManager.userInfo.email = account.userName;
+    // console.log(account.idTokenClaims.roles[0])
+    // userManager.userInfo.role = account.idTokenClaims.roles[0];
     router.push({ path: '/events' })
   })
     

@@ -39,9 +39,9 @@ const cleanEditingCategory = () => {
 </script>
 
 <template>
-  <div class="sm:ml-64 pt-24">
+  <div class="lg:ml-64 pt-24">
     <div class="flex flex-col mt-4 lg:mt-12 gap-y-8 lg:gap-y-0">
-      <h1 class="text-gray-300 font-medium text-2xl mr-8 ml-28 font-[400] select-none inline-block ">
+      <h1 class="text-gray-300 font-medium text-2xl mr-8 lg:ml-28 font-[400] select-none inline-block ">
         Event Categories
       </h1>
       <BaseEventCategoryList :categoryList="eventCategories" :selectedCategoryId="selectedCategoryId"

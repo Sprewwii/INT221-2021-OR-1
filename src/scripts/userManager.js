@@ -206,9 +206,10 @@ export const userManager = reactive({
     }
   },
   logout: function(){
-    localStorage.removeItem("token");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("email");
+    // localStorage.removeItem("token");
+    // localStorage.removeItem("refreshToken");
+    // localStorage.removeItem("email");
+    localStorage.clear();
     localStorage.setItem("role", "guest");
     this.userInfo = {role:"guest"}
     userManager.userList = [];
@@ -237,7 +238,6 @@ export const userManager = reactive({
       console.log("token "+info.token )
       localStorage.setItem("token",info.token);
       return true; 
-      
     } 
     else if (res.status === 500){
       console.log(`ไม่สามารถ refresh token ได้ กรุณา Logout`);
@@ -249,7 +249,8 @@ export const userManager = reactive({
       console.log(`ไม่สามารถ refresh token ได้`);
       return false;
     }
-  },matchingPassword: async function (user) {
+  },
+  matchingPassword: async function (user) {
     const res = await fetch(`${import.meta.env.VITE_API}/api/login`, {
       method: "POST",
       headers: {
