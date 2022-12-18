@@ -42,13 +42,13 @@ function loginAsGuest(){
   router.push({ path: '/events' })
 }
 
-function loginAsMS(){
+async function loginAsMS(){
   console.log("ms login")
-  aad.login().then((account)=>{
+  aad.login().then(async (account)=>{
     console.log(account)
     router.push({ path: '/events' })
-    // localStorage.setItem("token",)    
   })
+    
 }
 
 
