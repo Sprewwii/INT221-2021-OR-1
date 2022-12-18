@@ -24,14 +24,12 @@ const noUsersWarning = computed(() => props.noUsersWarning)
 </script>
 
 <template>
-  <div class="mt-6 lg:mr-20">
-    <div class="relative bg-managray-300/20 rounded-2xl shadow-2xl w-full">
-      <table class="w-full text-center text-gray-200 select-none">
-        <thead class="text-xs uppercase text-gray-300 sm:text-sm">
+  <div class="mt-6 lg:mr-20 bg-red-500">
+    <div class="relative bg-managray-300/20 rounded-2xl shadow-2xl font-[200]">
+      <table class="text-center text-gray-200 select-none divide-y divide-managray-100/30">
+        <thead class="text-xs text-gray-300 sm:text-sm tracking-wider">
           <tr>
             <th scope="col" class="px-6 py-3 w-4/12">Namess</th>
-            <th scope="col" class="px-6 py-3 w-3/12">Email</th>
-            <th scope="col" class="px-6 py-3 w-2/12">Role</th>
             <th colspan="2" class="px-6 py-3">
               <span class="sr-only">Details</span>
             </th>
@@ -41,21 +39,18 @@ const noUsersWarning = computed(() => props.noUsersWarning)
           <td colspan="7" class="py-64 text-xl">No Users</td>
         </tbody>
         <tbody v-else v-for="user in userList" :key="user.userId">
-          <tr class="border-t border-gray-700 text-gray-400 hover:bg-gray-600 text-center font-normal">
-            <th scope="row" class="pl-6 font-normal text-white text-left break-words">
+          <tr class="text-gray-400 hover:bg-managray-300/30 text-center">
+            <td scope="row" class="pl-6 py-2 w-full font-[200] text-white text-left">
               <router-link :to="{ name: 'UserDetails', params: { id: user.userId } }" class="hover:underline">
                 {{ user.name }}
               </router-link>
-            </th>
-            <td>
-              {{ user.email }}
+              <p class="text-managray-100 text-sm"> {{ user.email }}</p>
+              <p class="text-managray-100 text-sm"> {{ user.role }}</p>
             </td>
-            <td class="px-6 py-4">
-              {{ user.role }}
-            </td>
+     
             <td class="pr-3">
               <div class="inline-block relative">
-                <button @click="$emit('selectUser', user.userId)" class="p-3">
+                <button @click="$emit('selectUser', user.userId)" class="p-3 text-white">
                   <IconMenuKebabVue />
                 </button>
                 <ul class="absolute text-white pt-1 z-10" v-show="selectedUserId === user.userId">

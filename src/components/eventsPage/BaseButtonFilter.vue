@@ -79,7 +79,7 @@ const formatDate = () =>  {
       </div>
       <div v-show="showFilterList"
         class="bg-managray-100/10 backdrop-blur-lg shadow-xl absolute right-0 z-20 mt-2 overflow-hidden rounded-md shadow-xl flex flex-row hover:cursor-pointer">
-        <div v-show="showFilterTab === 4" class="w-40 sm:w-64 background-gray h-80 z-50" @mouseover="showFilterTab = 4"
+        <div v-show="showFilterTab === 4" class="w-40 sm:w-64 background-gray h-80 z-20" @mouseover="showFilterTab = 4"
           @mouseleave="showFilterTab = 0">
           <div v-for="eventCategory in eventCategories" :key="eventCategory.categoryId"
             @click="filterCategory(eventCategory.categoryId); filterList[3].selectedCategory = eventCategory"
@@ -88,7 +88,7 @@ const formatDate = () =>  {
             {{ eventCategory.categoryName }}
           </div>
         </div>
-        <div v-show="showFilterTab === 5" class="w-44 sm:w-64 h-80 z-50" @mouseover="showFilterTab = 5"
+        <div v-show="showFilterTab === 5" class="w-44 sm:w-64 h-80 z-20" @mouseover="showFilterTab = 5"
           @mouseleave="showFilterTab = 0">
           <Datepicker v-model="choosedDate" @update:modelValue="filterDate" inline autoApply
             :enableTimePicker="false" dark/>

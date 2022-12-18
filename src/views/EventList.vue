@@ -75,7 +75,7 @@ const getFileNameFromPath = (path) => { if (path) return path.replace(/^.*[\\\/]
 </script>
 
 <template>
-  <div class="w-full h-full top-0 z-0 pt-2 lg:pt-24">
+  <div class="ml-4 pr-8 lg:ml-0 lg:pr-0 h-full top-0 z-0 pt-2 lg:pt-24">
     <!-- <BaseHeader :role="userManager.userInfo.role" @toggleCreateModal="isShowCreateBooking = true"/> -->
     <!-- <div class="px-12 ml-72 bg-managray-300/10  py-8 flex space-x-2 justify-between items-center">
       <div class="flex gap-2 justify-center items-center">
@@ -97,7 +97,7 @@ const getFileNameFromPath = (path) => { if (path) return path.replace(/^.*[\\\/]
       </button>
     </div> -->
 
-    <div class="ml-4 pr-8 lg:ml-64 mt-4 lg:mt-10 w-full lg:pr-80 mb-64">
+    <div class="lg:ml-64 mt-4 lg:mt-10 mr-10 mb-64">
       
       <div class="flex flex-col gap-y-4 sm:gap-y-0 sm:flex-row sm:justify-between sm:items-center">
         <h1 class="w-full font-medium text-gray-300 text-2xl mr-8 lg:ml-28 font-[400] select-none inline-block align-middle tracking-normal">

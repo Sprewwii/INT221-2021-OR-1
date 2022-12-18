@@ -126,7 +126,7 @@ handleResize()
 </script>
 
 <template>
-  <div :class="`h-screen w-screen text-managray-100 overflow-x-hidden ${path != '/' ? 'bg-black/20' : ''}`">
+  <div :class="`h-screen w-screen text-managray-100 ${path != '/' ? 'bg-black/20' : ''}`">
     <!-- <button
       v-if="!isLogin"
       @click="toggleModal('login')"
@@ -202,8 +202,10 @@ handleResize()
 
 body {
   font-family: 'Kanit', sans-serif;
-  background-attachment: fixed;
+  /* background-color: red; */
   background: radial-gradient(50.96% 90.94% at 105.02% 97.86%, rgba(255, 174, 174, 0.6) 0%, rgba(26, 26, 26, 0) 100%) , radial-gradient(53.51% 126.85% at 4.6% 7.69%, rgba(165, 173, 240, 0.6) 0%, rgba(87, 90, 120, 0.351149) 54.22%, rgba(26, 26, 26, 0) 100%) , #323438;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 /* body:after {

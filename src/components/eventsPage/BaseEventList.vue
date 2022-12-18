@@ -28,7 +28,7 @@ const noEventsWarning = computed(() => props.noEventsWarning)
 </script>
 
 <template>
-  <div class="mt-6 pb-64 ml-0 lg:ml-20 lg:pr-20 w-full ">
+  <div class="mt-6 pb-64 ml-0 lg:ml-20">
     <div class="relative bg-managray-300/20 rounded-2xl shadow-2xl w-full">
       <table class="w-full text-center text-gray-200 select-none">
         <thead class="text-white tracking-wider">
@@ -53,7 +53,7 @@ const noEventsWarning = computed(() => props.noEventsWarning)
           <tr class="border-t border-managray-100/20 pl-6 text-white hover:bg-managray-300/30 text-center font-[200]">
             <td scope="row" class="pl-6 font-[200] text-white text-left">
               <router-link :to="{ name: 'EventDetail', params: { id: booking.id } }" class="hover:underline">
-                <p class="text-lg w-[200px] md:w-[400px] lg:w-[200px] xl:w-[400px] truncate">{{ booking.name }}</p>
+                <p class="text-lg w-[200px] md:w-[400px] lg:w-[150px] xl:w-[300px] truncate">{{ booking.name }}</p>
               </router-link>
               <!-- <div v-else> {{ booking.name }}</div> -->
             </td>

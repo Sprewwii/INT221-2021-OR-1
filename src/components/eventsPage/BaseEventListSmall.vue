@@ -28,7 +28,7 @@ const noEventsWarning = computed(() => props.noEventsWarning)
 </script>
 
 <template>
-  <div class="mt-6 pb-64 ml-0 lg:ml-20 lg:pr-20 w-full ">
+  <div class="mt-6 pb-64 ml-0 lg:ml-20 lg:pr-20 w-full font-[200]">
     <div class="relative bg-managray-300/20 rounded-2xl shadow-2xl w-full">
       <table class="w-full text-center text-gray-200 select-none divide-y divide-managray-100/30">
         <tbody v-if="bookingList.length === 0">

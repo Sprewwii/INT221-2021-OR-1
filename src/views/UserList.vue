@@ -103,9 +103,9 @@ const matching = async (user, e) => {
 </script>
 
 <template>
-  <div class="lg:ml-64 w-full lg:pr-80 mb-64 pt-32">
-    <div class="flex justify-between items-center mt-2">
-      <h1 class="w-full text-gray-300 font-medium text-2xl mr-8 ml-4 lg:ml-28 font-[400] select-none inline-block align-middle tracking-normal">
+  <div class="ml-4 pr-8 lg:ml-64 w-full mb-64 pt-32 ">
+    <div class="flex justify-between items-center mt-2 pr-64">
+      <h1 class="w-full text-gray-300 font-medium text-2xl lg:ml-28 font-[400] select-none inline-block align-middle tracking-normal">
         User List
       </h1>
       <button
