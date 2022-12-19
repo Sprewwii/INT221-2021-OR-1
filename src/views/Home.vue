@@ -5,23 +5,17 @@ import { eventManager } from "../scripts/eventManager.js";
 import { userManager } from "../scripts/userManager.js";
 import { validation } from "../scripts/validation.js";
 import BaseLogin from "../components/homePage/BaseLogin.vue";
-import BasePopup from "../components/BasePopup.vue";
 import aad from "../services/aad.js";
 
 const router = useRouter();
-
-// popup message in form { text: "", type: "", header: "" }
 const popupMessage = ref({});
 
 const isLogin = ref(localStorage.getItem("token") ? true : false);
 if (!isLogin.value) {
   localStorage.setItem("role", "guest");
 }
-console.log("login " + isLogin.value + "  " + localStorage.getItem("token"));
-
 
 async function login(user){
-  console.log(user)
   let response = await userManager.login(user);
 
   if (response === true) {
@@ -43,11 +37,8 @@ function loginAsGuest(){
 }
 
 async function loginAsMS(){
-  console.log("ms login")
   aad.login().then(async (account)=>{
-    console.log(account)
     userManager.userInfo.email = account.userName;
-    console.log(account.idTokenClaims)
     userManager.userInfo.role = account.idTokenClaims.roles[0];
     localStorage.setItem("role", account.idTokenClaims.roles[0])
     localStorage.setItem("email", account.idTokenClaims.preferred_username)
@@ -56,10 +47,6 @@ async function loginAsMS(){
 }
 
 function showPopup(popup){
-  // if (newPopup && newPopup.type === "success") {
-  //   if (isShowLoginModal.value) showLoginModal();
-  // }
-  console.log(popup)
   popupMessage.value = popup;
 };
 

@@ -40,7 +40,7 @@ const cleanEditingCategory = () => {
   editingCategory.value = {};
   selectedCategoryId.value = 0;
 }
-// popupSuccessText='Edit Event Category'
+
 </script>
 
 <template>

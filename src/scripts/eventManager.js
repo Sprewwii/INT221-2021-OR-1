@@ -126,7 +126,7 @@ export const eventManager = reactive({
       res.status === 401 &&
       (await userManager.refreshToken()) == true
     ) {
-            // refresh token if access token is expired and fetch again
+      // refresh token if access token is expired and fetch again
       this.getEventsFuture();
     } else {
       return false;
@@ -223,7 +223,6 @@ export const eventManager = reactive({
       this.getEvents();
       return true;
     } else {
-      console.log(res.data)
       return false;
     }
   },
@@ -249,11 +248,8 @@ export const eventManager = reactive({
     }
   },
   editEvent: async function (booking) {
-    console.log("edit")
     const token = localStorage.getItem("token");
     if (!token) return;
-
-    console.log("ผ่าน edit")
 
     // create formData to collect file and json object, In json has isChangeFile to tell if file was changed.
     const file = booking.file && booking.file.type ? booking.file : null;
@@ -291,10 +287,8 @@ export const eventManager = reactive({
     } else {
       let error = "";
       for (let i = 0; i < info.details.length; i++) {
-        console.log(info.details[i].errorMessage);
         error += info.details[i].errorMessage + " \n";
       }
-      console.log(error);
       return error;
     }
   },
@@ -328,10 +322,8 @@ export const eventManager = reactive({
       res.status === 401 &&
       (await userManager.refreshToken()) == true
     ) {
-      console.log("ส่งใหม่จ้า");
       this.editEventCategory(category);
     } else {
-      console.log("ไม่สามารถแก้ไขข้อมูลได้");
       return false;
     }
   },

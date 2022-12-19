@@ -13,8 +13,6 @@ import BasePopup from "../components/global/BasePopup.vue"
 import BaseLoadingPopup from "../components/global/BaseLoadingPopup.vue"
 import BaseButtonFilter from "../components/eventsPage/BaseButtonFilter.vue"
 import IconCalendar from '../components/icons/IconCalendar.vue'
-import BaseTest from "../components/BaseTest.vue"
-import BasePopupCreate from "../components/BasePopupCreate.vue"
 
 const eventList = computed(() => eventManager.eventList)
 const eventCategories = computed(() => eventManager.eventCategories)
@@ -67,11 +65,6 @@ const toggleDeleteConfirm = () => {
   isShowDeleteBookingConfirm.value = !isShowDeleteBookingConfirm.value
 }
 
-// const toggleCreateModal = (booking, e) => {
-//   e.preventDefault();
-//   eventManager.createEvent(booking)
-// }
-
 const deleteBooking = () => {
   isLoading.value = true
   eventManager.deleteEvent(selectedBookingId.value)
@@ -94,31 +87,8 @@ const getFileNameFromPath = (path) => { if (path) return path.replace(/^.*[\\\/]
 
 <template>
   <div class="ml-4 pr-8 lg:ml-0 lg:pr-0 h-full top-0 z-0 pt-2 lg:pt-24">
-    <!-- <BaseHeader :role="userManager.userInfo.role" @toggleCreateModal="isShowCreateBooking = true"/> -->
-    <!-- <div class="px-12 ml-72 bg-managray-300/10  py-8 flex space-x-2 justify-between items-center">
-      <div class="flex gap-2 justify-center items-center">
-        <IconCalendar class="w-5 h-5" />
-        <span class="text-managray-200">Hello, Today is</span><span class=" text-managray-100">{{ new
-            Date().toLocaleString("en-US", { year: "numeric", month: "long", day: "2-digit", weekday: 'long' })
-        }}</span>
-      </div>
-      <button v-if="userManager.userInfo.role !== 'lecturer'"
-        class="w-1/5 h-[45px] text-white bg-gradient-to-l from-manapink-100 to-manapurple-100 group relative inline-block overflow-hidden rounded-xl"
-        @click="$emit('toggleCreateModal')">
-        <span
-          class="absolute w-full opacity-0 group-hover:opacity-100 inset-y-0 left-0 text-white bg-gradient-to-r from-manapink-100 to-manapurple-100 transition-all duration-500"></span>
-
-        <span
-          class="relative text-sm font-medium transition-colors tracking-widest transition-all duration-300 flex gap-x-2 justify-center">
-          Booking Event
-        </span>
-      </button>
-    </div> -->
-
     <div class="ml-4 lg:ml-64 mt-4 lg:mt-10 lg:mr-12 mb-64">
-
-      <div
-        class="flex flex-row gap-y-4 sm:gap-y-0 justify-between items-center mt-[100px] lg:mt-8 ml-4">
+      <div class="flex flex-row gap-y-4 sm:gap-y-0 justify-between items-center mt-[100px] lg:mt-8 ml-4">
         <h1
           class="w-60 font-medium text-gray-300 text-2xl lg:ml-28 font-[400] select-none inline-block align-middle tracking-normal">
           Scheduled Events

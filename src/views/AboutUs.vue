@@ -1,5 +1,5 @@
 <script setup>
-import BaseAboutUs from "../components/BaseAboutUs.vue";
+import BaseAboutUs from "../components/aboutPage/BaseAboutUs.vue";
 </script>
  
 <template>

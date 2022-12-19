@@ -2,16 +2,16 @@
 import { computed } from "vue"
 import { userManager } from "../../scripts/userManager.js"
 import { roles } from "../../scripts/roles.js"
-import IconMenuKebabVue from "../icons/IconMenuKebab.vue";
-import IconDelete from "../icons/IconDelete.vue";
-import IconEdit from "../icons/IconEdit.vue";
+import IconMenuKebabVue from "../icons/IconMenuKebab.vue"
+import IconDelete from "../icons/IconDelete.vue"
+import IconEdit from "../icons/IconEdit.vue"
 
 const props = defineProps({
   userList: {
     type: Array,
     default: []
   },
-  selectedUserId: { 
+  selectedUserId: {
     type: Number,
     default: 0
   },
@@ -44,7 +44,7 @@ const noUsersWarning = computed(() => props.noUsersWarning)
               <p class="text-managray-100 text-sm"> {{ user.email }}</p>
               <p class="text-managray-100 text-sm"> {{ user.role }}</p>
             </td>
-     
+
             <td class="pr-3">
               <div class="inline-block relative">
                 <button @click="$emit('selectUser', user.userId)" class="p-3 text-white">
@@ -52,7 +52,7 @@ const noUsersWarning = computed(() => props.noUsersWarning)
                 </button>
                 <ul class="absolute text-white right-5 z-10" v-show="selectedUserId === user.userId">
                   <li>
-                    <button 
+                    <button
                       class="rounded-t bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
                       @click="$emit('editUser')">
                       <IconEdit class="mr-2" />Edit
@@ -76,4 +76,5 @@ const noUsersWarning = computed(() => props.noUsersWarning)
 </template>
 
 <style>
+
 </style>
