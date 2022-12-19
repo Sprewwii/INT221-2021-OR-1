@@ -43,24 +43,26 @@ const noEventsWarning = computed(() => props.noEventsWarning)
               <!-- <div v-else> {{ booking.name }}</div> -->
               <div class="text-sm text-managray-100">
                 <p>{{ booking.categoryName }}</p>
-                <span class="flex gap-x-2">  <p>{{
-                  new Date(booking.startTime).toLocaleString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })
-              }} </p><p>{{
-                  new Date(booking.startTime).toLocaleTimeString("it-IT", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
-              }}
-              </p>
-            <p> ({{ booking.duration}} minutes)</p>
-            </span>
-            </div>
+                <span class="flex gap-x-2">
+                  <p>{{
+                      new Date(booking.startTime).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })
+                  }} </p>
+                  <p>{{
+                      new Date(booking.startTime).toLocaleTimeString("it-IT", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })
+                  }}
+                  </p>
+                  <p> ({{ booking.duration }} minutes)</p>
+                </span>
+              </div>
             </td>
-        
+
             <td class="pr-3">
               <div v-if="userManager.userInfo.role !== 'lecturer'" class="inline-block relative">
                 <button @click="$emit('selectBooking', booking.id)" class="p-3">
@@ -69,14 +71,14 @@ const noEventsWarning = computed(() => props.noEventsWarning)
                 <ul class="absolute text-white pt-1 right-5 z-10" v-show="selectedBookingId === booking.id">
                   <li>
                     <button
-                    class="rounded-t bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
+                      class="rounded-t bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
                       @click="$emit('editBooking')">
                       <IconEdit class="mr-2" />Edit
                     </button>
                   </li>
                   <li>
                     <button
-                    class="rounded-b bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full items-center flex border-t border-l-0 border-r-0 border-b-0 border-managray-100/50"
+                      class="rounded-b bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full items-center flex border-t border-l-0 border-r-0 border-b-0 border-managray-100/50"
                       @click="$emit('deleteBooking')">
                       <IconDelete class="mr-2" />Delete
                     </button>

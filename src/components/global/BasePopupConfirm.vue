@@ -25,7 +25,7 @@ defineEmits(['closeConfirmModal', 'deleteBooking'])
                     <div class="py-6 px-6 lg:px-8 text-white text-center flex flex-col justify-center items-center">
                         <IconWarning />
                         <h3 class="text-3xl font-bold text-white mt-5">{{ popupMessage.header }}</h3>
-                        <p class="text-gray-400">{{popupMessage.text}}</p>
+                        <p class="text-gray-400">{{ popupMessage.text }}</p>
 
                         <div class="flex mt-5 justify-evenly w-full">
                             <button @click="$emit('closeConfirmModal')"

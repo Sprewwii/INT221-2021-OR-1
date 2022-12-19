@@ -13,7 +13,6 @@ defineEmits(['hideNavbar', 'logout', 'goLogin'])
  
 <template>
 
-
    <div
       class="right-0 lg:left-0 z-[41] h-screen fixed top-0 w-72 bg-managray-300/20 sm:bg-managray-300/10 backdrop-blur-xl overflow-hidden flex flex-col items-center justify-between pb-12 border-r border-managray-300/40">
 
@@ -67,7 +66,7 @@ defineEmits(['hideNavbar', 'logout', 'goLogin'])
 
       </div>
       <div class="px-8 w-full pb-8">
-         <button v-if="userManager.userInfo.role !== 'guest'" @click="$emit('logout');$emit('hideNavbar')"
+         <button v-if="userManager.userInfo.role !== 'guest'" @click="$emit('logout'); $emit('hideNavbar')"
             class="w-full h-[50px] text-manapink-100 group relative inline-block overflow-hidden border border-manapink-100 rounded-xl focus:outline-none">
             <span
                class="absolute inset-y-0 left-0 w-[0px] bg-manapink-100 transition-all group-hover:w-full group-active:bg-manapink-500"></span>
@@ -77,7 +76,7 @@ defineEmits(['hideNavbar', 'logout', 'goLogin'])
                <IconGuest class="text-xl" />Logout
             </span>
          </button>
-         <button v-else @click="$emit('goLogin');$emit('hideNavbar')"
+         <button v-else @click="$emit('goLogin'); $emit('hideNavbar')"
             class="w-full h-[50px] text-manapurple-100 group relative inline-block overflow-hidden border border-manapurple-100 rounded-xl focus:outline-none">
             <span
                class="absolute inset-y-0 left-0 w-[0px] bg-manapurple-100 transition-all group-hover:w-full group-active:bg-manapurple-100"></span>

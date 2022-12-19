@@ -55,7 +55,6 @@ const noEventsWarning = computed(() => props.noEventsWarning)
               <router-link :to="{ name: 'EventDetail', params: { id: booking.id } }" class="hover:underline">
                 <p class="text-lg w-[200px] md:w-[400px] lg:w-[150px] xl:w-[300px] truncate">{{ booking.name }}</p>
               </router-link>
-              <!-- <div v-else> {{ booking.name }}</div> -->
             </td>
             <td class="text-md">
               {{ booking.categoryName }}
@@ -88,14 +87,14 @@ const noEventsWarning = computed(() => props.noEventsWarning)
                 <ul class="absolute text-white right-5 pt-1 z-10" v-show="selectedBookingId === booking.id">
                   <li>
                     <button
-                    class="rounded-t bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
+                      class="rounded-t bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
                       @click="$emit('editBooking')">
                       <IconEdit class="mr-2" />Edit
                     </button>
                   </li>
                   <li>
                     <button
-                    class="rounded-b bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full items-center flex border-t border-l-0 border-r-0 border-b-0 border-managray-100/50"
+                      class="rounded-b bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full items-center flex border-t border-l-0 border-r-0 border-b-0 border-managray-100/50"
                       @click="$emit('deleteBooking')">
                       <IconDelete class="mr-2" />Delete
                     </button>

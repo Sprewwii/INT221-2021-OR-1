@@ -9,7 +9,7 @@ import IconGuest from "../icons/IconGuest.vue"
 import IconEye from "../icons/IconEye.vue"
 import IconEyeOff from "../icons/IconEyeOff.vue"
 
-const emit = defineEmits(['login','loginAsGuest','loginAsMS'])
+const emit = defineEmits(['login', 'loginAsGuest', 'loginAsMS'])
 
 const user = ref({ email: "", password: "", rememberMe: false })
 const isShowPassword = ref(false)
@@ -17,12 +17,10 @@ const isShowPassword = ref(false)
 getRememberedUser()
 
 function getRememberedUser() {
-    if (localStorage.getItem("user")) { 
+    if (localStorage.getItem("user")) {
         const rememberedUser = JSON.parse(localStorage.getItem("user"))
         let text = CryptoJS.AES.encrypt("usersads", 'secret key')
-        console.log(CryptoJS.AES.decrypt(text,'secret key').toString(CryptoJS.enc.Utf8))
-        console.log(rememberedUser)
-        user.value = { email: rememberedUser.email, password: CryptoJS.AES.decrypt(rememberedUser.password,'secret key').toString(CryptoJS.enc.Utf8), rememberMe: true}
+        user.value = { email: rememberedUser.email, password: CryptoJS.AES.decrypt(rememberedUser.password, 'secret key').toString(CryptoJS.enc.Utf8), rememberMe: true }
     }
 }
 
@@ -37,7 +35,7 @@ function toggleShowPassword() {
 
 </script>
 <template>
-    <div 
+    <div
         class="bg-managray-300/10 shadow-2xl w-[350px] sm:w-[550px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col justify-center items-center p-8 rounded-xl">
 
         <h2 class="text-gray text-[12px] tracking-[.3rem]">WELCOME TO</h2>
@@ -78,13 +76,13 @@ function toggleShowPassword() {
             </button>
 
             <div class="flex items-center">
-        <!-- The left line -->
-        <div class="flex-grow h-px bg-managray-300"></div> 
-        <span class="flex-shrink text-lg text-managray-300 px-4 font-light">or</span>
+                <!-- The left line -->
+                <div class="flex-grow h-px bg-managray-300"></div>
+                <span class="flex-shrink text-lg text-managray-300 px-4 font-light">or</span>
 
-        <!-- The right line -->
-        <div class="flex-grow h-px bg-managray-300"></div>
-    </div>
+                <!-- The right line -->
+                <div class="flex-grow h-px bg-managray-300"></div>
+            </div>
 
             <div class="flex flex-col sm:flex-row sm:justify-between w-full h-[110px] sm:h-[45px] gap-y-6 gap-x-6">
                 <button @click="$emit('loginAsMS')" type="button"
@@ -102,7 +100,7 @@ function toggleShowPassword() {
                     class="w-full h-full text-manapink-100 group relative inline-block overflow-hidden border border-manapink-100 rounded-xl">
                     <span
                         class="absolute inset-y-0 left-0 w-[0px] bg-manapink-100 transition-all group-hover:w-full group-active:bg-manapink-500"></span>
-                    
+
                     <span
                         class="relative text-sm font-medium transition-colors group-hover:text-white flex gap-x-2 justify-center">
                         <IconGuest class="text-xl" />Login with Guest

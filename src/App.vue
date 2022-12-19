@@ -47,7 +47,6 @@ function goLogin() {
 function togglePopup(popup) {
   if (showingPopup.value === "") showingPopup.value = popup
   else showingPopup.value = ""
-    (showingPopup.value)
 };
 
 function showPopup(popup) {

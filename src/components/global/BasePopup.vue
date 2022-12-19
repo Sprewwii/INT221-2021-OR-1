@@ -23,19 +23,21 @@ defineEmits(['closePopup'])
                         <IconClose />
                     </button>
                     <div class="py-6 px-6 lg:px-8 text-white text-center flex flex-col justify-center items-center">
-                        
-                        <div v-if="popupMessage.type === 'success'" class="gap-y-2 text-white text-center flex flex-col justify-center items-center">
-                          <IconSuccess />
-                            <h3 class="text-3xl font-bold text-white mt-5">{{popupMessage.text}} </h3>
+
+                        <div v-if="popupMessage.type === 'success'"
+                            class="gap-y-2 text-white text-center flex flex-col justify-center items-center">
+                            <IconSuccess />
+                            <h3 class="text-3xl font-bold text-white mt-5">{{ popupMessage.text }} </h3>
                         </div>
-                        <div v-else-if="popupMessage.type === 'error'" class="gap-y-2 text-white text-center flex flex-col justify-center items-center">
-                            <h3 class="text-3xl font-bold text-white mt-5">{{popupMessage.header}} Failed !</h3>
-                             <p class="text-xl font-bold text-white mt-5">{{popupMessage.text}}</p>
+                        <div v-else-if="popupMessage.type === 'error'"
+                            class="gap-y-2 text-white text-center flex flex-col justify-center items-center">
+                            <h3 class="text-3xl font-bold text-white mt-5">{{ popupMessage.header }} Failed !</h3>
+                            <p class="text-xl font-bold text-white mt-5">{{ popupMessage.text }}</p>
                         </div>
-    
-                    <button @click="$emit('closePopup')"
-                        class="w-2/6 mt-6 bg-manapurple-100 focus:ring-4 focus:outline-none focus:ring-manapurple-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Ok</button>
-                </div>
+
+                        <button @click="$emit('closePopup')"
+                            class="w-2/6 mt-6 bg-manapurple-100 focus:ring-4 focus:outline-none focus:ring-manapurple-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Ok</button>
+                    </div>
                 </div>
             </div>
         </div>
