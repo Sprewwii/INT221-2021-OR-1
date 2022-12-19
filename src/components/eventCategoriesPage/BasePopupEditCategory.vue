@@ -1,9 +1,9 @@
 <script setup>
 import { ref, computed } from "vue"
-import IconClose from "./icons/IconClose.vue"
-import { eventManager } from "../scripts/eventManager.js"
-import { validation } from "../scripts/validation.js"
-import { decorator } from "../scripts/decorator.js"
+import IconClose from "../icons/IconClose.vue"
+import { eventManager } from "../../scripts/eventManager.js"
+import { validation } from "../../scripts/validation.js"
+import { decorator } from "../../scripts/decorator.js"
 
 
 const props = defineProps({
@@ -15,7 +15,6 @@ const props = defineProps({
 })
 
 function a() {
-    console.log(isCategoryNameUnique)
 }
 
 defineEmits(['editCategory', 'closeEditModal'])
@@ -26,7 +25,7 @@ const isCategoryNameUnique = ref(true)
 </script>
 <template>
     <div
-        class="bg-black/30 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
+        class="bg-black/60 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
         <div
             class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 relative p-4 w-full max-w-md h-auto">
             <div class="relative rounded-lg shadow bg-managray-100/10 backdrop-blur-xl" id="popupEdit">
@@ -44,7 +43,7 @@ const isCategoryNameUnique = ref(true)
                             <input v-model="editingCategory.categoryName" name="name" id="name" type="text"
                                 @blur="editingCategory.categoryName = editingCategory.categoryName.trim();"
                                 :class="[validation.validateLengthAndNotNull(editingCategory.categoryName, 1, 100) && isCategoryNameUnique ? decorator.normalFormBorder : decorator.redFormBorder]"
-                                class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 border placeholder-neutral-400 text-white"
                                 placeholder="Example OR-1" required>
                             <p v-if="editingCategory.categoryName === ''" class="text-sm text-red-400 absolute mt-1">*
                                 Enter category name.</p>
@@ -63,7 +62,7 @@ const isCategoryNameUnique = ref(true)
                                 <input v-model="editingCategory.categoryDuration" name="duration" id="duration"
                                     type="number" min="1" max="480"
                                     :class="[validation.validateCategoryDuration(editingCategory.categoryDuration) ? decorator.normalFormBorder : decorator.redFormBorder]"
-                                    class="w-1/2 text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
+                                    class="w-1/2 text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 border placeholder-neutral-400 text-white"
                                     required>
                                 <p class="text-neutral-400 ml-4">minutes</p>
 
@@ -77,7 +76,7 @@ const isCategoryNameUnique = ref(true)
                             <textarea v-model="editingCategory.categoryDescription" name="description" id="description"
                                 type="text"
                                 :class="[validation.validateLength(editingCategory.categoryDescription, 500) ? decorator.normalFormBorder : decorator.redFormBorder]"
-                                class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 border placeholder-neutral-400 text-white"
                                 placeholder="description..." required rows="5"></textarea>
                             <div v-if="editingCategory.categoryDescription" class="flex justify-end">
                                 <p :class="{ 'text-red-400': editingCategory.categoryDescription.length > 500 }"
@@ -85,10 +84,10 @@ const isCategoryNameUnique = ref(true)
                                     {{ editingCategory.categoryDescription.length }}/500</p>
                             </div>
                         </div>
-                        <!--ทำแบบ hover ปุ่มเเล้วสีเลื่อนแบบ login ให้หน่อย vvv-->
+
                         <button
                             @click="$event.preventDefault(); isCategoryNameUnique = validation.validateUniqueCategoryName(editingCategory); validation.validateEditCategory(editingCategory) && isCategoryNameUnique ? $emit('editCategory', editingCategory.categoryName !== editingCategory.currentCategoryName ? editingCategory : { categoryId: editingCategory.categoryId, categoryDuration: editingCategory.categoryDuration, categoryDescription: editingCategory.categoryDescription }, $event) : ''"
-                            class="w-full text-white bg-manapurple-100 tracking-wider transition-colors group-hover:text-white focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-800">Update</button>
+                            class="w-full text-white bg-manapurple-100 tracking-wider transition-colors group-hover:text-white focus:ring-4 focus:outline-none focus:bg-manapurple-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-manapurple-100 dark:hover:bg-manapurple-100 dark:focus:bg-manapurple-100">Update</button>
                     </form>
                 </div>
 

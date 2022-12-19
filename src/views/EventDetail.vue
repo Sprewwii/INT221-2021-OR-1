@@ -47,11 +47,11 @@ onBeforeMount(async () => {
 <template>
   <div class="w-full h-full">
     <!-- <BaseHeader /> -->
-    <div class="ml-64 pt-24">
+    <div class="lg:ml-64 pt-24 ">
       
-      <span class="text-gray-300 flex flex-row items-center gap-x-3 text-2xl pt-10 mb-3 mr-8 ml-28 font-[400] font-medium select-none">
+      <span class="lg:ml-24 text-gray-300 flex flex-row items-center gap-x-3 text-lg lg:text-2xl pt-10 mb-3 mr-8 ml-8  font-[400] font-medium select-none">
         <router-link :to="{ name: 'EventList' }" class="hover:opacity-60">
-                 <IconHome class="text-4xl"/> </router-link><p>></p><p> Events Detail ({{ eventDetail.name }})</p>
+                 <IconHome class="text-xl lg:text-4xl"/> </router-link><p>></p><p> Events Detail ({{ eventDetail.name }})</p>
       </span>
       <BaseEventDetail :eventDetail="eventDetail"/>
     </div>

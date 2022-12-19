@@ -33,13 +33,13 @@ async function downloadFile() {
 }
 </script>
 <template>
-    <div class="relative overflow-x-auto shadow-2xl rounded-lg ml-32 mr-16">
+    <div class="relative overflow-x-auto shadow-2xl rounded-lg mx-8 lg:ml-24">
         <div class="text-white rounded-lg bg-managray-300/20">
             <div v-if="props.eventDetail" class=" flex flex-col items-center">
-                <div class="mt-16 flex flex-col items-center w-4/6">
+                <div class="mt-16 flex flex-col items-center">
         
                     <div
-                        class="text-manapink-100 border border-manapink-100 rounded-lg text-lg text-center break-words flex justify-center items-center">
+                        class="text-manapink-100 border border-manapink-100 rounded-lg text-base lg:text-lg text-center break-words flex justify-center items-center">
                         <span class="px-6">
                             {{ props.eventDetail.name }}
                         </span>
@@ -53,9 +53,9 @@ async function downloadFile() {
                     </div>
                     <p class="font-[200] text-center mt-3">{{ props.eventDetail.email }}</p>
                 </div>
-                <div class="flex flex-col items-center mt-8 font-[200]">
+                <div class="flex flex-col items-center mt-8 lg:font-[200]">
                     <p class="text-managray-200 text-xs">EVENT</p>
-                    <p class="text-manapurple-100 text-2xl my-3 font-medium tracking-wider">
+                    <p class="text-manapurple-100 text-lg lg:text-2xl my-3 font-medium tracking-wider">
                         {{ props.eventDetail.categoryName }}
                     </p>
                     <div>

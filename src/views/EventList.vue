@@ -8,7 +8,7 @@ import BaseEventList from "../components/eventsPage/BaseEventList.vue"
 import BaseEventListSmall from "../components/eventsPage/BaseEventListSmall.vue"
 import BaseHeader from "../components/appPage/BaseHeader.vue";
 import BaseEditEventPopup from "../components/eventsPage/BaseEditEventPopup.vue"
-import BasePopupConfirm from "../components/BasePopupConfirm.vue"
+import BasePopupConfirm from "../components/global/BasePopupConfirm.vue"
 import BasePopup from "../components/BasePopup.vue"
 import BaseButtonFilter from "../components/eventsPage/BaseButtonFilter.vue"
 import IconCalendar from '../components/icons/IconCalendar.vue'
@@ -23,7 +23,7 @@ const editingBooking = ref({})
 const noEventMessage = ref("")
 const isShowDeleteBookingConfirm = ref(false)
 const isShowCreateBooking = ref(false)
-const popupMessage = ref(null)
+const popupMessage = ref({})
 
 const selectBooking = (id) => {
   if (selectedBookingId.value === id) {
@@ -43,12 +43,17 @@ const editBooking = async () => {
 
 }
 
-const updateEditingBooking = (booking, e) => {
+const updateEditingBooking = async (booking, e) => {
   e.preventDefault()
-  eventManager.editEvent(booking)
+  let response = await eventManager.editEvent(booking)
+  if(response === true){
+    popupMessage.value = {header:"Edit Booking",text:"Edit Booking",type: 'success'}
+  }else{
+    popupMessage.value = response
+  }
+
   editingBooking.value = {}
   selectBooking(0)
-  popupMessage.value = "Edit Booking"
 }
 
 const toggleDeleteConfirm = () => {
@@ -97,9 +102,9 @@ const getFileNameFromPath = (path) => { if (path) return path.replace(/^.*[\\\/]
       </button>
     </div> -->
 
-    <div class="lg:ml-64 mt-4 lg:mt-10 mr-1 lg:mr-12 mb-64">
+    <div class="ml-4 lg:ml-64 mt-4 lg:mt-10 lg:mr-12 mb-64">
       
-      <div class="flex flex-col gap-y-4 sm:gap-y-0 sm:flex-row sm:justify-between sm:items-center">
+      <div class="flex flex-col gap-y-4 sm:gap-y-0 sm:flex-row sm:justify-between sm:items-center mt-[100px] lg:mt-8 ml-4">
         <h1 class="w-full font-medium text-gray-300 text-2xl mr-8 lg:ml-28 font-[400] select-none inline-block align-middle tracking-normal">
           Scheduled Events 
         </h1>
@@ -109,9 +114,9 @@ const getFileNameFromPath = (path) => { if (path) return path.replace(/^.*[\\\/]
         @selectBooking="selectBooking" @editBooking="editBooking" @deleteBooking="toggleDeleteConfirm" />
         <BaseEventListSmall v-else :bookingList="eventList" :selectedBookingId="selectedBookingId" :noEventsWarning="noEventMessage"
         @selectBooking="selectBooking" @editBooking="editBooking" @deleteBooking="toggleDeleteConfirm" />
-      <BasePopup v-show="popupMessage" :popupText="popupMessage" :popupType="'success'"
-        @closePopup="popupMessage = null" />
-      <BasePopupConfirm v-show="isShowDeleteBookingConfirm" @closeConfirmModal="toggleDeleteConfirm"
+      <BasePopup v-show="Object.keys(popupMessage).length !== 0" :popupMessage="popupMessage"
+        @closePopup="popupMessage = {}" />
+      <BasePopupConfirm v-show="isShowDeleteBookingConfirm" :popupMessage="{header:'Delete Event', text:'Are you sure to delete this scheduled event ?'}" @closeConfirmModal="toggleDeleteConfirm"
         @deleteBooking="deleteBooking" />
       <BaseEditEventPopup v-show="Object.keys(editingBooking).length > 0" @closeEditEventPopup="editingBooking = {}"
         :editingBooking="editingBooking" @editBooking="updateEditingBooking" />

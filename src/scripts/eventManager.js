@@ -248,8 +248,11 @@ export const eventManager = reactive({
     }
   },
   editEvent: async function (booking) {
+    console.log("edit")
     const token = localStorage.getItem("token");
     if (!token) return;
+
+    console.log("ผ่าน edit")
 
     // create formData to collect file and json object, In json has isChangeFile to tell if file was changed.
     const file = booking.file && booking.file.type ? booking.file : null;
@@ -278,13 +281,20 @@ export const eventManager = reactive({
 
     if (res.status === 200) {
       this.getEvents();
+      return true;
     } else if (
       res.status === 401 &&
       (await userManager.refreshToken()) == true
     ) {
       this.editEvent(booking);
     } else {
-      return false;
+      let error = "";
+      for (let i = 0; i < info.details.length; i++) {
+        console.log(info.details[i].errorMessage);
+        error += info.details[i].errorMessage + " \n";
+      }
+      console.log(error);
+      return error;
     }
   },
   editEventCategory: async function (category) {

@@ -10,6 +10,7 @@ import BaseHeader from "./components/appPage/BaseHeader.vue";
 import BaseCreateEventPopup from "./components/appPage/BaseCreateEventPopup.vue";
 import BasePopup from "./components/BasePopup.vue";
 import BaseTest from "./components/BaseTest.vue";
+import aad from "./services/aad.js";
 // import BaseLogin from "./components/HomePage/BaseLogin.vue";
 
 const router = useRouter();
@@ -34,8 +35,9 @@ onBeforeMount(async () => {
   }
 });
 
-function logout () {
+async function logout () {
   console.log("home");
+  await aad.logout();
   router.push({ name: "Home" });
   userManager.logout();
 };
@@ -126,7 +128,7 @@ handleResize()
 </script>
 
 <template>
-  <div :class="`h-screen w-screen text-managray-100 ${path != '/' ? 'bg-black/20' : ''}`">
+  <div :class="`h-screen w-screen text-managray-100`">
     <!-- <button
       v-if="!isLogin"
       @click="toggleModal('login')"
@@ -208,13 +210,13 @@ body {
   background-attachment: fixed;
 }
 
-/* body:after {
+body:after {
   content: "";
   position: fixed;
   top: 0; bottom: 0; left: 0; right: 0; 
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.2);
   pointer-events: none;
   z-index: -99;
-} */
+}
 
 </style>

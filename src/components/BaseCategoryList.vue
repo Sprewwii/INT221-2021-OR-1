@@ -21,7 +21,7 @@ const selectedCategoryId = computed(() => props.selectedCategoryId)
 </script>
  
 <template>
-  <div class="grid gap-10 grid-cols-3 ml-32 mr-24 mt-6">
+  <div class="grid gap-10 grid-cols-3 ml-32 mr-24">
     <div
       class="block p-6 bg-managray-100/10 rounded-lg shadow-xl text-managray-100 text-center w-full transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
       id="cards" v-for="eventCategory in categoryList" :key="eventCategory.categoryId">

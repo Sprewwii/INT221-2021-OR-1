@@ -6,8 +6,8 @@ import { deviceManager } from "../scripts/deviceManager.js";
 import BaseUserList from "../components/usersPage/BaseUserList.vue";
 import BaseUserListSmall from "../components/usersPage/BaseUserListSmall.vue";
 import BasePopupEditUser from "../components/usersPage/BasePopupEditUser.vue";
-import BasePopupConfirm from "../components/BasePopupConfirm.vue";
-import BasePopup from "../components/BasePopup.vue";
+import BasePopupConfirm from "../components/global/BasePopupConfirm.vue";
+import BasePopup from "../components/global/BasePopup.vue";
 import BasePopupCreateUser from "../components/usersPage/BasePopupCreateUser.vue";
 import BaseMatchPassword from "../components/BaseMatchPassword.vue";
 import IconPlus from "../components/icons/IconPlus.vue"
@@ -22,6 +22,7 @@ const showingModal = ref("");
 
 // const isShowDeleteBookingConfirm = ref(false);
 const popupMessage = ref({})
+const popupConfirmMessage = ref({})
 
 const selectUser = (id) => {
   if (selectedUserId.value === id) {
@@ -63,6 +64,12 @@ const toggleModal = (modal) => {
   else showingModal.value = ""
 };
 
+const showDeleteUserPopup = () => {
+  const role = userManager.getUserByIdInLocal(selectedUserId.value).role
+  if(role === "lecturer"){popupConfirmMessage.value = {header:'This User Is Lecturer', text:'Are you sure to delete this user ?'}}
+  else {popupConfirmMessage.value = {header:'Delete User', text:'Are you sure to delete this user ?'}}
+  toggleModal('delete')
+}
 
 const deleteUser = () => {
   userManager.deleteUser(selectedUserId.value);
@@ -103,18 +110,30 @@ const matching = async (user, e) => {
 </script>
 
 <template>
-  <div class="ml-4 pr-8 lg:ml-64 w-full mb-64 pt-32 ">
-    <div class="flex justify-between items-center mt-2 pr-64">
+  <div class="pl-8 lg:ml-64 w-full pb-16 pt-32">
+    <div class="flex justify-between items-center mt-2">
       <h1 class="w-full text-gray-300 font-medium text-2xl lg:ml-28 font-[400] select-none inline-block align-middle tracking-normal">
         User List
       </h1>
-      <button
-        class="flex w-48 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
+      <!-- <button
+        class="flex w-48 items-center justify-center p-3 text-lg font-normal rounded-xl  border border-manapurple-100  text-white mx-10 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-manapurple-100 duration-300"
         @click="createUser()">
         <IconPlus width="1.5em" height="1.5em" fill="#ffffff" />
-        <span class="ml-3">Create User</span>
-      </button>
-      <button
+        <span class="ml-3 relative font-[300] tracking-wider sm:text-lg transition-colors group-hover:text-white flex gap-x-2 justify-center">Create User</span>
+      </button> -->
+      <button 
+            class="mr-8 w-[250px] h-[40px] text-manapurple-100 group relative inline-block overflow-hidden border border-manapurple-100 rounded-xl focus:outline-none" @click="createUser()">
+            <span
+               class="absolute inset-y-0 left-0 w-[0px] bg-manapurple-100 transition-all group-hover:w-full group-active:bg-manapurple-100"></span>
+            <span
+               class="relative font-[300] tracking-wider sm:text-lg transition-colors group-hover:text-white flex gap-x-2 justify-center">
+               <IconPlus width="1.5em" height="1.5em" fill="#A5ADF0"/> Create User
+            </span>
+         </button>
+
+
+
+      <!-- <button
         class="flex w-48 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
         @click="toggleModal('match')">
         <span class="ml-3">Match Password</span>
@@ -123,20 +142,19 @@ const matching = async (user, e) => {
         class="flex w-48 items-center justify-center p-3 text-lg font-normal rounded-full text-white mx-10 transition ease-in-out delay-150 bg-purple-600 hover:-translate-y-1 hover:scale-110 hover:bg-purple-700 duration-300"
         @click="userManager.refreshToken()">
         <span class="ml-3">refresh</span>
-      </button>
+      </button> -->
     </div>
     <BaseUserList v-if="deviceManager.deviceWidth >= 1024" :userList="userList" :selectedUserId="selectedUserId" @selectUser="selectUser" @editUser="editUser"
-      @deleteUser="toggleModal('delete')" class="pr-12" />
+      @deleteUser="showDeleteUserPopup" class="pr-12" />
       <BaseUserListSmall v-else :userList="userList" :selectedUserId="selectedUserId" @selectUser="selectUser" @editUser="editUser"
-      @deleteUser="toggleModal('delete')" class="pr-12" />
+      @deleteUser="showDeleteUserPopup" class="pr-12" />
 
-    <BasePopup v-show="Object.keys(popupMessage).length !== 0" :popupText="popupMessage.text" :popupType="popupMessage.type"
-      :popupHeader="popupMessage.header" @closePopup="popupMessage = {}" />
+    <BasePopup v-show="Object.keys(popupMessage).length !== 0" :popupMessage="popupMessage" @closePopup="popupMessage = {}" />
 
     <BasePopupCreateUser v-show="showingModal === 'create'" @showPopup="showPopup"
       @closeCreateModal="toggleModal('create');" />
 
-    <BasePopupConfirm v-show="showingModal === 'delete'" @closeConfirmModal="toggleModal('delete')"
+    <BasePopupConfirm v-show="showingModal === 'delete'" :popupMessage="popupConfirmMessage" @closeConfirmModal="toggleModal('delete')"
       @deleteBooking="deleteUser" />
 
     <BasePopupEditUser v-show="showingModal === 'edit'" @closeEditModal="toggleModal('edit'); userManager.selectedUser = {}"

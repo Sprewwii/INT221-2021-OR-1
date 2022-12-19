@@ -27,7 +27,11 @@ export const validation = {
         })
    },
     validateEditCategory :function(category){
-        return this.validateLengthAndNotNull(category.categoryName,100) && this.validateCategoryDuration(category.categoryDuration) && this.validateLength(category.categoryDescription,500)
+        console.log("validate")
+        console.log(this.validateLengthAndNotNull(category.categoryName,1,100))
+        console.log(this.validateCategoryDuration(category.categoryDuration))
+        console.log(this.validateLength(category.categoryDescription,500))
+        return this.validateLengthAndNotNull(category.categoryName,1,100) && this.validateCategoryDuration(category.categoryDuration) && this.validateLength(category.categoryDescription,500)
    },
    validateCategoryDuration :function(duration){
         return duration >= 1 && duration <= 480
@@ -67,5 +71,8 @@ validateUniqueEmail: function(currentUser){
 validateConfirmPassword: function(password,confirmPassword){
     return password === confirmPassword
 },
+validateLecturerIsCategoryOwner: function(){
+    
+}
 
 }

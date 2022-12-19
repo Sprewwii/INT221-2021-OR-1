@@ -47,21 +47,13 @@ async function loginAsMS(){
   aad.login().then(async (account)=>{
     console.log(account)
     userManager.userInfo.email = account.userName;
-    // console.log(account.idTokenClaims.roles[0])
-    // userManager.userInfo.role = account.idTokenClaims.roles[0];
+    console.log(account.idTokenClaims)
+    userManager.userInfo.role = account.idTokenClaims.roles[0];
+    localStorage.setItem("role", account.idTokenClaims.roles[0])
+    localStorage.setItem("email", account.idTokenClaims.preferred_username)
     router.push({ path: '/events' })
   })
-    
 }
-
-
-const logout = () => {
-  userManager.userList = [];
-  router.push({ name: "Home" });
-  console.log("home");
-  userManager.logout();
-  isLogin.value = false;
-};
 
 function showPopup(popup){
   // if (newPopup && newPopup.type === "success") {

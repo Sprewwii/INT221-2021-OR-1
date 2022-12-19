@@ -35,6 +35,8 @@ export const userManager = reactive({
       console.log("ไม่พบข้อมูล");
       return false
     }
+  },getUserByIdInLocal: function(userId){
+    return this.userList.find(user => userId === user.userId)
   },
   getUserById: async function (userId) {
    
@@ -127,7 +129,13 @@ export const userManager = reactive({
     this.deleteUser(userId)
   }
     else {
-      console.log(`ไม่พบข้อมูล user Id: ${userId}`);
+      let error = "";
+      for (let i = 0; i < info.details.length; i++) {
+        console.log(info.details[i].errorMessage);
+        error += info.details[i].errorMessage + " \n";
+      }
+      console.log(error);
+      return error;
     }
   },
 
@@ -214,6 +222,19 @@ export const userManager = reactive({
     this.userInfo = {role:"guest"}
     userManager.userList = [];
     eventManager.eventList = [];
+
+    deleteAllCookies();
+    function deleteAllCookies() {
+      console.log(cookie)
+      var cookies = document.cookie.split(";");
+  
+      for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i];
+          var eqPos = cookie.indexOf("=");
+          var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      }
+  }
   
   },
   refreshToken: async function(){

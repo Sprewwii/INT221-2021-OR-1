@@ -24,7 +24,7 @@ const noUsersWarning = computed(() => props.noUsersWarning)
 </script>
 
 <template>
-  <div class="mt-6 mr-20">
+  <div class="mt-6">
     <div class="relative bg-managray-300/20 rounded-2xl shadow-2xl ml-32 w-full">
       <table class="w-full text-center text-gray-200 select-none">
         <thead class="text-xs uppercase text-gray-300 sm:text-sm">

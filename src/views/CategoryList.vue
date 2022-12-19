@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import BaseEventCategoryList from "../components/eventCategoriesPage/BaseEventCategoryList.vue"
-import BasePopupEditCategory from "../components/BasePopupEditCategory.vue";
+import BasePopupEditCategory from "../components/eventCategoriesPage/BasePopupEditCategory.vue";
 import BasePopup from "../components/BasePopup.vue";
 import IconPlus from "../components/icons/IconPlus.vue";
 import { eventManager } from "../scripts/eventManager.js"
@@ -40,7 +40,7 @@ const cleanEditingCategory = () => {
 
 <template>
   <div class="lg:ml-64 pt-24">
-    <div class="flex flex-col mt-4 lg:mt-12 gap-y-8 lg:gap-y-0">
+    <div class="flex flex-col mt-4 lg:mt-12 gap-y-8 lg:gap-y-0 ml-8 mr-8 sm:ml-12 sm:mr-12 lg:mx-0 lg:mr-40">
       <h1 class="text-gray-300 font-medium text-2xl mr-8 lg:ml-28 font-[400] select-none inline-block ">
         Event Categories
       </h1>

@@ -84,7 +84,7 @@ const formatDate = () =>  {
           <div v-for="eventCategory in eventCategories" :key="eventCategory.categoryId"
             @click="filterCategory(eventCategory.categoryId); filterList[3].selectedCategory = eventCategory"
             :class="[filterList[3].selectedCategory && filterList[3].selectedCategory.categoryId === eventCategory.categoryId ? 'bg-manapink-100 text-white' : 'text-managray-100']"
-            class="block px-4 py-6 h-1/5 flex items-center text-sm capitalize transition-colors duration-200 transform hover:border hover:border-violet-500 hover:border-2">
+            class="block px-4 py-6 h-1/5 flex items-center text-sm capitalize transition-colors duration-200 transform hover:border hover:border-manapurple-100 hover:border-2">
             {{ eventCategory.categoryName }}
           </div>
         </div>

@@ -28,7 +28,7 @@ const noEventsWarning = computed(() => props.noEventsWarning)
 </script>
 
 <template>
-  <div class="mt-6 mr-20">
+  <div class="mr-20">
     <div class="relative shadow-2xl ml-32 w-full">
       <table class="w-full text-center text-gray-200 select-none">
         <thead class="text-xs uppercase text-gray-300 sm:text-sm">

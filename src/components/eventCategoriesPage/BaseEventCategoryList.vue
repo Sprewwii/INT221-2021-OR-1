@@ -21,7 +21,7 @@ const selectedCategoryId = computed(() => props.selectedCategoryId)
 </script>
 
 <template>
-  <div class="grid gap-10 grid-col content-center w-4/5 lg:grid-cols-3 lg:ml-32 sm:mr-24 sm:mt-6 sm:mb-32 mx-auto justify-center justify-self-center">
+  <div class="grid gap-10 grid-cols content-center w-full mb-8 sm:grid-cols-2 lg:grid-cols-3 lg:ml-20 lg:mr-20 sm:mt-6 sm:mb-32 mx-auto justify-center justify-self-center">
     <div
       class="block p-6 bg-managray-100/10 rounded-lg shadow-xl text-managray-100 text-center w-full transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
       id="cards" v-for="eventCategory in categoryList" :key="eventCategory.categoryId">
@@ -34,15 +34,15 @@ const selectedCategoryId = computed(() => props.selectedCategoryId)
             }}</h5>
           <div class="inline-block relative w-full justify-end">
             <div class="flex justify-end">
-              <button @click="$emit('selectCategory', eventCategory.categoryId)" class="px-2 py-1">
+              <button @click="$emit('selectCategory', eventCategory.categoryId)" class="pr-0 py-1">
                 <IconMenuKebabVue />
               </button>
             </div>
-            <div class="flex justify-end w-full pt-3 ml-20">
-              <ul class="absolute text-white z-10" v-show="selectedCategoryId === eventCategory.categoryId">
+            <div class="flex justify-end w-full pt-1 ml-20">
+              <ul class="absolute text-white z-10 mr-20 -" v-show="selectedCategoryId === eventCategory.categoryId">
                 <li>
                   <button
-                    class="rounded bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex z-50"
+                    class="rounded bg-managray-100/50 backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex z-50"
                     @click="$emit('editCategory', { ...eventCategory })">
                     <IconEdit class="mr-2" />Edit
                   </button>
