@@ -40,7 +40,7 @@ const filterDate = () => {
     eventFilter.selectedFilter = filterList[4];
     filterList[3].selectedCategory = null
      toggleFilterList();
-
+    
     eventManager.getEventsByDate(formatDate())
   }
 }
@@ -48,6 +48,7 @@ const filterDate = () => {
 const formatDate = () =>  {
   const date = new Date(choosedDate.value)
     date.setMonth(date.getMonth() + 1)
+    // console.log()
   return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
 }
 </script>

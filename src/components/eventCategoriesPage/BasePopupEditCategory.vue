@@ -25,7 +25,7 @@ const isCategoryNameUnique = ref(true)
 </script>
 <template>
     <div
-        class="bg-black/60 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
+        class="bg-black/60 z-50 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
         <div
             class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 relative p-4 w-full max-w-md h-auto">
             <div class="relative rounded-lg shadow bg-managray-100/10 backdrop-blur-xl" id="popupEdit">

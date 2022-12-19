@@ -12,7 +12,7 @@ export const eventManager = reactive({
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     });
 
@@ -39,7 +39,7 @@ export const eventManager = reactive({
         method: "GET",
         headers: {
           "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -66,7 +66,7 @@ export const eventManager = reactive({
         method: "GET",
         headers: {
           "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -92,7 +92,7 @@ export const eventManager = reactive({
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     });
 
@@ -116,7 +116,7 @@ export const eventManager = reactive({
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     });
 
@@ -133,6 +133,7 @@ export const eventManager = reactive({
     }
   },
   getEventsByDate: async function (date) {
+    console.log(date)
     const token = localStorage.getItem("token");
     if (!token) return;
 
@@ -142,7 +143,7 @@ export const eventManager = reactive({
         method: "GET",
         headers: {
           "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -168,7 +169,7 @@ export const eventManager = reactive({
         method: "GET",
         headers: {
           "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -236,7 +237,7 @@ export const eventManager = reactive({
         method: "DELETE",
         headers: {
           "content-type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -273,7 +274,7 @@ export const eventManager = reactive({
       {
         method: "PATCH",
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
         body: formData,
       }
@@ -300,13 +301,14 @@ export const eventManager = reactive({
   editEventCategory: async function (category) {
     const token = localStorage.getItem("token");
     if (!token) return;
-    
+
     const res = await fetch(
       `${import.meta.env.VITE_API}/api/eventCategories/${category.categoryId}`,
       {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
+          "Authorization": `Bearer ${token}` 
         },
         body: JSON.stringify(category),
       }
@@ -321,6 +323,7 @@ export const eventManager = reactive({
       foundCategory.categoryDuration = editedCategory.categoryDuration;
       foundCategory.categoryDescription = editedCategory.categoryDescription;
       this.getEvents();
+      return true;
     } else if (
       res.status === 401 &&
       (await userManager.refreshToken()) == true
@@ -329,6 +332,7 @@ export const eventManager = reactive({
       this.editEventCategory(category);
     } else {
       console.log("ไม่สามารถแก้ไขข้อมูลได้");
+      return false;
     }
   },
 });

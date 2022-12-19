@@ -8,7 +8,8 @@ import BaseNavbarButton from "./components/appPage/BaseNavBarButton.vue";
 import BaseNavbar from "./components/appPage/BaseNavBar.vue";
 import BaseHeader from "./components/appPage/BaseHeader.vue";
 import BaseCreateEventPopup from "./components/appPage/BaseCreateEventPopup.vue";
-import BasePopup from "./components/BasePopup.vue";
+import BasePopup from "./components/global/BasePopup.vue";
+import BaseLoadingPopup from "./components/global/BaseLoadingPopup.vue";
 import BaseTest from "./components/BaseTest.vue";
 import aad from "./services/aad.js";
 // import BaseLogin from "./components/HomePage/BaseLogin.vue";
@@ -17,7 +18,7 @@ const router = useRouter();
 const route = useRoute()
 const showingPopup = ref("");
 const popupMessage = ref({});
-// const isMobile = ref(false);
+const isLoading = ref(false);
 const isShowNavbar = ref(false);
 
 // Collect current path
@@ -58,6 +59,10 @@ function showPopup(popup){
 
 function toggleNavbar(){
   isShowNavbar.value = !isShowNavbar.value;
+}
+
+function setLoading(loading){
+  isLoading.value = loading;
 }
 
 window.addEventListener('resize', handleResize)
@@ -177,8 +182,10 @@ handleResize()
     <BaseCreateEventPopup
       v-show="showingPopup == 'createEvent'"
       @closeCreateEventPopup="togglePopup('createEvent')"
+      @setLoading="setLoading"
       @showPopupSuccess="
-        toggleModal('create');
+        togglePopup('createEvent');
+        isLoading = false;
         showPopup({
           text: 'Create Event Successful !',
           type: 'success',
@@ -192,6 +199,8 @@ handleResize()
       :popupMessage="popupMessage"
       @closePopup="showPopup({})"
     />
+
+    <BaseLoadingPopup v-show="isLoading"/>
     <!-- <BaseHeader class="bg-red-500"/> -->
     <router-view>
     </router-view>

@@ -4,7 +4,6 @@ import { eventManager } from "../scripts/eventManager.js"
 import { useRoute, useRouter } from "vue-router"
 import BaseHeader from "../components/appPage/BaseHeader.vue";
 import BaseEventDetail from "../components/eventDetailPage/BaseEventDetail.vue"
-import LoadingPopup from "../components/global/LoadingPopup.vue"
 import IconArrowLeft from "../components/icons/IconArrowLeft.vue"
 import IconHome from "../components/icons/IconHome.vue"
 

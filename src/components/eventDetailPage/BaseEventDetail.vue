@@ -44,7 +44,7 @@ async function downloadFile() {
                             {{ props.eventDetail.name }}
                         </span>
                         <div class="bg-manapink-100 text-managray-400 px-6 py-3 rounded-r-lg">
-                            <button v-if="props.eventDetail.pathFile" @click="downloadFile" class="text-white rounded-3xl p-2">{{
+                            <button v-if="props.eventDetail.pathFile" @click="downloadFile" class="text-gray-900 rounded-3xl p-2">{{
                                     getFileNameFromPath(props.eventDetail.pathFile)
                             }}</button>
                                <p v-else class="text-sm">No File</p>
@@ -97,7 +97,7 @@ async function downloadFile() {
             <div class="w-36 mt-12">
                 <router-link :to="{ name: 'EventList' }" class="flex items-center hover:opacity-80 pb-6 pl-10">
                     <IconArrowLeft class="text-manapink-100 text-3xl"/>
-                    <p class="text-sm font-[300]">Back</p>
+                    <p class="text-base font-[300]">Back</p>
                 </router-link>
             </div>
         </div>

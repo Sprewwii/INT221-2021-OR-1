@@ -2,14 +2,15 @@
 import { ref, computed } from "vue"
 import { eventManager } from "../scripts/eventManager.js"
 import { userManager } from "../scripts/userManager.js"
-import { deviceManager } from "../scripts/deviceManager.js";
+import { deviceManager } from "../scripts/deviceManager.js"
 import { validation } from "../scripts/validation.js"
 import BaseEventList from "../components/eventsPage/BaseEventList.vue"
 import BaseEventListSmall from "../components/eventsPage/BaseEventListSmall.vue"
-import BaseHeader from "../components/appPage/BaseHeader.vue";
+import BaseHeader from "../components/appPage/BaseHeader.vue"
 import BaseEditEventPopup from "../components/eventsPage/BaseEditEventPopup.vue"
 import BasePopupConfirm from "../components/global/BasePopupConfirm.vue"
-import BasePopup from "../components/BasePopup.vue"
+import BasePopup from "../components/global/BasePopup.vue"
+import BaseLoadingPopup from "../components/global/BaseLoadingPopup.vue"
 import BaseButtonFilter from "../components/eventsPage/BaseButtonFilter.vue"
 import IconCalendar from '../components/icons/IconCalendar.vue'
 import BaseTest from "../components/BaseTest.vue"
@@ -19,6 +20,7 @@ const eventList = computed(() => eventManager.eventList)
 const eventCategories = computed(() => eventManager.eventCategories)
 const selectedBookingId = ref(0)
 const editingBooking = ref({})
+const isLoading = ref(false)
 
 const noEventMessage = ref("You Don't have Scheduled Events")
 const isShowDeleteBookingConfirm = ref(false)
@@ -45,15 +47,20 @@ const editBooking = async () => {
 
 const updateEditingBooking = async (booking, e) => {
   e.preventDefault()
+  isLoading.value = true
   let response = await eventManager.editEvent(booking)
-  if(response === true){
-    popupMessage.value = {text:"Edit Booking",type: 'success'}
-  }else{
+  if (response === true) {
+    popupMessage.value = { text: "Edit Booking", type: 'success' }
+  } else {
     popupMessage.value = response
   }
-
+  isLoading.value = false
   editingBooking.value = {}
   selectBooking(0)
+
+  setTimeout(() => {
+    if (isLoading.value === true) isLoading.value = false
+  }, 5000)
 }
 
 const toggleDeleteConfirm = () => {
@@ -66,9 +73,15 @@ const toggleDeleteConfirm = () => {
 // }
 
 const deleteBooking = () => {
+  isLoading.value = true
   eventManager.deleteEvent(selectedBookingId.value)
   toggleDeleteConfirm()
   selectBooking(0)
+  isLoading.value = false
+
+  setTimeout(() => {
+    if (isLoading.value === true) isLoading.value = false
+  }, 5000)
 }
 
 const setNoEventMessage = (message) => {
@@ -103,31 +116,36 @@ const getFileNameFromPath = (path) => { if (path) return path.replace(/^.*[\\\/]
     </div> -->
 
     <div class="ml-4 lg:ml-64 mt-4 lg:mt-10 lg:mr-12 mb-64">
-      
-      <div class="flex flex-col gap-y-4 sm:gap-y-0 sm:flex-row sm:justify-between sm:items-center mt-[100px] lg:mt-8 ml-4">
-        <h1 class="w-full font-medium text-gray-300 text-2xl mr-8 lg:ml-28 font-[400] select-none inline-block align-middle tracking-normal">
-          Scheduled Events 
+
+      <div
+        class="flex flex-row gap-y-4 sm:gap-y-0 justify-between items-center mt-[100px] lg:mt-8 ml-4">
+        <h1
+          class="w-60 font-medium text-gray-300 text-2xl lg:ml-28 font-[400] select-none inline-block align-middle tracking-normal">
+          Scheduled Events
         </h1>
-        <BaseButtonFilter :eventCategories="eventCategories" @noEventMessage="setNoEventMessage" class="w-full flex justify-end"/>
+        <BaseButtonFilter :eventCategories="eventCategories" @noEventMessage="setNoEventMessage"
+          class="w-full flex justify-end" />
       </div>
-      <BaseEventList v-if="deviceManager.deviceWidth >= 1024" :bookingList="eventList" :selectedBookingId="selectedBookingId" :noEventsWarning="noEventMessage"
-        @selectBooking="selectBooking" @editBooking="editBooking" @deleteBooking="toggleDeleteConfirm" />
-        <BaseEventListSmall v-else :bookingList="eventList" :selectedBookingId="selectedBookingId" :noEventsWarning="noEventMessage"
-        @selectBooking="selectBooking" @editBooking="editBooking" @deleteBooking="toggleDeleteConfirm" />
+      <BaseEventList v-if="deviceManager.deviceWidth >= 1024" :bookingList="eventList"
+        :selectedBookingId="selectedBookingId" :noEventsWarning="noEventMessage" @selectBooking="selectBooking"
+        @editBooking="editBooking" @deleteBooking="toggleDeleteConfirm" />
+      <BaseEventListSmall v-else :bookingList="eventList" :selectedBookingId="selectedBookingId"
+        :noEventsWarning="noEventMessage" @selectBooking="selectBooking" @editBooking="editBooking"
+        @deleteBooking="toggleDeleteConfirm" />
       <BasePopup v-show="Object.keys(popupMessage).length !== 0" :popupMessage="popupMessage"
         @closePopup="popupMessage = {}" />
-      <BasePopupConfirm v-show="isShowDeleteBookingConfirm" :popupMessage="{header:'Delete Event', text:'Are you sure to delete this scheduled event ?'}" @closeConfirmModal="toggleDeleteConfirm"
-        @deleteBooking="deleteBooking" />
+      <BasePopupConfirm v-show="isShowDeleteBookingConfirm"
+        :popupMessage="{ header: 'Delete Event', text: 'Are you sure to delete this scheduled event ?' }"
+        @closeConfirmModal="toggleDeleteConfirm" @deleteBooking="deleteBooking" />
+      <BaseLoadingPopup v-show="isLoading" />
       <BaseEditEventPopup v-show="Object.keys(editingBooking).length > 0" @closeEditEventPopup="editingBooking = {}"
         :editingBooking="editingBooking" @editBooking="updateEditingBooking" />
-      <BasePopupCreate v-show="isShowCreateBooking"/>
+      <BasePopupCreate v-show="isShowCreateBooking" />
     </div>
   </div>
 
 </template>
 
 <style scoped>
-
-
 
 </style>

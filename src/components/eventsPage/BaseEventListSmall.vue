@@ -28,7 +28,7 @@ const noEventsWarning = computed(() => props.noEventsWarning)
 </script>
 
 <template>
-  <div class="mt-6 pb-64 ml-0 lg:ml-20 lg:pr-20 w-full font-[200]">
+  <div class="mt-6 pb-16 ml-0 lg:ml-20 lg:pr-20 w-full font-[200]">
     <div class="relative bg-managray-300/20 rounded-2xl shadow-2xl w-full">
       <table class="w-full text-center text-gray-200 select-none divide-y divide-managray-100/30">
         <tbody v-if="bookingList.length === 0">
@@ -66,17 +66,17 @@ const noEventsWarning = computed(() => props.noEventsWarning)
                 <button @click="$emit('selectBooking', booking.id)" class="p-3">
                   <IconMenuKebabVue />
                 </button>
-                <ul class="absolute text-white pt-1 z-10" v-show="selectedBookingId === booking.id">
+                <ul class="absolute text-white pt-1 right-5 z-10" v-show="selectedBookingId === booking.id">
                   <li>
                     <button
-                      class="rounded-t bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
+                    class="rounded-t bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
                       @click="$emit('editBooking')">
                       <IconEdit class="mr-2" />Edit
                     </button>
                   </li>
                   <li>
                     <button
-                      class="rounded-b bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full items-center flex border-t border-l-0 border-r-0 border-b-0 border-gray-600"
+                    class="rounded-b bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full items-center flex border-t border-l-0 border-r-0 border-b-0 border-managray-100/50"
                       @click="$emit('deleteBooking')">
                       <IconDelete class="mr-2" />Delete
                     </button>

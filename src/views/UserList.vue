@@ -9,6 +9,7 @@ import BasePopupEditUser from "../components/usersPage/BasePopupEditUser.vue";
 import BasePopupConfirm from "../components/global/BasePopupConfirm.vue";
 import BasePopup from "../components/global/BasePopup.vue";
 import BasePopupCreateUser from "../components/usersPage/BasePopupCreateUser.vue";
+import BaseLoadingPopup from "../components/global/BaseLoadingPopup.vue";
 import BaseMatchPassword from "../components/BaseMatchPassword.vue";
 import IconPlus from "../components/icons/IconPlus.vue"
 // import BaseLogin from "../components/HomePage/BaseLogin.vue"
@@ -19,6 +20,7 @@ const userList = computed(() => userManager.userList);
 const selectedUserId = ref(0);
 const editingUser = ref({});
 const showingModal = ref("");
+const isLoading = ref(false);
 
 // const isShowDeleteBookingConfirm = ref(false);
 const popupMessage = ref({})
@@ -46,8 +48,10 @@ const editUser = async () => {
 
 const updateEditingUser = async (user, e) => {
   e.preventDefault();
+  isLoading.value = true;
   if (user) {
     const response = await userManager.editUser(user);
+    isLoading.value = false;
     if (response === true) {
       editingUser.value = {};
       selectUser(0);
@@ -56,6 +60,8 @@ const updateEditingUser = async (user, e) => {
     }else {
       popupMessage.value = { text: response, type: "error" , header:"Edit"}
     }
+    isLoading.value = false
+
   }
 };
 
@@ -122,11 +128,11 @@ const matching = async (user, e) => {
         <span class="ml-3 relative font-[300] tracking-wider sm:text-lg transition-colors group-hover:text-white flex gap-x-2 justify-center">Create User</span>
       </button> -->
       <button 
-            class="mr-12 w-[250px] h-[40px] text-manapurple-100 group relative inline-block overflow-hidden border border-manapurple-100 rounded-xl focus:outline-none" @click="createUser()">
+            class="mr-12 w-[250px] h-[50px] text-manapurple-100 group relative inline-block overflow-hidden border border-manapurple-100 rounded-xl focus:outline-none" @click="createUser()">
             <span
                class="absolute inset-y-0 left-0 w-[0px] bg-manapurple-100 transition-all group-hover:w-full group-active:bg-manapurple-100"></span>
             <span
-               class="relative font-[300] tracking-wider sm:text-lg transition-colors group-hover:text-white flex gap-x-2 justify-center">
+               class="relative tracking-wider sm:text-lg transition-colors group-hover:text-white flex gap-x-2 justify-center">
                <IconPlus width="1.5em" height="1.5em" fill="#A5ADF0"/> Create User
             </span>
          </button>
@@ -160,6 +166,7 @@ const matching = async (user, e) => {
     <BasePopupEditUser v-show="showingModal === 'edit'" @closeEditModal="toggleModal('edit'); userManager.selectedUser = {}"
       :editingUser="editingUser" @editUser="updateEditingUser" />
 
+      <BaseLoadingPopup v-show="isLoading"/>
     <!-- <BaseLogin v-show="showingModal === 'login'" @closeEditModal="toggleModal('login'); backToPrevious()" @loginUser="loginUser"
       @showPopup="showPopup" /> -->
 

@@ -61,9 +61,9 @@ for (let warning in showWarning.value) {
 </script>
 <template>
     <div
-        class="bg-black/60 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
+        class="bg-black/60 z-50 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
         <div
-            class="fixed top-1/2 z-50 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto ">
+            class="fixed top-1/2 z-50 left-1/2 transform -translate-x-1/2 -translate-y-1/2 relative p-4 w-full max-w-md h-full md:h-auto ">
             <div class="relative rounded-lg shadow bg-managray-100/10 backdrop-blur-md" id="popupEdit">
                 <button type="button" @click="$emit('closeEditModal')"
                     class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">

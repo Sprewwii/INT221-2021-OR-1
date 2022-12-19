@@ -25,8 +25,8 @@ async function login(user){
   let response = await userManager.login(user);
 
   if (response === true) {
+
     showPopup({ text: "Login Successful !", type: "success", header: "Login" });
-    // isLogin.value = true;
 
     // close success popup in 2 seconds 
     setTimeout(()=>{

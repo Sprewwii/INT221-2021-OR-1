@@ -23,16 +23,22 @@ const editCategory = (eventCategory) => {
   editingCategory.value = { ...eventCategory, currentCategoryName: eventCategory.categoryName }
 }
 
-const updateEditCategory = (eventCategory, e) => {
-  e.preventDefault()
-  eventManager.editEventCategory(eventCategory)
-  // cleanEditingCategory()
-  // popupMessage.value = { text: 'Edit Event Category', type: 'success' }
+ const updateEditCategory = async (eventCategory, e) => {
+  e.preventDefault();
+  const response = await eventManager.editEventCategory(eventCategory)
+  cleanEditingCategory();
+
+  if(response){
+  popupMessage.value = { text: 'Edit Event Category', type: 'success' }
+}else {
+  popupMessage.value = { header: 'Edit Event Category', type: 'error', text:'Can Not Edit Event Category' }
+}
+  
 }
 
 const cleanEditingCategory = () => {
-  editingCategory.value = {}
-  selectedCategoryId.value = 0
+  editingCategory.value = {};
+  selectedCategoryId.value = 0;
 }
 // popupSuccessText='Edit Event Category'
 </script>
@@ -48,7 +54,7 @@ const cleanEditingCategory = () => {
     </div>
     <BasePopupEditCategory v-show="Object.keys(editingCategory).length > 0" :editingCategory="editingCategory"
       @editCategory="updateEditCategory" @closeEditModal="cleanEditingCategory" />
-    <BasePopup v-show="popupText" :popupMessage="popupMessage" @closePopup="popupText = null" />
+    <BasePopup v-show="Object.keys(popupMessage).length > 0" :popupMessage="popupMessage" @closePopup="popupMessage = {}" />
   </div>
 </template>
 

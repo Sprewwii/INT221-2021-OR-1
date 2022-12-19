@@ -73,23 +73,23 @@ const clearCreatingUser = () => {
  
 <template>
     <div
-        class="bg-black/60 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
+        class="bg-black/60 z-50 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
         <div
-            class="fixed top-1/2 z-50 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto ">
+            class="fixed top-1/2 z-50 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pt-8 relative p-4 w-full max-w-md h-auto ">
             <div class="relative rounded-lg shadow bg-managray-100/10 backdrop-blur-md">
                 <button type="button" @click="$emit('closeCreateModal'); clearCreatingUser()"
                     class="absolute top-3 right-2.5 text-neutral-400 mt-2 mr-4 bg-transparent hover:bg-neutral-200 hover:text-neutral-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
                     <IconClose />
                 </button>
 
-                <div class="py-6 px-6 lg:px-8 ">
+                <div class="py-12 lg:py-6 px-6 lg:px-8 h-full max-h-screen overflow-y-auto">
                     <h3 class="mb-4 text-2xl font-medium text-white">Create New User</h3>
                     <form class="space-y-6">
                         <div>
                             <label for="name" class="block mb-1 text-sm font-medium text-neutral-300">Name</label>
                             <input v-model="creatingUser.name" type="text" name="name" id="name"
                                 :class="[validation.validateLength(creatingUser.name, 100) && !showWarning.isName ? decorator.normalFormBorder : decorator.redFormBorder]"
-                                class="text-sm rounded-lg block w-full p-2.5 bg-manapurple-100/20 border placeholder-neutral-400 text-white"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 border placeholder-neutral-400 text-white"
                                 placeholder="Example Prew Sud Narak"
                                 @blur="showWarning.isName = !creatingUser.name; validateUniqueName(); creatingUser ? creatingUser.name = creatingUser.name.trim():''" />
                             <p v-if="showWarning.isName" class="text-[12px] text-red-400 absolute mt-1">* Enter your name.
@@ -106,7 +106,7 @@ const clearCreatingUser = () => {
                             <label for="password" class="block mb-1 text-sm font-medium text-neutral-300">Password</label>
                             <input v-model="creatingUser.password" type="password" name="password" id="password"
                                 :class="[validation.validateLength(creatingUser.password,14) && !showWarning.isPassword ? decorator.normalFormBorder : decorator.redFormBorder]"
-                                class="text-sm rounded-lg block w-full p-2.5 bg-manapurple-100/20 border placeholder-neutral-400 text-white"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 border placeholder-neutral-400 text-white"
                                 placeholder="Example narak1234"
                                 @blur="showWarning.isPassword = !validation.validateLengthAndNotNull(creatingUser.password,8,14); showWarning.matchPassword = !validation.validateConfirmPassword(creatingUser.password,creatingUser.confirmPassword)"/>
                             <p v-show="showWarning.isPassword" class="text-[12px] text-red-400 absolute mt-1">* Password must have 8-14 characters.
@@ -122,7 +122,7 @@ const clearCreatingUser = () => {
                             <label for="confirmPassword" class="block mb-1 text-sm font-medium text-neutral-300">Confirm Password</label>
                             <input v-model="creatingUser.confirmPassword" type="password" name="confirmPassword" id="confirmPassword"
                                 :class="[validation.validateLength(creatingUser.confirmPassword,14) && !showWarning.isConfirmPassword ? decorator.normalFormBorder : decorator.redFormBorder]"
-                                class="text-sm rounded-lg block w-full p-2.5 bg-manapurple-100/20 border placeholder-neutral-400 text-white"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 border placeholder-neutral-400 text-white"
                                 placeholder="Example narak1234"
                                 @blur="showWarning.isConfirmPassword = !validation.validateLengthAndNotNull(creatingUser.confirmPassword,8,14); showWarning.matchPassword = !validation.validateConfirmPassword(creatingUser.password,creatingUser.confirmPassword)"/>
                             <p v-if="showWarning.isConfirmPassword" class="text-[12px] text-red-400 absolute mt-1">* Confirm password must have 8-14 characters.
@@ -141,7 +141,7 @@ const clearCreatingUser = () => {
                             <label for="email" class="block mb-1 text-sm font-medium text-neutral-300">Email</label>
                             <input v-model="creatingUser.email" name="email" id="email" type="text"
                                 :class="[validation.validateLength(creatingUser.email, 50) && !showWarning.isEmail && !showWarning.email ? decorator.normalFormBorder : decorator.redFormBorder]"
-                                class="text-sm rounded-lg block w-full p-2.5 bg-manapurple-100/20 border placeholder-neutral-400 text-white"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 border placeholder-neutral-400 text-white"
                                 placeholder="Example@mail.kmutt.ac.th"
                                 @blur="showWarning.isEmail = !creatingUser.email; validateEmail(); validateUniqueEmail(); creatingUser.email = creatingUser.email.trim()" />
                             <p v-if="showWarning.isEmail" class="text-[12px] text-red-400 absolute mt-1">* Enter your email.

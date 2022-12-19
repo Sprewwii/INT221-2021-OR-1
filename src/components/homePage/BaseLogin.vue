@@ -19,14 +19,15 @@ getRememberedUser()
 function getRememberedUser() {
     if (localStorage.getItem("user")) { 
         const rememberedUser = JSON.parse(localStorage.getItem("user"))
-        user.value = { email: rememberedUser.email, password: rememberedUser.password, rememberMe: true}
+        let text = CryptoJS.AES.encrypt("usersads", 'secret key')
+        console.log(CryptoJS.AES.decrypt(text,'secret key').toString(CryptoJS.enc.Utf8))
+        console.log(rememberedUser)
+        user.value = { email: rememberedUser.email, password: CryptoJS.AES.decrypt(rememberedUser.password,'secret key').toString(CryptoJS.enc.Utf8), rememberMe: true}
     }
 }
 
 function login(e) {
     e.preventDefault()
-    console.log("login โว้ย" + user.value.email)
-    console.log("rememberMe โว้ย" + user.value.rememberMe)
     emit('login', user.value)
 }
 
@@ -34,7 +35,6 @@ function toggleShowPassword() {
     isShowPassword.value = !isShowPassword.value
 }
 
-console.log("yes com")
 </script>
 <template>
     <div 

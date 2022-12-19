@@ -6,7 +6,7 @@ import { userManager } from "../../scripts/userManager.js"
 import { validation } from "../../scripts/validation.js"
 import { decorator } from "../../scripts/decorator.js"
 
-const emit = defineEmits(["closeCreateEventPopup", "showPopupSuccess"])
+const emit = defineEmits(["closeCreateEventPopup", "showPopupSuccess","setLoading"])
 // const imgInput = ref(null);
 const eventCategories = computed(() => eventManager.eventCategories)
 const creatingBooking = ref({})
@@ -78,10 +78,13 @@ const createBooking = async (e) => {
   }
 
   if (!showWarning.value.create) {
+    emit('setLoading',true)
     const response = await eventManager.createEvent(creatingBooking.value)
     emit('showPopupSuccess')
     clearCreatingBooking()
-
+    setTimeout(() => {
+      emit('setLoading',false)
+    },5000)
   }
   console.log("create")
 }
@@ -117,7 +120,7 @@ function closeCreateEventPopup() {
 </script>
 
 <template>
-  <div class="bg-black/70 h-screen w-full overflow-y-hidden overflow-x-hidden fixed z-50 justify-center items-center">
+  <div class="bg-black/60 h-screen w-full overflow-y-hidden overflow-x-hidden fixed z-50 justify-center items-center">
     <div
       class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 relative p-4 pt-8 w-full max-w-md md:max-w-none lg:w-[760px] h-full md:h-auto">
       <div class="relative rounded-lg bg-managray-300/20 backdrop-blur-md shadow-2xl w-full">
@@ -143,7 +146,7 @@ function closeCreateEventPopup() {
                     ? decorator.normalFormBorder
                     : decorator.redFormBorder,
                 ]"
-                  class="text-sm rounded-lg block w-full p-2.5 bg-managray-100/10 border placeholder-neutral-400 text-white"
+                  class="text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 border placeholder-neutral-400 text-white"
                   placeholder="Example OR-1" @blur="showWarning.isName = !creatingBooking.name" />
                 <p v-show="showWarning.isName" class="text-sm text-red-400 absolute mt-1">
                   * Enter your name.
@@ -168,7 +171,7 @@ function closeCreateEventPopup() {
                     ? decorator.normalFormBorder
                     : decorator.redFormBorder,
                 ]"
-                  class="text-sm rounded-lg block w-full p-2.5 bg-managray-100/10 border placeholder-neutral-400 text-white"
+                  class="text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 border placeholder-neutral-400 text-white"
                   placeholder="Example@mail.kmutt.ac.th" @blur="
   showWarning.isEmail = !creatingBooking.email;
 validateEmail();

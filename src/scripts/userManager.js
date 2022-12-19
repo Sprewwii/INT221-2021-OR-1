@@ -196,8 +196,12 @@ export const userManager = reactive({
       this.userInfo.role = info.role[0]
       this.userInfo.email = userLogin.email;
 
+
       if(info.role[0] === "admin")this.getUsers();
-      if(userLogin.rememberMe){localStorage.setItem("user", JSON.stringify({email:userLogin.email,password:userLogin.password}));}
+      if(userLogin.rememberMe){
+        const passwordEncrypted = CryptoJS.AES.encrypt(userLogin.password, 'secret key')
+        console.log(passwordEncrypted.toString())
+        localStorage.setItem("user", JSON.stringify({email:userLogin.email,password: passwordEncrypted.toString()}));}
       else{
         localStorage.removeItem("user")
     }
@@ -217,8 +221,11 @@ export const userManager = reactive({
     // localStorage.removeItem("token");
     // localStorage.removeItem("refreshToken");
     // localStorage.removeItem("email");
+
+    const rememberedUser = localStorage.getItem("user")
     localStorage.clear();
     localStorage.setItem("role", "guest");
+    if(rememberedUser) localStorage.setItem("user", rememberedUser);
     this.userInfo = {role:"guest"}
     userManager.userList = [];
     eventManager.eventList = [];

@@ -70,26 +70,26 @@ const getFileNameFromPath = (path) => path.replace(/^.*[\\\/]/, "");
 </script>
 <template>
   <div
-    class="bg-black/30 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center"
+    class="bg-black/60 z-50 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center"
   >
     <div
-      class="fixed bg-managray-300/20 backdrop-blur-md z-50 rounded-2xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 relative p-4 w-full max-w-md sm:max-w-none sm:w-[760px] h-full md:h-auto"
+      class="fixed bg-managray-300/20 backdrop-blur-md z-50 rounded-2xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 relative p-4 w-full max-w-md md:max-w-none sm:w-[760px] h-full md:h-auto"
     >
       <div class="relative rounded-lg shadow" id="popupEdit">
         <button
           type="button"
           @click="$emit('closeEditEventPopup'); clearEditingBooking()"
-          class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+          class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-managray-200 hover:text-managray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
         >
           <IconClose />
         </button>
 
-        <div class="py-6 px-6 lg:px-8">
-          <h3 class="mb-4 text-2xl font-medium text-white">
-            Edit Schedule Eventsas
+        <div class="py-16 md:py-6 px-0 lg:px-8 h-full max-h-screen overflow-y-auto ">
+          <h3 class="mb-4 ml-8 text-2xl font-medium text-white">
+            Edit Schedule Event
           </h3>
           <div class="flex flex-col items-center">
-            <form class="w-full px-8 space-x-8 grid grid-cols-2">
+            <form class="w-full px-8 md:space-x-8 grid grid-cols-1 md:grid-cols-2">
               <div class="flex flex-col w-full space-y-8">
                 <div>
                   <label
@@ -98,7 +98,7 @@ const getFileNameFromPath = (path) => path.replace(/^.*[\\\/]/, "");
                     >Name</label
                   >
                   <div
-                    class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-gray-400"
+                    class=" text-sm rounded-lg block w-full p-2.5 bg-managray-100/20  text-gray-400"
                   >
                     {{ editingBooking.name }}
                   </div>
@@ -110,7 +110,7 @@ const getFileNameFromPath = (path) => path.replace(/^.*[\\\/]/, "");
                     >Email</label
                   >
                   <div
-                    class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-gray-400"
+                    class=" text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 text-gray-400"
                   >
                     {{ editingBooking.email }}
                   </div>
@@ -123,12 +123,12 @@ const getFileNameFromPath = (path) => path.replace(/^.*[\\\/]/, "");
                   >
                   <div class="flex">
                     <div
-                      class="border text-sm rounded-lg block w-7/12 p-2.5 bg-gray-600 border-gray-500 text-gray-400"
+                      class=" text-sm rounded-lg block w-7/12 p-2.5 bg-managray-100/20 text-gray-400"
                     >
                       {{ editingBooking.categoryName }}
                     </div>
                     <div
-                      class="ml-3 border text-sm rounded-lg block w-5/12 p-2.5 bg-gray-600 border-gray-500 text-gray-400"
+                      class="ml-3  text-sm rounded-lg block w-5/12 p-2.5 bg-managray-100/20 text-gray-400"
                     >
                       {{ editingBooking.duration }} minutes
                     </div>
@@ -164,7 +164,7 @@ const getFileNameFromPath = (path) => path.replace(/^.*[\\\/]/, "");
                 </div>
               </div>
               <div class="flex flex-col w-full space-y-8">
-                <div>
+                <div class="mt-8">
                   <label
                     for="note"
                     class="block mb-2 text-sm font-medium text-gray-300"
@@ -179,7 +179,7 @@ const getFileNameFromPath = (path) => path.replace(/^.*[\\\/]/, "");
                         ? decorator.normalFormBorder
                         : decorator.redFormBorder,
                     ]"
-                    class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 placeholder-gray-400 text-white"
+                    class="border text-sm rounded-lg block w-full p-2.5 bg-managray-100/10 placeholder-managray-400 text-white"
                     placeholder="detail..."
                   >
                   </textarea>
@@ -191,7 +191,7 @@ const getFileNameFromPath = (path) => path.replace(/^.*[\\\/]/, "");
                           500
                         ),
                       }"
-                      class="text-sm text-gray-500 absolute mt-1"
+                      class="text-sm text-managray-500 relatives mt-1"
                     >
                       {{ editingBooking.note.length }}/500
                     </p>
@@ -200,7 +200,7 @@ const getFileNameFromPath = (path) => path.replace(/^.*[\\\/]/, "");
                   <div>
                     <label
                       for="file"
-                      class="block mb-3 text-sm font-medium text-neutral-300"
+                      class="block mb-3 text-sm mt-4 font-medium text-neutral-300"
                       >File</label
                     >
                     <div className="h-[40px] flex items-center text-sm">
@@ -209,10 +209,10 @@ const getFileNameFromPath = (path) => path.replace(/^.*[\\\/]/, "");
                         type="file"
                         @change="previewFile($event)"
                         @click="(event) => (event.target.value = null)"
-                        class="opacity-0 absolute text-sm text-neutral-400 rounded-lg border border-gray-300 cursor-pointer"
+                        class="opacity-100 md:opacity-0 text-sm text-neutral-400 rounded-lg border border-managray-300 cursor-pointer"
                       />
                       <span
-                        className="text-white bg-violet-600 hover:bg-violet-800 p-2 rounded-lg"
+                        className="pointer-events-none hidden absolute md:block text-manapurple-100 border border-manapurple-100 p-2 rounded-lg"
                         >Choose File</span
                       >
                       <span
@@ -262,7 +262,7 @@ const getFileNameFromPath = (path) => path.replace(/^.*[\\\/]/, "");
                 );
                 clearEditingBooking()
               "
-              class="w-[150px] text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center :bg-violet-600"
+              class="mt-12 w-[150px] text-white bg-manapurple-100  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center :bg-violet-600"
             >
               Update
             </button>

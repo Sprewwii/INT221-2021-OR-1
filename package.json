@@ -10,6 +10,7 @@
   "dependencies": {
     "@microsoft/microsoft-graph-client": "^3.0.4",
     "@vuepic/vue-datepicker": "^3.2.1",
+    "crypto-js": "^4.1.1",
     "flowbite": "^1.4.5",
     "msal": "^1.4.17",
     "vue": "^3.2.25",

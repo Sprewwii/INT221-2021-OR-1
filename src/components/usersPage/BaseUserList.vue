@@ -58,7 +58,7 @@ const noUsersWarning = computed(() => props.noUsersWarning)
                 <button @click="$emit('selectUser', user.userId)" class="p-3 text-white">
                   <IconMenuKebabVue />
                 </button>
-                <ul class="absolute text-white pt-1 z-10" v-show="selectedUserId === user.userId">
+                <ul class="absolute text-white right-5 pt-1 z-10" v-show="selectedUserId === user.userId">
                   <li>
                     <button
                     class="rounded-t bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
