@@ -298,6 +298,9 @@ export const eventManager = reactive({
     }
   },
   editEventCategory: async function (category) {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    
     const res = await fetch(
       `${import.meta.env.VITE_API}/api/eventCategories/${category.categoryId}`,
       {

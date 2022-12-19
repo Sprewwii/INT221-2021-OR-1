@@ -73,10 +73,10 @@ const clearCreatingUser = () => {
  
 <template>
     <div
-        class="bg-black/70 z-30 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
+        class="bg-black/60 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
         <div
-            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto">
-            <div class="relative rounded-lg shadow" id="popupCreate">
+            class="fixed top-1/2 z-50 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto ">
+            <div class="relative rounded-lg shadow bg-managray-100/10 backdrop-blur-md">
                 <button type="button" @click="$emit('closeCreateModal'); clearCreatingUser()"
                     class="absolute top-3 right-2.5 text-neutral-400 mt-2 mr-4 bg-transparent hover:bg-neutral-200 hover:text-neutral-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
                     <IconClose />
@@ -89,7 +89,7 @@ const clearCreatingUser = () => {
                             <label for="name" class="block mb-1 text-sm font-medium text-neutral-300">Name</label>
                             <input v-model="creatingUser.name" type="text" name="name" id="name"
                                 :class="[validation.validateLength(creatingUser.name, 100) && !showWarning.isName ? decorator.normalFormBorder : decorator.redFormBorder]"
-                                class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-manapurple-100/20 border placeholder-neutral-400 text-white"
                                 placeholder="Example Prew Sud Narak"
                                 @blur="showWarning.isName = !creatingUser.name; validateUniqueName(); creatingUser ? creatingUser.name = creatingUser.name.trim():''" />
                             <p v-if="showWarning.isName" class="text-[12px] text-red-400 absolute mt-1">* Enter your name.
@@ -106,7 +106,7 @@ const clearCreatingUser = () => {
                             <label for="password" class="block mb-1 text-sm font-medium text-neutral-300">Password</label>
                             <input v-model="creatingUser.password" type="password" name="password" id="password"
                                 :class="[validation.validateLength(creatingUser.password,14) && !showWarning.isPassword ? decorator.normalFormBorder : decorator.redFormBorder]"
-                                class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-manapurple-100/20 border placeholder-neutral-400 text-white"
                                 placeholder="Example narak1234"
                                 @blur="showWarning.isPassword = !validation.validateLengthAndNotNull(creatingUser.password,8,14); showWarning.matchPassword = !validation.validateConfirmPassword(creatingUser.password,creatingUser.confirmPassword)"/>
                             <p v-show="showWarning.isPassword" class="text-[12px] text-red-400 absolute mt-1">* Password must have 8-14 characters.
@@ -122,7 +122,7 @@ const clearCreatingUser = () => {
                             <label for="confirmPassword" class="block mb-1 text-sm font-medium text-neutral-300">Confirm Password</label>
                             <input v-model="creatingUser.confirmPassword" type="password" name="confirmPassword" id="confirmPassword"
                                 :class="[validation.validateLength(creatingUser.confirmPassword,14) && !showWarning.isConfirmPassword ? decorator.normalFormBorder : decorator.redFormBorder]"
-                                class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-manapurple-100/20 border placeholder-neutral-400 text-white"
                                 placeholder="Example narak1234"
                                 @blur="showWarning.isConfirmPassword = !validation.validateLengthAndNotNull(creatingUser.confirmPassword,8,14); showWarning.matchPassword = !validation.validateConfirmPassword(creatingUser.password,creatingUser.confirmPassword)"/>
                             <p v-if="showWarning.isConfirmPassword" class="text-[12px] text-red-400 absolute mt-1">* Confirm password must have 8-14 characters.
@@ -141,7 +141,7 @@ const clearCreatingUser = () => {
                             <label for="email" class="block mb-1 text-sm font-medium text-neutral-300">Email</label>
                             <input v-model="creatingUser.email" name="email" id="email" type="text"
                                 :class="[validation.validateLength(creatingUser.email, 50) && !showWarning.isEmail && !showWarning.email ? decorator.normalFormBorder : decorator.redFormBorder]"
-                                class="text-sm rounded-lg block w-full p-2.5 bg-neutral-700 border placeholder-neutral-400 text-white"
+                                class="text-sm rounded-lg block w-full p-2.5 bg-manapurple-100/20 border placeholder-neutral-400 text-white"
                                 placeholder="Example@mail.kmutt.ac.th"
                                 @blur="showWarning.isEmail = !creatingUser.email; validateEmail(); validateUniqueEmail(); creatingUser.email = creatingUser.email.trim()" />
                             <p v-if="showWarning.isEmail" class="text-[12px] text-red-400 absolute mt-1">* Enter your email.
@@ -167,8 +167,8 @@ const clearCreatingUser = () => {
                                 <div @click="creatingUser.role = role" v-for="(role, index) in roles" :key="index">
                                     
                                     <label
-                                    :class="creatingUser.role == role ? 'border-violet-400 ring-1 ring-violet-400 bg-violet-400 text-gray-800' : ''"
-                                        class="hover:bg-violet-500  bg-neutral-700 block p-4 text-sm font-medium text-white text-center transition-colors border border-gray-500 rounded-lg shadow-sm cursor-pointer"
+                                    :class="creatingUser.role == role ? 'border-manapurple-100 ring-1 ring-manapurple-100 bg-manapurple-100 text-gray-800' : ''"
+                                        class="hover:bg-manapurple-100   block p-4 text-sm font-medium text-white text-center transition-colors border border-gray-500 rounded-lg shadow-sm cursor-pointer"
                                         for="standard_alt">
                                         <span> {{role}} </span>
 
@@ -197,7 +197,7 @@ const clearCreatingUser = () => {
 
 
                         <button type="button"
-                            class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                            class="w-full text-white bg-manapurple-100 focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                             @click="createUser($event);">Create</button>
                     </form>
                 </div>
@@ -207,9 +207,6 @@ const clearCreatingUser = () => {
 </template>
 
 <style>
-#popupCreate {
-    background-color: #292B2E;
-}
 
 #inputeiei {
     background-color: #3c6eb9;

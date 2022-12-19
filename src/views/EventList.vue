@@ -20,7 +20,7 @@ const eventCategories = computed(() => eventManager.eventCategories)
 const selectedBookingId = ref(0)
 const editingBooking = ref({})
 
-const noEventMessage = ref("")
+const noEventMessage = ref("You Don't have Scheduled Events")
 const isShowDeleteBookingConfirm = ref(false)
 const isShowCreateBooking = ref(false)
 const popupMessage = ref({})
@@ -47,7 +47,7 @@ const updateEditingBooking = async (booking, e) => {
   e.preventDefault()
   let response = await eventManager.editEvent(booking)
   if(response === true){
-    popupMessage.value = {header:"Edit Booking",text:"Edit Booking",type: 'success'}
+    popupMessage.value = {text:"Edit Booking",type: 'success'}
   }else{
     popupMessage.value = response
   }

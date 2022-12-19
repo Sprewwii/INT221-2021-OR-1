@@ -1,15 +1,15 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed } from "vue"
 import BaseEventCategoryList from "../components/eventCategoriesPage/BaseEventCategoryList.vue"
-import BasePopupEditCategory from "../components/eventCategoriesPage/BasePopupEditCategory.vue";
-import BasePopup from "../components/BasePopup.vue";
-import IconPlus from "../components/icons/IconPlus.vue";
+import BasePopupEditCategory from "../components/eventCategoriesPage/BasePopupEditCategory.vue"
+import BasePopup from "../components/global/BasePopup.vue"
+import IconPlus from "../components/icons/IconPlus.vue"
 import { eventManager } from "../scripts/eventManager.js"
 
-const eventCategories = computed(() => eventManager.eventCategories);
+const eventCategories = computed(() => eventManager.eventCategories)
 const editingCategory = ref({})
-const selectedCategoryId = ref(0);
-const popupText = ref(null)
+const selectedCategoryId = ref(0)
+const popupMessage = ref({})
 
 const selectCategory = (id) => {
   if (selectedCategoryId.value === id) {
@@ -24,11 +24,10 @@ const editCategory = (eventCategory) => {
 }
 
 const updateEditCategory = (eventCategory, e) => {
-  console.log("sds")
-  e.preventDefault();
+  e.preventDefault()
   eventManager.editEventCategory(eventCategory)
-  cleanEditingCategory()
-  popupText.value='Edit Event Category';
+  // cleanEditingCategory()
+  // popupMessage.value = { text: 'Edit Event Category', type: 'success' }
 }
 
 const cleanEditingCategory = () => {
@@ -49,10 +48,10 @@ const cleanEditingCategory = () => {
     </div>
     <BasePopupEditCategory v-show="Object.keys(editingCategory).length > 0" :editingCategory="editingCategory"
       @editCategory="updateEditCategory" @closeEditModal="cleanEditingCategory" />
-             <BasePopup v-show="popupText" :popupText="popupText" :popupType="'success'"
-      @closePopup="popupText = null" />
+    <BasePopup v-show="popupText" :popupMessage="popupMessage" @closePopup="popupText = null" />
   </div>
 </template>
 
 <style>
+
 </style>

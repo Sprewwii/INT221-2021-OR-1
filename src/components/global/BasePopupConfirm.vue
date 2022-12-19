@@ -13,11 +13,11 @@ defineEmits(['closeConfirmModal', 'deleteBooking'])
 </script>
  
 <template>
-    <div class="bg-black/70 z-40 h-screen w-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div class="bg-black/60 z-40 h-screen w-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div
             class=" overflow-y-auto overflow-x-hidden z-50 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
             <div class="relative p-4 w-full max-w-md h-full">
-                <div class="relative rounded-lg shadow" id="popupConfirm">
+                <div class="relative rounded-lg shadow bg-managray-100/10 px-10 backdrop-blur-md">
                     <button type="button" @click="$emit('closeConfirmModal')"
                         class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-2 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
                         <IconClose />
@@ -29,9 +29,9 @@ defineEmits(['closeConfirmModal', 'deleteBooking'])
 
                         <div class="flex mt-5 justify-evenly w-full">
                             <button @click="$emit('closeConfirmModal')"
-                                class="w-2/6 bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancel</button>
+                                class="mr-2 w-3/6 bg-managray-400 hover:bg-managray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancel</button>
                             <button @click="$emit('deleteBooking')"
-                                class="w-2/6 bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Confirm</button>
+                                class="ml-2 w-3/6 bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Confirm</button>
                         </div>
                     </div>
 
@@ -42,7 +42,5 @@ defineEmits(['closeConfirmModal', 'deleteBooking'])
 </template>
  
 <style>
-#popupConfirm {
-    background-color: #292B2E;
-}
+
 </style>

@@ -13,11 +13,11 @@ defineEmits(['closePopup'])
 </script>
  
 <template>
-    <div class="bg-black/100 backdrop-blur-md z-40 h-screen w-screen absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div class="bg-black/60 z-40 h-full w-full fixed  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div
-            class="overflow-y-auto overflow-x-hidden z-50 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+            class="overflow-y-hidden overflow-x-hidden z-50 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
             <div class="relative p-4 max-w-md h-full">
-                <div class="relative w-96 rounded-lg shadow" id="popupConfirm">
+                <div class="relative w-96 rounded-lg shadow bg-managray-100/10 backdrop-blur-md">
                     <button type="button" @click="$emit('closePopup')"
                         class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-2 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
                         <IconClose />
@@ -34,7 +34,7 @@ defineEmits(['closePopup'])
                         </div>
     
                     <button @click="$emit('closePopup')"
-                        class="w-2/6 mt-6 bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Ok</button>
+                        class="w-2/6 mt-6 bg-manapurple-100 focus:ring-4 focus:outline-none focus:ring-manapurple-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Ok</button>
                 </div>
                 </div>
             </div>
@@ -44,7 +44,5 @@ defineEmits(['closePopup'])
 </template>
  
 <style>
-#popupConfirm {
-    background-color: #292B2E;
-}
+
 </style>

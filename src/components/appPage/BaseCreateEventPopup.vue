@@ -128,7 +128,7 @@ function closeCreateEventPopup() {
           <IconClose />
         </button>
 
-        <div class="pt-6 pb-32 px-6 sm:pr-14 lg:pl-8 lg:pr-16 h-full max-h-screen overflow-y-auto ">
+        <div class="pt-6 pb-32 md:pb-8 px-6 sm:pr-14 lg:pl-8 lg:pr-16 h-full max-h-screen overflow-y-auto ">
           <h3 class="mb-4 text-2xl font-medium text-white">
             Create Schedule Event
           </h3>
@@ -269,9 +269,9 @@ showWarning.isStartTime = !creatingBooking.startTime;
                 <label for="file" class="block mb-3 text-sm font-medium text-neutral-300">File</label>
                 <div className="h-[40px] flex items-start text-sm ">
                   <input id="file" type="file" @change="previewFile($event)" @click="event => event.target.value = null"
-                    class="z-0 opacity-0 text-sm text-neutral-400 rounded-lg border border-gray-300 cursor-pointer" />
+                    class="z-0 opacity-100 md:opacity-0 text-sm text-neutral-400 rounded-lg border border-gray-300 cursor-pointer" />
                   <button type="button"
-                    class="pointer-events-none w-32 h-10 absolute text-manapurple-100 group inline-block border border-manapurple-100  rounded-xl ">
+                    class="pointer-events-none w-32 h-10 absolute text-manapurple-100 group hidden md:inline-block border border-manapurple-100  rounded-xl ">
                     Choose File
                   </button>
                   <span v-if="creatingBooking.file" className="text-white p-2 rounded-lg">{{ creatingBooking.file.name

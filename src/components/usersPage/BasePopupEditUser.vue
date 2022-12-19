@@ -61,10 +61,10 @@ for (let warning in showWarning.value) {
 </script>
 <template>
     <div
-        class="bg-black/30 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
+        class="bg-black/60 z-40 h-screen w-full overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center">
         <div
-            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto">
-            <div class="relative rounded-lg shadow" id="popupEdit">
+            class="fixed top-1/2 z-50 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative p-4 w-full max-w-md h-full md:h-auto ">
+            <div class="relative rounded-lg shadow bg-managray-100/10 backdrop-blur-md" id="popupEdit">
                 <button type="button" @click="$emit('closeEditModal')"
                     class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-4 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
                     <IconClose />
@@ -76,7 +76,7 @@ for (let warning in showWarning.value) {
                         <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-300">Name</label>
                             <input v-model="editingUser.name" @blur="editingUser.name = editingUser.name.trim(); showWarning.isName = !editingUser.name;validateUniqueName(); "
-                                class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-white" >
+                                class="border text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 border-gray-500 text-white" >
                             <div v-if="editingUser.name" class="flex justify-end">
                                  
                                 <p :class="{ 'text-red-400': !validation.validateLength(editingUser.name, 100) }"
@@ -91,7 +91,7 @@ for (let warning in showWarning.value) {
                                
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-300">Email</label>
-                            <input class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-white" v-model="editingUser.email" @blur="editingUser.email = editingUser.email.trim(); showWarning.isEmail = !editingUser.email;validateEmail();validateUniqueEmail();">  
+                            <input class="border text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 border-gray-500 text-white" v-model="editingUser.email" @blur="editingUser.email = editingUser.email.trim(); showWarning.isEmail = !editingUser.email;validateEmail();validateUniqueEmail();">  
                            <div v-if="editingUser.email" class="flex justify-end">
                                  
                                 <p :class="{ 'text-red-400': !validation.validateLength(editingUser.email, 50) }"
@@ -118,8 +118,8 @@ for (let warning in showWarning.value) {
                                 <div @click="editingUser.role = role" v-for="(role, index) in roles" :key="index">
                                     
                                     <label
-                                    :class="editingUser.role == role ? 'border-violet-400 ring-1 ring-violet-400 bg-violet-400 text-gray-800' : ''"
-                                        class="hover:bg-violet-500  bg-neutral-700 block p-4 text-sm font-medium text-white text-center transition-colors border border-gray-500 rounded-lg shadow-sm cursor-pointer"
+                                    :class="editingUser.role == role ? 'border-manapurple-100  bg-manapurple-100 text-gray-800' : ''"
+                                        class="hover:bg-manapurple-100 block p-4 text-sm font-medium text-white text-center transition-colors border border-manapurple-100 rounded-lg shadow-sm cursor-pointer"
                                         for="standard_alt">
                                         <span> {{role}} </span>
 
@@ -135,7 +135,7 @@ for (let warning in showWarning.value) {
                             <label class="block mb-2 text-sm font-medium text-gray-300">Inserted On</label>
                         <div class="flex">
                             <div
-                                class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-gray-400">
+                                class="border text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 border-gray-500 text-gray-400">
                                 {{editingUser.createdOn}}
                             </div>
                         </div>
@@ -144,14 +144,14 @@ for (let warning in showWarning.value) {
                             <label class="block mb-2 text-sm font-medium text-gray-300">Updated On</label>
                         <div class="flex">
                             <div
-                                class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-gray-400">
+                                class="border text-sm rounded-lg block w-full p-2.5 bg-managray-100/20 border-gray-500 text-gray-400">
                                 {{editingUser.createdOn}}
                             </div>
                         </div>
                         </div>
                         <!-- -->
                         <button @click="$emit('editUser', saveEditingUser(), $event)"
-                            class="w-full text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center :bg-violet-600">Update</button>
+                            class="w-full text-white bg-manapurple-100 focus:ring-4 focus:outline-none focus:manapurple-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update</button>
                     </form>
                 </div>
             </div>

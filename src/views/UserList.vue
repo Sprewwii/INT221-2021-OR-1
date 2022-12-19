@@ -110,8 +110,8 @@ const matching = async (user, e) => {
 </script>
 
 <template>
-  <div class="pl-8 lg:ml-64 w-full pb-16 pt-32">
-    <div class="flex justify-between items-center mt-2">
+  <div class="pl-8 lg:pl-[255px] w-full pb-16 pt-32 w-full">
+    <div class="flex justify-between items-center mt-2 w-full">
       <h1 class="w-full text-gray-300 font-medium text-2xl lg:ml-28 font-[400] select-none inline-block align-middle tracking-normal">
         User List
       </h1>
@@ -122,7 +122,7 @@ const matching = async (user, e) => {
         <span class="ml-3 relative font-[300] tracking-wider sm:text-lg transition-colors group-hover:text-white flex gap-x-2 justify-center">Create User</span>
       </button> -->
       <button 
-            class="mr-8 w-[250px] h-[40px] text-manapurple-100 group relative inline-block overflow-hidden border border-manapurple-100 rounded-xl focus:outline-none" @click="createUser()">
+            class="mr-12 w-[250px] h-[40px] text-manapurple-100 group relative inline-block overflow-hidden border border-manapurple-100 rounded-xl focus:outline-none" @click="createUser()">
             <span
                class="absolute inset-y-0 left-0 w-[0px] bg-manapurple-100 transition-all group-hover:w-full group-active:bg-manapurple-100"></span>
             <span

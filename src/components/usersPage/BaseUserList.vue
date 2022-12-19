@@ -24,14 +24,14 @@ const noUsersWarning = computed(() => props.noUsersWarning)
 </script>
 
 <template>
-  <div class="mt-6 lg:mr-[272px] ml-20">
+  <div class="mt-6 ml-20">
     <div class="relative bg-managray-300/20 rounded-2xl shadow-2xl w-full">
       <table class="w-full text-center text-gray-200 select-none divide-y divide-managray-100/30">
         <thead class="text-white tracking-wider">
           <tr>
             <th scope="col" class="px-6 py-3 w-4/12 font-[500]">Name</th>
-            <th scope="col" class="px-6 py-3 w-3/12 font-[500]">Email</th>
-            <th scope="col" class="px-6 py-3 w-2/12 font-[500]">Role</th>
+            <th scope="col" class="px-6 py-3 w-4/12 font-[500]">Email</th>
+            <th scope="col" class="px-6 py-3 w-3/12 font-[500]">Role</th>
             <th colspan="2" class="px-6 py-3">
               <span class="sr-only">Details</span>
             </th>
@@ -61,14 +61,14 @@ const noUsersWarning = computed(() => props.noUsersWarning)
                 <ul class="absolute text-white pt-1 z-10" v-show="selectedUserId === user.userId">
                   <li>
                     <button
-                      class="rounded-t bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
+                    class="rounded-t bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
                       @click="$emit('editUser')">
                       <IconEdit class="mr-2" />Edit
                     </button>
                   </li>
                   <li>
                     <button
-                      class="rounded-b bg-gray-500 hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap w-full items-center flex border-t border-l-0 border-r-0 border-b-0 border-gray-600"
+                    class="rounded-b bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full items-center flex border-t border-l-0 border-r-0 border-b-0 border-managray-100/50"
                       @click="$emit('deleteUser')">
                       <IconDelete class="mr-2" />Delete
                     </button>
