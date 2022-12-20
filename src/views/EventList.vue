@@ -34,9 +34,7 @@ const selectBooking = (id) => {
 }
 
 const editBooking = async () => {
-  editingBooking.value = await eventManager.getEventById(
-    selectedBookingId.value
-  )
+  editingBooking.value = await eventManager.getEventById(selectedBookingId.value)
   editingBooking.value.currentStartTime = editingBooking.value.startTime
   if (editingBooking.value.pathFile) editingBooking.value.file = { name: getFileNameFromPath(editingBooking.value.pathFile) }
   editingBooking.value.isChangeFile = false
@@ -47,8 +45,9 @@ const updateEditingBooking = async (booking, e) => {
   e.preventDefault()
   isLoading.value = true
   let response = await eventManager.editEvent(booking)
+  console.log(response)
   if (response === true) {
-    popupMessage.value = { text: "Edit Booking", type: 'success' }
+    popupMessage.value = { text: "Edit Event Successful !", type: 'success' }
   } else {
     popupMessage.value = response
   }

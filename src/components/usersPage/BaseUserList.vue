@@ -2,16 +2,16 @@
 import { computed } from "vue"
 import { userManager } from "../../scripts/userManager.js"
 import { roles } from "../../scripts/roles.js"
-import IconMenuKebabVue from "../icons/IconMenuKebab.vue";
-import IconDelete from "../icons/IconDelete.vue";
-import IconEdit from "../icons/IconEdit.vue";
+import IconMenuKebabVue from "../icons/IconMenuKebab.vue"
+import IconDelete from "../icons/IconDelete.vue"
+import IconEdit from "../icons/IconEdit.vue"
 
 const props = defineProps({
   userList: {
     type: Array,
     default: []
   },
-  selectedUserId: { 
+  selectedUserId: {
     type: Number,
     default: 0
   },
@@ -61,14 +61,14 @@ const noUsersWarning = computed(() => props.noUsersWarning)
                 <ul class="absolute text-white right-5 pt-1 z-10" v-show="selectedUserId === user.userId">
                   <li>
                     <button
-                    class="rounded-t bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
+                      class="rounded-t bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full flex items-center flex"
                       @click="$emit('editUser')">
                       <IconEdit class="mr-2" />Edit
                     </button>
                   </li>
                   <li>
                     <button
-                    class="rounded-b bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full items-center flex border-t border-l-0 border-r-0 border-b-0 border-managray-100/50"
+                      class="rounded-b bg-managray-100/50  backdrop-blur-md hover:bg-managray-300/50 py-2 px-4 block whitespace-no-wrap w-full items-center flex border-t border-l-0 border-r-0 border-b-0 border-managray-100/50"
                       @click="$emit('deleteUser')">
                       <IconDelete class="mr-2" />Delete
                     </button>
@@ -84,4 +84,5 @@ const noUsersWarning = computed(() => props.noUsersWarning)
 </template>
 
 <style>
+
 </style>

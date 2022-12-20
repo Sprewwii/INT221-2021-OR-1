@@ -8,14 +8,15 @@ import UserList from "../views/UserList.vue";
 import UserDetails from "../views/UserDetails.vue";
 import { userManager } from "../scripts/userManager.js";
 
-async function guardUsers(to, from, next) {
+async function usersPageGuard(to, from, next) {
   const role = localStorage.getItem("role");
   const token = localStorage.getItem("token");
   if (token && role === "admin") {
     let response = await userManager.getUsers();
     if (response) next();
     return;
-  }userManager.userInfo.role = "guest"
+  }
+  userManager.userInfo.role = "guest";
   next("/");
 }
 
@@ -35,7 +36,8 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-  },{
+  },
+  {
     path: "/events",
     name: "EventList",
     component: EventList,
@@ -44,9 +46,7 @@ const routes = [
   {
     path: "/events/:id",
     name: "EventDetail",
-    // beforeEnter: guardLecturer,
     component: EventDetail,
-    // meta: { transition: 'slide-left' },
   },
   {
     path: "/category-list",
@@ -66,7 +66,7 @@ const routes = [
   {
     path: "/users",
     name: "UserList",
-    beforeEnter: guardUsers,
+    beforeEnter: usersPageGuard,
     component: UserList,
   },
 ];

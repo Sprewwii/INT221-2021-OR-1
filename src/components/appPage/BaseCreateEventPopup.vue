@@ -6,7 +6,7 @@ import { userManager } from "../../scripts/userManager.js"
 import { validation } from "../../scripts/validation.js"
 import { decorator } from "../../scripts/decorator.js"
 
-const emit = defineEmits(["closeCreateEventPopup", "showPopupSuccess","setLoading"])
+const emit = defineEmits(["closeCreateEventPopup", "showPopupSuccess", "setLoading"])
 // const imgInput = ref(null);
 const eventCategories = computed(() => eventManager.eventCategories)
 const creatingBooking = ref({})
@@ -78,13 +78,13 @@ const createBooking = async (e) => {
   }
 
   if (!showWarning.value.create) {
-    emit('setLoading',true)
+    emit('setLoading', true)
     const response = await eventManager.createEvent(creatingBooking.value)
     emit('showPopupSuccess')
     clearCreatingBooking()
     setTimeout(() => {
-      emit('setLoading',false)
-    },5000)
+
+    }, 5000)
   }
   console.log("create")
 }
@@ -272,12 +272,13 @@ showWarning.isStartTime = !creatingBooking.startTime;
                 <label for="file" class="block mb-3 text-sm font-medium text-neutral-300">File</label>
                 <div className="h-[40px] flex items-start text-sm ">
                   <input id="file" type="file" @change="previewFile($event)" @click="event => event.target.value = null"
-                    class="z-0 opacity-100 md:opacity-0 text-sm text-neutral-400 rounded-lg border border-gray-300 cursor-pointer" />
+                    class="z-0 opacity-100 md:opacity-0 md:w-32 text-sm text-neutral-400 rounded-lg border border-gray-300 cursor-pointer" />
                   <button type="button"
                     class="pointer-events-none w-32 h-10 absolute text-manapurple-100 group hidden md:inline-block border border-manapurple-100  rounded-xl ">
                     Choose File
                   </button>
-                  <span v-if="creatingBooking.file" className="text-white p-2 rounded-lg">{{ creatingBooking.file.name
+                  <span v-if="creatingBooking.file" className="hidden md:inline-block text-white p-2 rounded-lg">{{
+                      creatingBooking.file.name
                   }}</span>
 
                 </div>
@@ -285,12 +286,11 @@ showWarning.isStartTime = !creatingBooking.startTime;
                   * The file size cannot be larger than 10 MB.
                 </p>
                 <img v-if="
-                  creatingBooking.file &&
-                  creatingBooking.file.type.match('image.*')
-                " :src="creatingBooking.previewFile" alt="file"
+                  creatingBooking.file && creatingBooking.file.type.match('image.*')" 
+                  :src="creatingBooking.previewFile" alt="file"
                   class="w-[200px] max-h-[100px] object-scale-down mt-8 object-cover mx-auto" />
                 <div v-if="creatingBooking.file" @click="deleteFile"
-                  className="cursor-pointer text-xs w-20 z-40 text-white bg-red-500 hover:bg-violet-800 p-2 rounded-lg">
+                  className="mx-auto mt-2 cursor-pointer text-xs w-20 z-40 text-white bg-red-500 hover:bg-violet-800 p-2 rounded-lg">
                   Delete File</div>
               </div>
             </div>

@@ -2,6 +2,7 @@
 import { ref, onBeforeMount } from "vue"
 import { userManager } from "../scripts/userManager.js"
 import { useRoute } from "vue-router"
+import IconArrowLeft from "../components/icons/IconArrowLeft.vue"
 
 let { params } = useRoute()
 

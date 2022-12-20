@@ -79,7 +79,6 @@ const deleteUser = () => {
 }
 
 const showPopup = (newPopup) => {
-  ("pop " + newPopup)
   if (newPopup && newPopup.type === 'success') {
 
     if (showingModal.value === 'create') toggleModal('create')
