@@ -54,7 +54,7 @@ const updateEditingUser = async (user, e) => {
       toggleModal("")
       popupMessage.value = { text: "Edit User Success !", type: "success" }
     } else {
-      popupMessage.value = { text: response, type: "error", header: "Edit" }
+      popupMessage.value = { text: "Edit User Error !", type: "error", header: "Edit" }
     }
   }
   console.log(isLoading.value)
