@@ -83,7 +83,7 @@ const deleteUser = async () => {
     showPopup({ text: "Delete User Successful !", type: "success", header: "Delete" })
   }
   else{
-    showPopup({ text: response , type: "error", header: "Delete" })
+    showPopup({ text: "This User Was Event Category Owner Of " + response , type: "error", header: "Delete" })
   }
     toggleModal('delete')
   selectUser(0)

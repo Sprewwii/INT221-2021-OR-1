@@ -134,9 +134,9 @@ export const userManager = reactive({
         body: JSON.stringify(user),
       }
     );
-
+console.log(1)
     const info = await res.json();
-
+    console.log(info)
     if (res.status === 200) {
       this.getUsers();
       return true;
@@ -149,6 +149,7 @@ export const userManager = reactive({
       //   error += info.details[i].errorMessage + " \n";
       // }
       // console.log(error)
+      console.log(false)
       return false;
     }
   },
