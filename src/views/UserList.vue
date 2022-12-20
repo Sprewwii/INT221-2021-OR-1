@@ -76,6 +76,9 @@ const showDeleteUserPopup = () => {
 
 const deleteUser = async () => {
   const response = await userManager.deleteUser(selectedUserId.value)
+  console.log("this response")
+  console.dir(response)
+
   if(response === true){
     showPopup({ text: "Delete User Successful !", type: "success", header: "Delete" })
   }
