@@ -105,6 +105,7 @@ export const userManager = reactive({
     const info = await res.text();
     if (res.status === 200) {
       this.getUsers();
+      return true
     } else if (res.status === 401 && (await this.refreshToken()) == true) {
       this.deleteUser(userId);
     } else {

@@ -42,6 +42,7 @@ const editUser = async () => {
 }
 
 const updateEditingUser = async (user, e) => {
+  console.log("edit")
   e.preventDefault()
   isLoading.value = true
   if (user) {
@@ -55,9 +56,8 @@ const updateEditingUser = async (user, e) => {
     } else {
       popupMessage.value = { text: response, type: "error", header: "Edit" }
     }
-    isLoading.value = false
-
   }
+  console.log(isLoading.value)
 }
 
 const toggleModal = (modal) => {
@@ -76,8 +76,13 @@ const showDeleteUserPopup = () => {
 
 const deleteUser = async () => {
   const response = await userManager.deleteUser(selectedUserId.value)
-  showPopup({ text: response, type: "error", header: "Delete" })
-  toggleModal('delete')
+  if(response === true){
+    showPopup({ text: "Delete User Successful !", type: "success", header: "Delete" })
+  }
+  else{
+    showPopup({ text: response.details[0].errorMessage + " \n " + response.details[0].field , type: "error", header: "Delete" })
+  }
+    toggleModal('delete')
   selectUser(0)
 }
 
