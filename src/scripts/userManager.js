@@ -103,6 +103,7 @@ export const userManager = reactive({
     });
 
     let info;
+    const contentType = res.headers.get("content-type");
     if (contentType && contentType.indexOf("application/json") !== -1) {
       info = await res.json();
     }
