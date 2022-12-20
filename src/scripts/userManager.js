@@ -102,7 +102,7 @@ export const userManager = reactive({
       },
     });
 
-    const info = await res.text();
+    const info = await res.json();
     if (res.status === 200) {
       this.getUsers();
       return true
