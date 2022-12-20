@@ -74,8 +74,9 @@ const showDeleteUserPopup = () => {
   toggleModal('delete')
 }
 
-const deleteUser = () => {
-  userManager.deleteUser(selectedUserId.value)
+const deleteUser = async () => {
+  const response = await userManager.deleteUser(selectedUserId.value)
+  showPopup({ text: response, type: "error", header: "Delete" })
   toggleModal('delete')
   selectUser(0)
 }

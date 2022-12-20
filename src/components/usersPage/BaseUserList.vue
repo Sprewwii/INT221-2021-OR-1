@@ -82,7 +82,3 @@ const noUsersWarning = computed(() => props.noUsersWarning)
     </div>
   </div>
 </template>
-
-<style>
-
-</style>
