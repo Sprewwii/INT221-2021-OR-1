@@ -67,8 +67,10 @@ const toggleModal = (modal) => {
 
 const showDeleteUserPopup = () => {
   const role = userManager.getUserByIdInLocal(selectedUserId.value).role
-  if (role === "lecturer") { popupConfirmMessage.value = { header: 'This User Is Lecturer', text: 'Are you sure to delete this user ?' } }
-  else { popupConfirmMessage.value = { header: 'Delete User', text: 'Are you sure to delete this user ?' } }
+  if (role === "lecturer") { popupConfirmMessage.value = { header: 'This User Is Lecturer'
+                              ,text: 'Are you sure to delete this user ?' } }
+  else { popupConfirmMessage.value = { header: 'Delete User'
+                              ,text: 'Are you sure to delete this user ?' } }
   toggleModal('delete')
 }
 
@@ -103,6 +105,9 @@ const matching = async (user, e) => {
   }
 }
 
+function setLoading(loading){
+  isLoading.value = loading
+}
 </script>
 
 <template>
@@ -132,7 +137,7 @@ const matching = async (user, e) => {
       @closePopup="popupMessage = {}" />
 
     <BasePopupCreateUser v-show="showingModal === 'create'" @showPopup="showPopup"
-      @closeCreateModal="toggleModal('create');" />
+      @closeCreateModal="toggleModal('create');" @setLoading="setLoading"/>
 
     <BasePopupConfirm v-show="showingModal === 'delete'" :popupMessage="popupConfirmMessage"
       @closeConfirmModal="toggleModal('delete')" @deleteBooking="deleteUser" />

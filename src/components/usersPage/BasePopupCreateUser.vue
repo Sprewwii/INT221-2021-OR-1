@@ -6,7 +6,7 @@ import { validation } from "../../scripts/validation.js"
 import { decorator } from "../../scripts/decorator.js"
 import { roles } from "../../scripts/roles.js"
 
-const emit = defineEmits(['closeCreateModal', 'showPopup'])
+const emit = defineEmits(['closeCreateModal', 'showPopup','setLoading'])
 
 const creatingUser = ref({})
 const showWarning = ref({ isName: false, isEmail: false, create: false, email: false, isNameNotUnique: false, isEmailNotUnique: false, isConfirmPassword: false })
@@ -48,6 +48,7 @@ const createUser = async (e) => {
 
 
     if (!showWarning.value.create) {
+        emit("setLoading",true)
         let response = await userManager.createUser(creatingUser.value)
         if (response === true) {
             clearCreatingUser()
@@ -56,6 +57,7 @@ const createUser = async (e) => {
             showWarning.value.create = true
             emit('showPopup', { text: response, type: "error", header: "Create" })
         }
+        emit("setLoading",false)
     }
 }
 
