@@ -112,7 +112,7 @@ export const userManager = reactive({
       console.log(info)
       let error = "";
       for (let i = 0; i < info.details.length; i++) {
-        error += info.details[i].errorMessage + " \n";
+        error += info.details[i].errorMessage + " \n" + info.details[i].field;
       }
       console.log(error)
       return error;
@@ -134,7 +134,10 @@ export const userManager = reactive({
         body: JSON.stringify(user),
       }
     );
+    console.log("first")
+    console.log(res)
     const info = await res.json();
+    console.log(info)
     if (res.status === 200) {
       this.getUsers();
       return true;

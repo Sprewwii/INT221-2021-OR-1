@@ -83,7 +83,7 @@ const deleteUser = async () => {
     showPopup({ text: "Delete User Successful !", type: "success", header: "Delete" })
   }
   else{
-    showPopup({ text: response.details[0].errorMessage + " \n " + response.details[0].field , type: "error", header: "Delete" })
+    showPopup({ text: response , type: "error", header: "Delete" })
   }
     toggleModal('delete')
   selectUser(0)
