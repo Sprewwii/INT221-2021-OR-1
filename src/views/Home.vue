@@ -46,6 +46,7 @@ async function loginAsMS(){
     
     localStorage.setItem("email", account.idTokenClaims.preferred_username)
     console.log("login MS")
+    // eventManager.getEvents();
     // router.push({ path: '/events' })
   })
 }
