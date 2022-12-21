@@ -49,7 +49,7 @@ async function loginAsMS(){
     localStorage.setItem("email", account.idTokenClaims.preferred_username)
     console.log("login MS")
     
-    router.push({ path: '/events' })
+    // router.push({ path: '/events' })
     eventManager.getEvents();
   })
 }
