@@ -29,7 +29,7 @@ onBeforeMount(async () => {
   // console.log("new")
   await eventManager.getEventCategories()
   if (await eventManager.getEvents()) {
-    router.push({ path: '/events' })
+    // router.push({ path: '/events' })
     console.log("push")
   } 
   else {
