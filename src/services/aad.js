@@ -5,7 +5,7 @@ var msalConfig = {
     auth: {
         clientId: "6df66ab5-3379-4874-b6b0-d8578169a582",
         authority: "https://login.microsoftonline.com/6f4432dc-20d2-441d-b1db-ac3380ba633d",
-        redirectURI: "http://localhost:3000/or1/",
+        redirectURI: "https://intproj21.sit.kmutt.ac.th/or1",
     },
     cache: {
         cacheLocation: "localStorage",
