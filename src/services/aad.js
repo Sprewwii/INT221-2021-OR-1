@@ -26,7 +26,9 @@ var login = async() => {
     let tokenResponse = await myMSALobj.acquireTokenSilent(requestObj);
     console.dir(tokenResponse)
     // SUSUNAAAAA ILY
+    // console.log("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN")
     if(tokenResponse.accessToken) {
+        // console.log("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
         localStorage.setItem("token",localStorage.getItem("msal.6df66ab5-3379-4874-b6b0-d8578169a582.idtoken"))
         eventManager.getEvents();
     }

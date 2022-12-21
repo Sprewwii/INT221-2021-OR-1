@@ -29,6 +29,7 @@ onBeforeMount(async () => {
   await eventManager.getEventCategories()
   if (await eventManager.getEvents() || (localStorage.getItem("role") && localStorage.getItem("email"))) {
     router.push({ path: '/events' })
+    console.log("push")
   } else {
     router.push({ path: '/' })
   }
