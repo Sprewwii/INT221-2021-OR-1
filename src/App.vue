@@ -33,7 +33,7 @@ onBeforeMount(async () => {
     console.log("push")
   } 
   else {
-    router.push({ path: '/' })
+    // router.push({ path: '/' })
   }
 })
 
