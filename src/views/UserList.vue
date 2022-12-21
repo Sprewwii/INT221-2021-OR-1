@@ -72,22 +72,30 @@ const showDeleteUserPopup = async () => {
     const response = await userManager.checkLecturer(selectedUserId.value)
     console.log("this check response")
     console.dir(response)
-    if (response === true) {
-      popupConfirmMessage.value = {
-        header: 'This User Is Lecturer'
-        , text: 'Are you sure to delete this user ?'
+    if (response.status != "BAD_REQUEST") {
+      if (response.ownerCategory.length > 0) {
+        popupConfirmMessage.value = {
+          header: 'This User Is Lecturer'
+          , text: response.message
+        }
+      } else {
+        popupConfirmMessage.value = {
+          header: 'This User Is Lecturer'
+          , text: 'Are you sure to delete this user ?'
+        }
       }
+
     } else {
-      showPopup({ text: response, type: "error", header: "Delete" })
-}
-  } 
-  else {
-  popupConfirmMessage.value = {
-    header: 'Delete User'
-    , text: 'Are you sure to delete this user ?'
+      showPopup({ text: response.message, type: "error", header: "Delete" })
+    }
   }
-}
-toggleModal('delete')
+  else {
+    popupConfirmMessage.value = {
+      header: 'Delete User'
+      , text: 'Are you sure to delete this user ?'
+    }
+  }
+  toggleModal('delete')
 }
 
 const deleteUser = async () => {
@@ -99,10 +107,10 @@ const deleteUser = async () => {
     showPopup({ text: "Delete User Successful !", type: "success", header: "Delete" })
   }
   else {
-    showPopup({ text: response, type: "error", header: "Delete" })
+    showPopup({ text: response.message, type: "error", header: "Delete" })
     // showPopup({ text: `is the owner of ${response}. You cannot delete this user account since Olarn Rojanapornpun is the only owner of ${response}. Another owner must be added to the event category(s) before this lecturer can be deleted.`, type: "error", header: "Delete" })
   }
-  toggleModal('delete')
+  // toggleModal('delete')
   selectUser(0)
 }
 
@@ -169,8 +177,8 @@ function setLoading(loading) {
       @closeConfirmModal="toggleModal('delete')" @deleteBooking="deleteUser" />
 
     <BasePopupEditUser v-show="showingModal === 'edit'" @closeEditModal="
-      toggleModal('edit');
-    userManager.selectedUser = {};
+  toggleModal('edit');
+userManager.selectedUser = {};
     " :editingUser="editingUser" @editUser="updateEditingUser" />
 
     <BaseLoadingPopup v-show="isLoading" />

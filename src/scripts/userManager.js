@@ -107,14 +107,14 @@ export const userManager = reactive({
       info = await res.json();
     }
     console.log("info check")
-    console.log(res.status === 200)
+    // console.log(res.status === 200)
     console.dir(info)
 
     if (res.status === 200) {
-      this.getUsers();
-      return true;
+      // this.getUsers();
+      return info
     } else if (res.status === 401 && (await this.refreshToken()) == true) {
-      this.deleteUser(userId);
+      this.checkLecturer(userId);
     } else {
       // console.log(info);
       // let error = "";
@@ -123,8 +123,8 @@ export const userManager = reactive({
       // }
       // console.log(error);
       // return error;
-      console.log(WebGLActiveInfo)
-      return info.message
+      // console.log(WebGLActiveInfo)
+      return info
     }
   },
   deleteUser: async function (userId) {
@@ -160,7 +160,7 @@ export const userManager = reactive({
       // }
       // console.log(error);
       // return error;
-      return info.message
+      return info
     }
   },
 
