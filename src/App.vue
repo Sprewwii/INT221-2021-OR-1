@@ -28,13 +28,13 @@ watchEffect(() => { path.value = route.path })
 onBeforeMount(async () => { 
   // console.log("new")
   await eventManager.getEventCategories()
-  if (await eventManager.getEvents()) {
-    // router.push({ path: '/events' })
-    console.log("push")
-  } 
-  else {
-    // router.push({ path: '/' })
-  }
+  // if (await eventManager.getEvents()) {
+  //   // router.push({ path: '/events' })
+  //   console.log("push")
+  // } 
+  // else {
+  //   // router.push({ path: '/' })
+  // }
 })
 
 async function logout() {
