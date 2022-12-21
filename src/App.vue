@@ -27,6 +27,7 @@ watchEffect(() => { path.value = route.path })
 // Check if login is already then redirect to the events page.
 onBeforeMount(async () => { 
   // console.log("new")
+  userManager.userInfo.role = localStorage.getItem("role")
   await eventManager.getEventCategories()
   // if (await eventManager.getEvents()) {
   //   // router.push({ path: '/events' })
