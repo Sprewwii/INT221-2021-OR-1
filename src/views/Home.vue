@@ -38,11 +38,11 @@ function loginAsGuest(){
 
 async function loginAsMS(){
   aad.login().then(async (account)=>{
-    const role =account.idTokenClaims.roles ? account.idTokenClaims.roles[0] : "guest";
+    // const role =account.idTokenClaims.roles ? account.idTokenClaims.roles[0] : "guest";
     userManager.userInfo.email = account.userName;
  
-    userManager.userInfo.role = role;
-    localStorage.setItem("role", role)
+    // userManager.userInfo.role = role;
+    // localStorage.setItem("role", role)
     
     localStorage.setItem("email", account.idTokenClaims.preferred_username)
     console.log("login MS")

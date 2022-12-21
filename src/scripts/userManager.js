@@ -4,7 +4,7 @@ import { eventManager } from "./eventManager.js";
 
 export const userManager = reactive({
   userInfo: {
-    role: localStorage.getItem("role") || "guest",
+    // role: localStorage.getItem("role") || "guest",
     email: localStorage.getItem("email") || null,
   },
   userList: [],
