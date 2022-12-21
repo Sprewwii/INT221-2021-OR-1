@@ -160,7 +160,7 @@ function closeCreateEventPopup() {
                   </p>
                 </div>
               </div>
-              <div v-if="userManager.userInfo.role === 'guest' || userManager.userInfo.role === 'admin'">
+              <div v-if="(userManager.userInfo.role === 'guest' && !userManager.userInfo.email) || userManager.userInfo.role === 'admin'">
                 <label for="email" class="block mb-3 text-sm font-medium text-neutral-300">Email</label>
                 <input v-model="creatingBooking.email" name="email" id="email" type="text" :class="[
                   validation.validateLength(creatingBooking.email, 100) &&
