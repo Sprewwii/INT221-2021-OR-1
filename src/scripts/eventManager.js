@@ -199,6 +199,8 @@ export const eventManager = reactive({
     );
   },
   createEvent: async function (booking) {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     const bookingJson = JSON.stringify({
       name: booking.name,
       email: booking.email,
@@ -216,11 +218,15 @@ export const eventManager = reactive({
     console.log("test")
 console.log(booking)
     const res = await fetch(`${import.meta.env.VITE_API}/api/events`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       method: "POST",
       body: formData,
     });
 
     if (res.status === 200) {
+      console.log(res.status)
       this.getEvents();
       return true;
     } else {
