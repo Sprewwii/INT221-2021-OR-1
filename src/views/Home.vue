@@ -38,9 +38,12 @@ function loginAsGuest(){
 
 async function loginAsMS(){
   aad.login().then(async (account)=>{
+    const role =account.idTokenClaims.roles ? account.idTokenClaims.roles[0] : "guest";
     userManager.userInfo.email = account.userName;
-    userManager.userInfo.role = account.idTokenClaims.roles[0];
-    localStorage.setItem("role", account.idTokenClaims.roles[0])
+ 
+    userManager.userInfo.role = role;
+    localStorage.setItem("role", role)
+    
     localStorage.setItem("email", account.idTokenClaims.preferred_username)
     router.push({ path: '/events' })
   })

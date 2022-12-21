@@ -66,7 +66,7 @@ defineEmits(['hideNavbar', 'logout', 'goLogin'])
 
       </div>
       <div class="px-8 w-full pb-8">
-         <button v-if="userManager.userInfo.role !== 'guest'" @click="$emit('logout'); $emit('hideNavbar')"
+         <button v-if="userManager.userInfo.email" @click="$emit('logout'); $emit('hideNavbar')"
             class="w-full h-[50px] text-manapink-100 group relative inline-block overflow-hidden border border-manapink-100 rounded-xl focus:outline-none">
             <span
                class="absolute inset-y-0 left-0 w-[0px] bg-manapink-100 transition-all group-hover:w-full group-active:bg-manapink-500"></span>
