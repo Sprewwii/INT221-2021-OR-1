@@ -70,8 +70,7 @@ const showDeleteUserPopup = async () => {
   const role = userManager.getUserByIdInLocal(selectedUserId.value).role
   if (role === "lecturer") {
     const response = await userManager.checkLecturer(selectedUserId.value)
-    console.log("this check response")
-    console.dir(response)
+
     if (response.status != "BAD_REQUEST") {
       if (response.ownerCategory.length > 0) {
         popupConfirmMessage.value = {
@@ -87,6 +86,7 @@ const showDeleteUserPopup = async () => {
 
     } else {
       showPopup({ text: response.message, type: "error", header: "Delete" })
+      return;
     }
   }
   else {
