@@ -20,24 +20,8 @@ async function usersPageGuard(to, from, next) {
   next("/");
 }
 
-async function guardLecturer(to, from, next) {
-  const role = localStorage.getItem("role");
-  const token = localStorage.getItem("token");
-  if (token && role !== "lecturer") {
-    userManager.getUsers();
-    next();
-  }
-  next("/");
-}
-
 const history = createWebHistory("/or1/");
 const routes = [
-  {
-    path: "/users",
-    name: "UserList",
-    beforeEnter: usersPageGuard,
-    component: UserList,
-  },
   {
     path: "/",
     name: "Home",
