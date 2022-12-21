@@ -89,6 +89,43 @@ export const userManager = reactive({
       console.log(error);
       return error;
     }
+  },checkLecturer: async function (userId) {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    const res = await fetch(`${import.meta.env.VITE_API}/api/users/messages/${userId}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    let info;
+    const contentType = res.headers.get("content-type");
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      info = await res.json();
+    }
+    console.log("info check")
+    console.log(res.status === 200)
+    console.dir(info)
+
+    if (res.status === 200) {
+      this.getUsers();
+      return true;
+    } else if (res.status === 401 && (await this.refreshToken()) == true) {
+      this.deleteUser(userId);
+    } else {
+      // console.log(info);
+      // let error = "";
+      // for (let i = 0; i < info.details.length; i++) {
+      //   error += info.details[i].field + " \n";
+      // }
+      // console.log(error);
+      // return error;
+      console.log(WebGLActiveInfo)
+      return info.message
+    }
   },
   deleteUser: async function (userId) {
     const token = localStorage.getItem("token");
@@ -107,6 +144,8 @@ export const userManager = reactive({
     if (contentType && contentType.indexOf("application/json") !== -1) {
       info = await res.json();
     }
+    console.log("info delete")
+    console.dir(info)
 
     if (res.status === 200) {
       this.getUsers();
@@ -114,13 +153,14 @@ export const userManager = reactive({
     } else if (res.status === 401 && (await this.refreshToken()) == true) {
       this.deleteUser(userId);
     } else {
-      console.log(info);
-      let error = "";
-      for (let i = 0; i < info.details.length; i++) {
-        error += info.details[i].field + " \n";
-      }
-      console.log(error);
-      return error;
+      // console.log(info);
+      // let error = "";
+      // for (let i = 0; i < info.details.length; i++) {
+      //   error += info.details[i].field + " \n";
+      // }
+      // console.log(error);
+      // return error;
+      return info.message
     }
   },
 

@@ -37,13 +37,13 @@ const validateDateTime = () => {
 }
 
 const previewFile = (e) => {
-  if (!e.target.files[0]) { //ถ้าไม่มีไฟล์
+  if (!e.target.files[0]) { // If has file
     deleteFile()
-  } else if (e.target.files[0] && e.target.files[0].size <= 10485760) {//ถ้ามีไฟล์ และขนาดไม่เกิน
+  } else if (e.target.files[0] && e.target.files[0].size <= 10485760) { //If file size is ok
     creatingBooking.value.previewFile = URL.createObjectURL(e.target.files[0])
     creatingBooking.value.file = e.target.files[0]
     showWarning.value.fileSize = false
-  } else {//ถ้าขนาดเกิน
+  } else { //If file size is larger than 10 mb
     showWarning.value.fileSize = true
   }
 }
@@ -286,7 +286,7 @@ showWarning.isStartTime = !creatingBooking.startTime;
                   * The file size cannot be larger than 10 MB.
                 </p>
                 <img v-if="
-                  creatingBooking.file && creatingBooking.file.type.match('image.*')" 
+                creatingBooking.file && creatingBooking.file.type.match('image.*')"
                   :src="creatingBooking.previewFile" alt="file"
                   class="w-[200px] max-h-[100px] object-scale-down mt-8 object-cover mx-auto" />
                 <div v-if="creatingBooking.file" @click="deleteFile"

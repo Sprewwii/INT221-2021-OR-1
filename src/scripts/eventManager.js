@@ -12,7 +12,7 @@ export const eventManager = reactive({
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -39,7 +39,7 @@ export const eventManager = reactive({
         method: "GET",
         headers: {
           "Content-type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -66,7 +66,7 @@ export const eventManager = reactive({
         method: "GET",
         headers: {
           "Content-type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -92,7 +92,7 @@ export const eventManager = reactive({
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -116,7 +116,7 @@ export const eventManager = reactive({
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -133,7 +133,7 @@ export const eventManager = reactive({
     }
   },
   getEventsByDate: async function (date) {
-    console.log(date)
+    console.log(date);
     const token = localStorage.getItem("token");
     if (!token) return;
 
@@ -143,7 +143,7 @@ export const eventManager = reactive({
         method: "GET",
         headers: {
           "Content-type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -169,7 +169,7 @@ export const eventManager = reactive({
         method: "GET",
         headers: {
           "Content-type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -236,7 +236,7 @@ export const eventManager = reactive({
         method: "DELETE",
         headers: {
           "content-type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -270,7 +270,7 @@ export const eventManager = reactive({
       {
         method: "PATCH",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: formData,
       }
@@ -302,7 +302,7 @@ export const eventManager = reactive({
         method: "PATCH",
         headers: {
           "content-type": "application/json",
-          "Authorization": `Bearer ${token}` 
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(category),
       }

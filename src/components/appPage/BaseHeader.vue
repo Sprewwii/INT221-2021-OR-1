@@ -13,14 +13,15 @@ defineEmits(['showCreateEventPopup'])
 </script>
 
 <template>
-  <div class="fixed pl-8 lg:pl-12 pr-8 lg:pr-[350px] lg:ml-72 z-40 bg-managray-300/10 backdrop-blur-md py-4 lg:py-8 flex space-x-2 justify-between items-center lg:fixed w-full">
+  <div
+    class="fixed pl-8 lg:pl-12 pr-8 lg:pr-[350px] lg:ml-72 z-40 bg-managray-300/10 backdrop-blur-md py-4 lg:py-8 flex space-x-2 justify-between items-center lg:fixed w-full">
 
     <div class="hidden lg:flex gap-2 justify-center items-center">
       <IconCalendar class="w-5 h-5" />
       <div class="flex flex-col lg:flex-row lg:justify-start lg:items-center lg:gap-x-2">
-      <span class="text-managray-200">Hello, Today is</span><span class=" text-managray-100">{{ new
-          Date().toLocaleString("en-US", { year: "numeric", month: "long", day: "2-digit", weekday: 'long' })
-      }}</span>
+        <span class="text-managray-200">Hello, Today is</span><span class=" text-managray-100">{{ new
+            Date().toLocaleString("en-US", { year: "numeric", month: "long", day: "2-digit", weekday: 'long' })
+        }}</span>
       </div>
     </div>
     <button v-if="props.role !== 'lecturer'"
@@ -34,6 +35,6 @@ defineEmits(['showCreateEventPopup'])
         Booking Event
       </span>
     </button>
- 
+
   </div>
 </template>

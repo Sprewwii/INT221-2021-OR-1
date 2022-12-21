@@ -13,11 +13,11 @@ defineEmits(['closePopup'])
 </script>
  
 <template>
-    <div class="bg-black/60 z-50 h-full w-full fixed  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div class="bg-black/60 z-[51] h-full w-full fixed  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div
-            class="overflow-y-hidden overflow-x-hidden z-50 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
-            <div class="relative p-4 max-w-md h-full">
-                <div class="relative w-96 rounded-lg shadow bg-managray-100/10 backdrop-blur-md">
+            class="overflow-y-hidden overflow-x-hidden z-[51] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+            <div class="relative p-4 h-full">
+                <div class="relative w-[500px] py-6 rounded-lg shadow bg-managray-100/10 backdrop-blur-md">
                     <button type="button" @click="$emit('closePopup')"
                         class="absolute top-3 right-2.5 text-gray-400 mt-2 mr-2 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
                         <IconClose />

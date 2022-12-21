@@ -66,27 +66,43 @@ const toggleModal = (modal) => {
   else showingModal.value = ""
 }
 
-const showDeleteUserPopup = () => {
+const showDeleteUserPopup = async () => {
   const role = userManager.getUserByIdInLocal(selectedUserId.value).role
-  if (role === "lecturer") { popupConfirmMessage.value = { header: 'This User Is Lecturer'
-                              ,text: 'Are you sure to delete this user ?' } }
-  else { popupConfirmMessage.value = { header: 'Delete User'
-                              ,text: 'Are you sure to delete this user ?' } }
-  toggleModal('delete')
+  if (role === "lecturer") {
+    const response = await userManager.checkLecturer(selectedUserId.value)
+    console.log("this check response")
+    console.dir(response)
+    if (response === true) {
+      popupConfirmMessage.value = {
+        header: 'This User Is Lecturer'
+        , text: 'Are you sure to delete this user ?'
+      }
+    } else {
+      showPopup({ text: response, type: "error", header: "Delete" })
+}
+  } 
+  else {
+  popupConfirmMessage.value = {
+    header: 'Delete User'
+    , text: 'Are you sure to delete this user ?'
+  }
+}
+toggleModal('delete')
 }
 
 const deleteUser = async () => {
   const response = await userManager.deleteUser(selectedUserId.value)
-  console.log("this response")
+  console.log("this deleteresponse")
   console.dir(response)
 
-  if(response === true){
+  if (response === true) {
     showPopup({ text: "Delete User Successful !", type: "success", header: "Delete" })
   }
-  else{
-    showPopup({ text: "This User Was Event Category Owner Of " + response , type: "error", header: "Delete" })
+  else {
+    showPopup({ text: response, type: "error", header: "Delete" })
+    // showPopup({ text: `is the owner of ${response}. You cannot delete this user account since Olarn Rojanapornpun is the only owner of ${response}. Another owner must be added to the event category(s) before this lecturer can be deleted.`, type: "error", header: "Delete" })
   }
-    toggleModal('delete')
+  toggleModal('delete')
   selectUser(0)
 }
 
@@ -115,7 +131,7 @@ const matching = async (user, e) => {
   }
 }
 
-function setLoading(loading){
+function setLoading(loading) {
   isLoading.value = loading
 }
 </script>
@@ -147,20 +163,20 @@ function setLoading(loading){
       @closePopup="popupMessage = {}" />
 
     <BasePopupCreateUser v-show="showingModal === 'create'" @showPopup="showPopup"
-      @closeCreateModal="toggleModal('create');" @setLoading="setLoading"/>
+      @closeCreateModal="toggleModal('create')" @setLoading="setLoading" />
 
     <BasePopupConfirm v-show="showingModal === 'delete'" :popupMessage="popupConfirmMessage"
       @closeConfirmModal="toggleModal('delete')" @deleteBooking="deleteUser" />
 
-    <BasePopupEditUser v-show="showingModal === 'edit'"
-      @closeEditModal="toggleModal('edit'); userManager.selectedUser = {}" :editingUser="editingUser"
-      @editUser="updateEditingUser" />
+    <BasePopupEditUser v-show="showingModal === 'edit'" @closeEditModal="
+      toggleModal('edit');
+    userManager.selectedUser = {};
+    " :editingUser="editingUser" @editUser="updateEditingUser" />
 
     <BaseLoadingPopup v-show="isLoading" />
 
     <BaseMatchPassword v-show="showingModal === 'match'" @closeEditModal="toggleModal('match')" @matching="matching" />
   </div>
-
 </template>
 
 <style>

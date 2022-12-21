@@ -33,6 +33,12 @@ async function guardLecturer(to, from, next) {
 const history = createWebHistory("/or1/");
 const routes = [
   {
+    path: "/users",
+    name: "UserList",
+    beforeEnter: usersPageGuard,
+    component: UserList,
+  },
+  {
     path: "/",
     name: "Home",
     component: Home,
