@@ -213,7 +213,8 @@ export const eventManager = reactive({
 
     formData.append("file", booking.file);
     formData.append("data", dataBlob);
-
+    console.log("test")
+console.log(booking)
     const res = await fetch(`${import.meta.env.VITE_API}/api/events`, {
       method: "POST",
       body: formData,

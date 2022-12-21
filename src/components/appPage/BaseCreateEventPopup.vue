@@ -82,9 +82,7 @@ const createBooking = async (e) => {
     const response = await eventManager.createEvent(creatingBooking.value)
     emit('showPopupSuccess')
     clearCreatingBooking()
-    setTimeout(() => {
 
-    }, 5000)
   }
   console.log("create")
 }
