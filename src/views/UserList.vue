@@ -110,7 +110,7 @@ const deleteUser = async () => {
     showPopup({ text: response.message, type: "error", header: "Delete" })
     // showPopup({ text: `is the owner of ${response}. You cannot delete this user account since Olarn Rojanapornpun is the only owner of ${response}. Another owner must be added to the event category(s) before this lecturer can be deleted.`, type: "error", header: "Delete" })
   }
-  // toggleModal('delete')
+  toggleModal('delete')
   selectUser(0)
 }
 
