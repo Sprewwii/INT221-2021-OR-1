@@ -11,9 +11,9 @@ const router = useRouter();
 const popupMessage = ref({});
 
 const isLogin = ref(localStorage.getItem("token") ? true : false);
-if (!isLogin.value) {
-  localStorage.setItem("role", "guest");
-}
+// if (!isLogin.value) {
+//   localStorage.setItem("role", "guest");
+// }
 
 async function login(user){
   let response = await userManager.login(user);
@@ -49,8 +49,8 @@ async function loginAsMS(){
     localStorage.setItem("email", account.idTokenClaims.preferred_username)
     console.log("login MS")
     
-    // router.push({ path: '/events' })
-    eventManager.getEvents();
+    router.push({ path: '/events' })
+    // eventManager.getEvents();
   })
 }
 
