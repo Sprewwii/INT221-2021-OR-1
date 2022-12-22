@@ -228,14 +228,16 @@ export const eventManager = reactive({
 
     if (res.status === 200) {
       console.log(res.status);
-      console.log(res.json());
+ 
       if(userManager.userInfo.role !== "guest"){
         this.getEvents();
 
       }
                   return true;
     } else {
-      console.log("")
+      console.log("response");
+      console.log(res.json());
+      console.log(res)
       return false;
     }
   },
