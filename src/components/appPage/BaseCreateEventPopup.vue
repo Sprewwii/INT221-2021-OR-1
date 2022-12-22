@@ -82,6 +82,7 @@ const createBooking = async (e) => {
     const response = await eventManager.createEvent(creatingBooking.value)
     emit('showPopupSuccess')
     clearCreatingBooking()
+    console.log("success create")
 
   }
   console.log("create")
