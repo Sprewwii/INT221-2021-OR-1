@@ -38,6 +38,13 @@ onBeforeMount(async () => {
   // }
 })
 
+function showCreatePopup(popup){
+console.log("show")
+  togglePopup('createEvent');
+isLoading.value = false;
+showPopup(popup);
+}
+
 async function logout() {
   await aad.logout()
   router.push({ name: "Home" })
@@ -83,15 +90,7 @@ handleResize()
     <BaseHeader v-if="path != '/'" :role="userManager.userInfo.role"
       @showCreateEventPopup="togglePopup('createEvent')" />
     <BaseCreateEventPopup v-show="showingPopup == 'createEvent'" @closeCreateEventPopup="togglePopup('createEvent')"
-      @setLoading="setLoading" @showPopupSuccess="
-  togglePopup('createEvent');
-isLoading = false;
-showPopup({
-  text: 'Create Event Successful !',
-  type: 'success',
-  header: 'Create',
-});
-      " />
+      @setLoading="setLoading" @showPopup="showCreatePopup" />
 
     <BasePopup v-show="Object.keys(popupMessage).length !== 0" :popupMessage="popupMessage"
       @closePopup="showPopup({})" />

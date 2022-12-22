@@ -235,9 +235,6 @@ export const eventManager = reactive({
       }
                   return true;
     } else {
-      console.log("response");
-      console.log(res.json());
-      console.log(res)
       return false;
     }
   },

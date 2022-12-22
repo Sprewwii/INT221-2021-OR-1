@@ -6,7 +6,7 @@ import { userManager } from "../../scripts/userManager.js"
 import { validation } from "../../scripts/validation.js"
 import { decorator } from "../../scripts/decorator.js"
 
-const emit = defineEmits(["closeCreateEventPopup", "showPopupSuccess", "setLoading"])
+const emit = defineEmits(["closeCreateEventPopup", "showPopup", "setLoading"])
 // const imgInput = ref(null);
 const eventCategories = computed(() => eventManager.eventCategories)
 const creatingBooking = ref({})
@@ -80,12 +80,20 @@ const createBooking = async (e) => {
   if (!showWarning.value.create) {
     emit('setLoading', true)
     const response = await eventManager.createEvent(creatingBooking.value)
-    emit('showPopupSuccess')
+    if(response === true){emit('showPopup',{
+  text: 'Create Event Successful !',
+  type: 'success',
+  header: 'Create',
+})}else{
+  emit('showPopup',{
+  text: 'Create Event Failed !',
+  type: 'error',
+  header: 'Create',
+})
+}
     clearCreatingBooking()
-    console.log("success create")
 
   }
-  console.log("create")
 }
 
 function clearCreatingBooking() {
