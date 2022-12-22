@@ -86,7 +86,7 @@ const createBooking = async (e) => {
   header: 'Create',
 })}else{
   emit('showPopup',{
-  text: 'Create Event Failed !',
+  text: 'This DateTime has been booked by someone',
   type: 'error',
   header: 'Create',
 })

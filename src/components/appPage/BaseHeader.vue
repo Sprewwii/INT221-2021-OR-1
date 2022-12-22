@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from "vue"
 import IconCalendar from '../icons/IconCalendar.vue'
+import { userManager } from '../../scripts/userManager.js'
 
 const props = defineProps({
   role: {
@@ -24,7 +25,7 @@ defineEmits(['showCreateEventPopup'])
         }}</span>
       </div>
     </div>
-    <button v-if="props.role !== 'lecturer'"
+    <button v-if="props.role !== 'lecturer' && !(userManager.userInfo.role === 'guest' && !userManager.userInfo.email)"
       class="w-44 h-[45px] text-white bg-gradient-to-l from-manapink-100 to-manapurple-100 group relative inline-block rounded-xl"
       @click="$emit('showCreateEventPopup')">
       <span
